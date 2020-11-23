@@ -8,6 +8,7 @@ public class DroneUI : MonoBehaviour
     //References
     public GameObject altitudeRef;
     public GameObject rangeRef;
+    public GameObject satisfactionRef;
     public GameObject horizonCircleRef;
     public GameObject horizonLineRef;
     public GameObject horizonPointerRef;
@@ -15,6 +16,7 @@ public class DroneUI : MonoBehaviour
     public Image signalUI;
     public DroneController droneController;
     private Vector3 horPosVar;
+    public LevelManager levelManagerScript;
 
     //UI Variables
     private float altitude;
@@ -22,6 +24,11 @@ public class DroneUI : MonoBehaviour
     [Range(0f, 1f)]
     [Tooltip("Sets percentage of the maximum range of the drone at which the drone signal begins to fade and the static effect begins to increase")]
     public float signalLossPoint;
+    [Range(0f, 1f)]
+    [Tooltip("Sets the rate of satisfaction loss at rate of 0-1 ticks per second. Total ticks = 100.")]
+    public float satisfactionDropRate;
+    public float satisfactionValue = 100f;
+    private Slider satisfactionSliderRef;
 
     //RangeVariables
     private float distanceValue = 200f;
@@ -29,6 +36,8 @@ public class DroneUI : MonoBehaviour
 
     private void Start()
     {
+        satisfactionSliderRef = satisfactionRef.GetComponentInChildren<Slider>();
+        satisfactionSliderRef.value = satisfactionValue;
         maxRange = droneController.maxRange;
         altitudeRef.GetComponentInChildren<Slider>().maxValue = droneController.flightCeiling;
         rangeRef.GetComponentInChildren<Slider>().maxValue = 1;
@@ -39,7 +48,7 @@ public class DroneUI : MonoBehaviour
         Range();
         Altitude();
         ArtificialHorizon();
-
+        Satisfaction();
     }
 
     private void Range()
@@ -76,26 +85,37 @@ public class DroneUI : MonoBehaviour
     private void ArtificialHorizon()
     {
         if (droneController.thirdPerson == false)
-        {  
+        {
             for (int i = 0; i < artificialHorizonRef.Length; i++)
             {
                 artificialHorizonRef[i].GetComponent<Image>().enabled = true;
             }
 
-            
+
         }
         else if (droneController.thirdPerson == true)
-        {              
+        {
             for (int i = 0; i < artificialHorizonRef.Length; i++)
             {
                 artificialHorizonRef[i].GetComponent<Image>().enabled = false;
             }
         }
 
-        if(horizonLineRef.GetComponent<Image>().enabled == true)
+        if (horizonLineRef.GetComponent<Image>().enabled == true)
         {
             horizonLineRef.transform.localEulerAngles = new Vector3(0, 0, droneController.Tilt().z * -1);
-            horizonLineRef.transform.position = new Vector3(horPosVar.x, horPosVar.y + (droneController.Tilt().x * 40 / droneController.maxTiltAngle), 0);                       
+            horizonLineRef.transform.position = new Vector3(horPosVar.x, horPosVar.y + (droneController.Tilt().x * 40 / droneController.maxTiltAngle), 0);
+        }
+    }
+
+    private void Satisfaction()
+    {
+        satisfactionValue -= satisfactionDropRate * Time.deltaTime;
+        satisfactionSliderRef.value = satisfactionValue;
+
+        if (satisfactionValue >= 100 || satisfactionValue <= 0)
+        {
+            levelManagerScript.SceneSelectMethod(0);
         }
     }
 }

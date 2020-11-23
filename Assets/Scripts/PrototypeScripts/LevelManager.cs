@@ -44,9 +44,9 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 SceneManager.LoadScene(0, LoadSceneMode.Single);
             }
@@ -66,6 +66,11 @@ public class LevelManager : MonoBehaviour
     public void BackButtonMethod()
     {
         SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
+    public void SceneSelectMethod(int i)
+    {
+        SceneManager.LoadScene(i, LoadSceneMode.Single);
     }
 
     public void EscButtonMethod()

@@ -6,6 +6,10 @@ using UnityEngine.EventSystems;
 
 public class HazardManager : MonoBehaviour
 {
+
+    //References 
+    public DroneUI droneUIScript;
+    //
     public RaycastHit hit;
     RaycastHit check;
     public Image uIRef;
@@ -14,13 +18,16 @@ public class HazardManager : MonoBehaviour
     public Vector3 lastMousePosition;
     public Vector3 currentMousePosition;
 
+    //
     public bool CHECK = true;
     float rotationAngle = 0;
     float lastRotationAngle = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -30,12 +37,12 @@ public class HazardManager : MonoBehaviour
 
         RaycastCheck();
 
-        if(Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false)
         {
             ShootRaycast();
         }
 
-        if(stopMovement == true)
+        if (stopMovement == true)
         {
             FinishHazard();
 
@@ -75,6 +82,7 @@ public class HazardManager : MonoBehaviour
         {
             hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", false);
             stopMovement = false;
+            droneUIScript.satisfactionValue += 80f; //////This value needs changed
         }
         else if (hazardRef.GetComponentInChildren<Slider>().value != 0)
         {
@@ -91,7 +99,7 @@ public class HazardManager : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            if(hazardRef != null)
+            if (hazardRef != null)
             {
                 GameObject UnscrewBolt = GameObject.FindGameObjectWithTag("UnscrewBolt");
 
@@ -101,7 +109,7 @@ public class HazardManager : MonoBehaviour
 
                 int MaxDistance = 200;
 
-                if(MousePoint.x < MaxDistance && MousePoint.y < MaxDistance)
+                if (MousePoint.x < MaxDistance && MousePoint.y < MaxDistance)
                 {
                     rotationAngle = Mathf.Atan2(currentMousePosition.y - UnscrewBolt.transform.position.y, currentMousePosition.x - UnscrewBolt.transform.position.x) * Mathf.Rad2Deg;
 
