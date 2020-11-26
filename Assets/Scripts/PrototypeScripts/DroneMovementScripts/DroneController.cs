@@ -32,7 +32,7 @@ public class DroneController : MonoBehaviour
     [Tooltip("Sets the maximum range the drone can fly from it's start position in metres, i.e. the distance where signal strength becomes zero and the 'static' is at it's maximum")]
     public float maxRange;
     public Vector3 startPosition;
-    private float canMove = 1;
+    public float canMove = 1;
     private Vector3 currentVelocity;
 
     //Tilt Variables
@@ -47,6 +47,8 @@ public class DroneController : MonoBehaviour
     public float pushBackForce;
     public bool checkBounce = false;
     public Collision collisionRef;
+
+    public PauseBehaviour pauseRef;
 
     private void Awake()
     {
@@ -64,24 +66,26 @@ public class DroneController : MonoBehaviour
 
     void Update()
     {
-
-        if (GetComponentInChildren<HazardManager>().stopMovement == false)
+        if (pauseRef.activePause == false)
         {
+            if (GetComponentInChildren<HazardManager>().stopMovement == false)
+            {
 
-            Cursor.lockState = CursorLockMode.Locked;
-            canMove = 1;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            canMove = 0;
-        }
+                Cursor.lockState = CursorLockMode.Locked;
+                canMove = 1;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.None;
+                canMove = 0;
+            }
 
-        Movement();
-        Rotation();
-        Tilt();
-        Camera();
-        currentVelocity = parentRB.velocity;
+            Movement();
+            Rotation();
+            Tilt();
+            Camera();
+            currentVelocity = parentRB.velocity;
+        }
     }
 
     private void Movement()

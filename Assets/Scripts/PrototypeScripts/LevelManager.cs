@@ -14,6 +14,8 @@ public class LevelManager : MonoBehaviour
 
     public Button escButtonRef;
 
+    public GameObject PauseUIRef;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,19 @@ public class LevelManager : MonoBehaviour
         {
             escButtonRef.onClick.AddListener(EscButtonMethod);
         }
+
+        if (PauseUIRef != null && PauseUIRef.activeSelf == true)
+        {
+            PauseUIRef.GetComponent<Image>().enabled = false;
+
+            PauseUIRef.GetComponentsInChildren<Image>()[1].enabled = false;
+            PauseUIRef.GetComponentsInChildren<Button>()[0].enabled = false;
+            PauseUIRef.GetComponentsInChildren<Text>()[0].enabled = false;
+            
+            PauseUIRef.GetComponentsInChildren<Image>()[2].enabled = false;
+            PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = false;
+            PauseUIRef.GetComponentsInChildren<Text>()[1].enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -46,10 +61,46 @@ public class LevelManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 2)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetButtonDown("Pause"))
             {
-                SceneManager.LoadScene(0, LoadSceneMode.Single);
+                if(PauseUIRef != null && PauseUIRef.GetComponent<Image>().enabled == false)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+
+                    PauseUIRef.GetComponentsInChildren<Image>()[1].enabled = true;
+                    PauseUIRef.GetComponentsInChildren<Button>()[0].enabled = true;
+                    PauseUIRef.GetComponentsInChildren<Text>()[0].enabled = true;
+
+                    PauseUIRef.GetComponentsInChildren<Image>()[2].enabled = true;
+                    PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = true;
+                    PauseUIRef.GetComponentsInChildren<Text>()[1].enabled = true;
+
+                    PauseUIRef.GetComponent<Image>().enabled = true;
+                    PauseUIRef.GetComponent<PauseBehaviour>().activePause = true;
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+
+                    PauseUIRef.GetComponentsInChildren<Image>()[1].enabled = false;
+                    PauseUIRef.GetComponentsInChildren<Button>()[0].enabled = false;
+                    PauseUIRef.GetComponentsInChildren<Text>()[0].enabled = false;
+
+                    PauseUIRef.GetComponentsInChildren<Image>()[2].enabled = false;
+                    PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = false;
+                    PauseUIRef.GetComponentsInChildren<Text>()[1].enabled = false;
+
+                    Time.timeScale = 1;
+                    PauseUIRef.GetComponent<PauseBehaviour>().activePause = false;
+                    PauseUIRef.GetComponent<Image>().enabled = false;
+                }
+                //SceneManager.LoadScene(0, LoadSceneMode.Single);
             }
+        }
+        else
+        {
+            Time.timeScale = 1;
         }
     }
 
