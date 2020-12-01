@@ -18,16 +18,21 @@ public class HazardTestScript : MonoBehaviour
     //HazardMethod
     float rotationAngle = 0;
     float lastRotationAngle = 0;
+    GameObject UnscrewBolt;
+
+    //CraneMethod
+    GameObject FixedWire;
+    GameObject WireBox;
+    Vector3 originalFixedWirePosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        hazardTag = gameObject.tag;
-    }
+        UnscrewBolt = GameObject.FindGameObjectWithTag("UnscrewBolt");
 
-    //When the raycast hit the object, the following code gets executed
-    private void OnEnable()
-    {
+        FixedWire = GameObject.FindGameObjectWithTag("FixedWire");
+        WireBox = GameObject.FindGameObjectWithTag("WireBox");
+
         HazardPopUpRef.SetActive(false);
     }
 
@@ -36,14 +41,21 @@ public class HazardTestScript : MonoBehaviour
     {
         if (hazardManagerRef.stopMovement == true)
         {
+            currentMousePosition = Input.mousePosition;
+
             switch (hazardTag)
             {
                 case "ScaffoldHazard":
 
-                    currentMousePosition = Input.mousePosition;
-
                     ScaffoldHazard();
 
+                    break;
+                case "CraneHazard":
+
+                    CraneHazard();
+
+                    break;
+                default:
                     break;
             }
         }
@@ -56,8 +68,6 @@ public class HazardTestScript : MonoBehaviour
 
             if (HazardPopUpRef != null)
             {
-                GameObject UnscrewBolt = GameObject.FindGameObjectWithTag("UnscrewBolt");
-
                 Vector2 MousePoint = new Vector2(Mathf.Abs(currentMousePosition.x - UnscrewBolt.transform.position.x), Mathf.Abs(currentMousePosition.y - UnscrewBolt.transform.position.y));
 
                 lastRotationAngle = rotationAngle;
@@ -75,8 +85,6 @@ public class HazardTestScript : MonoBehaviour
                         rotationAngle = 360 - Mathf.Abs(rotationAngle);
                     }
 
-                    Debug.Log(rotationAngle);
-
                     if (lastRotationAngle > rotationAngle)
                     {
                         HazardPopUpRef.GetComponentInChildren<Slider>().value += 0.2f;
@@ -89,5 +97,28 @@ public class HazardTestScript : MonoBehaviour
             }
         }
 
+    }
+
+    public void CraneHazard()
+    {
+        if(originalFixedWirePosition != WireBox.transform.position)
+        {
+            originalFixedWirePosition = WireBox.transform.position;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            if (HazardPopUpRef != null)
+            {
+                FixedWire.transform.position = currentMousePosition;
+            }
+        }
+        else
+        {
+            if (HazardPopUpRef != null)
+            {
+                FixedWire.transform.position = originalFixedWirePosition;
+            }
+        }
     }
 }

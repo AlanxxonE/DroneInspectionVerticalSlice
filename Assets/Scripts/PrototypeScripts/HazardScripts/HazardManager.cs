@@ -69,6 +69,8 @@ public class HazardManager : MonoBehaviour
                 Debug.Log(hit.collider);
                 hazardRef = hit.collider.GetComponent<HazardTestScript>().HazardPopUpRef;
                 hazardRef.SetActive(true);
+                hit.collider.GetComponentInChildren<HazardTestScript>().hazardTag = hazardRef.tag;
+                Debug.Log(hit.collider.GetComponentInChildren<HazardTestScript>().hazardTag);
                 hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", true);
             }
         }
