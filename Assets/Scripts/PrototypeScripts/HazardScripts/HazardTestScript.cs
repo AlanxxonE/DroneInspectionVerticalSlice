@@ -27,7 +27,9 @@ public class HazardTestScript : MonoBehaviour
     //CraneMethod
     GameObject FixedWire;
     GameObject WireBox;
-    Vector3 originalFixedWirePosition;
+    GameObject TornWire;
+    GameObject TornBox;
+    bool checkSwapWire = false;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +38,8 @@ public class HazardTestScript : MonoBehaviour
 
         FixedWire = GameObject.FindGameObjectWithTag("FixedWire");
         WireBox = GameObject.FindGameObjectWithTag("WireBox");
+        TornWire = GameObject.FindGameObjectWithTag("TornWire");
+        TornBox = GameObject.FindGameObjectWithTag("TornBox");
 
         HazardPopUpRef.SetActive(false);
     }
@@ -107,26 +111,54 @@ public class HazardTestScript : MonoBehaviour
     {
         pointerData.position = currentMousePosition;
 
-        if(originalFixedWirePosition != WireBox.transform.position)
-        {
-            originalFixedWirePosition = WireBox.transform.position;
-        }
+        EventSystem.current.RaycastAll(pointerData, pointerHitList);
 
         if (Input.GetMouseButton(0))
         {
             if (HazardPopUpRef != null)
             {
-                FixedWire.transform.position = currentMousePosition;
+                for (int i = 0; i < pointerHitList.Count; i++)
+                {
+                    if (pointerHitList[i].gameObject.tag == "FixedWire" && (TornWire.transform.position == TornBox.transform.position) && checkSwapWire == false)
+                    {
+                        FixedWire.transform.position = currentMousePosition;
+                    }
+
+                    if(pointerHitList[i].gameObject.tag == "TornWire" && (FixedWire.transform.position == WireBox.transform.position))
+                    {
+                        TornWire.transform.position = currentMousePosition;
+                    }
+                }
             }
         }
         else
-        {
-            if (HazardPopUpRef != null)
+        { 
+            for (int i = 0; i < pointerHitList.Count; i++)
             {
-                FixedWire.transform.position = originalFixedWirePosition;
+                if (pointerHitList[i].gameObject.tag == "BinBox" && (TornWire.transform.position != TornBox.transform.position))
+                {
+                    TornWire.SetActive(false);
+                }
+
+                if(pointerHitList[i].gameObject.tag == "TornBox" && (FixedWire.transform.position != WireBox.transform.position) && TornWire.activeSelf == false)
+                {
+                    checkSwapWire = true;
+
+                    FixedWire.transform.position = TornBox.transform.position + new Vector3(0,50);
+
+                    HazardPopUpRef.GetComponentInChildren<Slider>().value += 80f;
+                }
+            }
+
+            if (HazardPopUpRef != null && (FixedWire.transform.position != WireBox.transform.position || TornWire.transform.position != TornBox.transform.position))
+            {
+                if (checkSwapWire == false)
+                {
+                    FixedWire.transform.position = WireBox.transform.position;
+                }
+
+                TornWire.transform.position = TornBox.transform.position;
             }
         }
-
-        Debug.Log(EventSystem.current.RaycastAll(pointerData, pointerHitList));
     }
 }

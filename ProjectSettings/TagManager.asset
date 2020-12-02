@@ -11,6 +11,9 @@ TagManager:
   - CraneHazard
   - FixedWire
   - WireBox
+  - TornWire
+  - BinBox
+  - TornBox
   layers:
   - Default
   - TransparentFX
