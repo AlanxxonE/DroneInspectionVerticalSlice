@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class HazardTestScript : MonoBehaviour
 {
+    public PointerEventData pointerData = new PointerEventData(EventSystem.current);
+
+    public List<RaycastResult> pointerHitList = new List<RaycastResult>();
 
     public HazardManager hazardManagerRef;
 
@@ -101,6 +105,8 @@ public class HazardTestScript : MonoBehaviour
 
     public void CraneHazard()
     {
+        pointerData.position = currentMousePosition;
+
         if(originalFixedWirePosition != WireBox.transform.position)
         {
             originalFixedWirePosition = WireBox.transform.position;
@@ -120,5 +126,7 @@ public class HazardTestScript : MonoBehaviour
                 FixedWire.transform.position = originalFixedWirePosition;
             }
         }
+
+        Debug.Log(EventSystem.current.RaycastAll(pointerData, pointerHitList));
     }
 }

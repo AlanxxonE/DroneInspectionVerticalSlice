@@ -9,7 +9,8 @@ public class HazardManager : MonoBehaviour
 
     //References 
     public DroneUI droneUIScript;
-    //
+
+    //Hazard Interaction Vars
     public RaycastHit hit;
     RaycastHit check;
     public Image uIRef;
