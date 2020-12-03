@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PrototypeLayout.unity
     guid: 5ff20869808c1214bb75e8ad503f3b02
+  - enabled: 1
+    path: Assets/Scenes/ScoreScreenMenu.unity
+    guid: 7f2ae3ef87843364983f98df1344178e
   m_configObjects: {}
