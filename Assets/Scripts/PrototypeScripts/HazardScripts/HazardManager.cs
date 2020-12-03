@@ -93,6 +93,7 @@ public class HazardManager : MonoBehaviour
         else
         {
             hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", false);
+            droneUIScript.satisfactionValue -= 40f;
             stopMovement = false;
         }
     }

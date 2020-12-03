@@ -29234,6 +29234,10 @@ PrefabInstance:
       propertyPath: pauseRef
       value: 
       objectReference: {fileID: 789193386}
+    - target: {fileID: 3153678030050401640, guid: 5faa747de369f344391d8fd11f5f415a, type: 3}
+      propertyPath: droneHits
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3163208911012961928, guid: 5faa747de369f344391d8fd11f5f415a, type: 3}
       propertyPath: m_Enabled
       value: 1

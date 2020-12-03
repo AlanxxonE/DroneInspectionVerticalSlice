@@ -50,6 +50,8 @@ public class DroneController : MonoBehaviour
 
     public PauseBehaviour pauseRef;
 
+    public int droneHits = 0;
+
     private void Awake()
     {
         startPosition = parentRB.transform.position;
@@ -175,7 +177,15 @@ public class DroneController : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision obstacle)
-    {        
+    {
+
+        droneHits++;
+        Debug.Log(droneHits);
+        if(droneHits == 3)
+        {
+            GetComponent<DroneUI>().levelManagerScript.SceneSelectMethod(3);
+        }
+
         Vector3 angleAtCollision = currentVelocity.normalized;
         Vector3 normalAngleAtCollision = obstacle.contacts[0].normal.normalized;
         Vector3 directionFix = new Vector3(1,1,1);
