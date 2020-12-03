@@ -16,6 +16,9 @@ public class LevelManager : MonoBehaviour
 
     public GameObject PauseUIRef;
 
+    static public int scoreValue = 0;
+    public GameObject scoreTextRef;
+
     // Start is called before the first frame update
     void Start()
     {

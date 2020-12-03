@@ -28,7 +28,7 @@ public class HazardManager : MonoBehaviour
     {
         RaycastCheck();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && uIRef.color == Color.green)
         {
             ShootRaycast();
         }
@@ -41,14 +41,14 @@ public class HazardManager : MonoBehaviour
 
     public void RaycastCheck()
     {
-        Physics.Raycast(transform.position, transform.forward, out check, 20f);
+        Physics.Raycast(transform.position, transform.forward, out check, 100f);
         if (check.collider != null && check.collider.GetComponentInChildren<HazardTestScript>() != null)
         {
-            if (check.distance > 8f && check.distance < 12f)
+            if (check.distance > check.collider.GetComponentInChildren<HazardTestScript>().optimalDistanceMin && check.distance < check.collider.GetComponentInChildren<HazardTestScript>().optimalDistanceMax)
             {
                 uIRef.color = Color.green;
             }
-            else
+            else if(check.distance < check.collider.GetComponentInChildren<HazardTestScript>().MaximumDistance)
             {
                 uIRef.color = Color.red;
             }
@@ -61,7 +61,7 @@ public class HazardManager : MonoBehaviour
 
     public void ShootRaycast()
     {
-        Physics.Raycast(transform.position, transform.forward, out hit, 20f);
+        Physics.Raycast(transform.position, transform.forward, out hit, 100f);
         if (hit.collider != null && hit.collider.GetComponentInChildren<HazardTestScript>() != null)
         {
             if (uIRef.color == Color.green)
@@ -83,7 +83,8 @@ public class HazardManager : MonoBehaviour
         {
             hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", false);
             stopMovement = false;
-            droneUIScript.satisfactionValue += 80f; //////This value needs changed
+            droneUIScript.satisfactionValue += 40f; //////This value needs changed
+            LevelManager.scoreValue += 10;
         }
         else if (hazardRef.GetComponentInChildren<Slider>().value != 0)
         {

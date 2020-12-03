@@ -16,6 +16,10 @@ public class HazardTestScript : MonoBehaviour
 
     public string hazardTag;
 
+    public int optimalDistanceMax = 0;
+    public int optimalDistanceMin = 0;
+    public int MaximumDistance = 0;
+
     Vector3 currentMousePosition;
     Vector3 lastMousePosition;
 
@@ -40,6 +44,26 @@ public class HazardTestScript : MonoBehaviour
         WireBox = GameObject.FindGameObjectWithTag("WireBox");
         TornWire = GameObject.FindGameObjectWithTag("TornWire");
         TornBox = GameObject.FindGameObjectWithTag("TornBox");
+
+        switch (HazardPopUpRef.tag)
+        {
+            case "ScaffoldHazard":
+
+                optimalDistanceMax = 12;
+                optimalDistanceMin = 8;
+                MaximumDistance = 30;
+
+                break;
+            case "CraneHazard":
+
+                optimalDistanceMax = 20;
+                optimalDistanceMin = 10;
+                MaximumDistance = 40;
+
+                break;
+            default:
+                break;
+        }
 
         HazardPopUpRef.SetActive(false);
     }
@@ -146,7 +170,7 @@ public class HazardTestScript : MonoBehaviour
 
                     FixedWire.transform.position = TornBox.transform.position + new Vector3(0,50);
 
-                    HazardPopUpRef.GetComponentInChildren<Slider>().value += 80f;
+                    HazardPopUpRef.GetComponentInChildren<Slider>().value += 100f;
                 }
             }
 

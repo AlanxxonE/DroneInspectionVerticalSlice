@@ -27,7 +27,7 @@ public class DroneUI : MonoBehaviour
     [Range(0f, 1f)]
     [Tooltip("Sets the rate of satisfaction loss at rate of 0-1 ticks per second. Total ticks = 100.")]
     public float satisfactionDropRate;
-    public float satisfactionValue = 100f;
+    public float satisfactionValue = 50f;
     private Slider satisfactionSliderRef;
 
     //RangeVariables
@@ -115,7 +115,7 @@ public class DroneUI : MonoBehaviour
 
         if (satisfactionValue >= 100 || satisfactionValue <= 0)
         {
-            levelManagerScript.SceneSelectMethod(0);
+            levelManagerScript.SceneSelectMethod(3);
         }
     }
 }
