@@ -33,6 +33,7 @@ public class DroneUI : MonoBehaviour
     public Image workerHappyRef;
     public Image workerMehRef;
     public Image workerAngryRef;
+    public List<Image> signalImageList;
 
     //RangeVariables
     private float distanceValue = 200f;
@@ -58,10 +59,83 @@ public class DroneUI : MonoBehaviour
     private void Range()
     {
         range = Vector3.Distance(transform.position, droneController.startPosition);
-        rangeRef.GetComponentInChildren<Text>().text = "SIGNAL STRENGTH\n" + Mathf.RoundToInt(100 - ((range / maxRange) * 100)) + "%";
-        rangeRef.GetComponentInChildren<Slider>().value = range / maxRange;
+        rangeRef.GetComponentInChildren<Text>().text = Mathf.RoundToInt(100 - ((range / maxRange) * 100)) + "%";
 
         float staticEffectIntensity = Mathf.Pow(((range - (maxRange * signalLossPoint)) / (maxRange * (1 - (signalLossPoint / 1)))), 1.5f);
+
+        float signalRatio = range / maxRange;
+
+        Debug.Log(signalRatio);
+
+        if(signalRatio < 0.25)
+        {
+            if (signalImageList[0].enabled == false)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i == 0)
+                    {
+                        signalImageList[i].enabled = true;
+                    }
+                    else
+                    {
+                        signalImageList[i].enabled = false;
+                    }
+                }
+            }
+        }
+        else if(signalRatio < 0.50)
+        {
+            if (signalImageList[1].enabled == false)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i == 1)
+                    {
+                        signalImageList[i].enabled = true;
+                    }
+                    else
+                    {
+                        signalImageList[i].enabled = false;
+                    }
+                }
+            }
+        }
+        else if(signalRatio < 0.75)
+        {
+            if (signalImageList[2].enabled == false)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i == 2)
+                    {
+                        signalImageList[i].enabled = true;
+                    }
+                    else
+                    {
+                        signalImageList[i].enabled = false;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (signalImageList[3].enabled == false)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    if (i == 3)
+                    {
+                        signalImageList[i].enabled = true;
+                    }
+                    else
+                    {
+                        signalImageList[i].enabled = false;
+                    }
+                }
+            }
+        }
+
         if (range > maxRange * signalLossPoint)
         {
             signalUI.GetComponent<Image>().color = new Color(255, 255, 255, staticEffectIntensity);
@@ -72,7 +146,6 @@ public class DroneUI : MonoBehaviour
                 droneController.parentRB.velocity = Vector3.zero;
             }
         }
-
         else
         {
             signalUI.GetComponent<Image>().color = new Color(255, 255, 255, 0f);
@@ -82,7 +155,7 @@ public class DroneUI : MonoBehaviour
     private void Altitude()
     {
         altitude = Mathf.RoundToInt(transform.position.y);
-        altitudeRef.GetComponentInChildren<Text>().text = "ALTITUDE\n" + altitude + "M";
+        altitudeRef.GetComponentInChildren<Text>().text = altitude + "M";
         altitudeRef.GetComponentInChildren<Slider>().value = altitude;
     }
 
