@@ -1,0 +1,11 @@
+Start
+Controls
+Back
+Menu explaining
+"Horizontal Movement --> W,A,S,D
+Rotate Camera --> Mouse
+Ascend --> Space
+Descend --> Shift
+Change Cameras --> C/RMB
+Interact With Hazards --> LMB
+Left/Right Mouse Button == LMB/RMB

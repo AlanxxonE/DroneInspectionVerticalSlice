@@ -29,6 +29,10 @@ public class DroneUI : MonoBehaviour
     public float satisfactionDropRate;
     public float satisfactionValue = 50f;
     private Slider satisfactionSliderRef;
+    public Gradient satisfactionGradient;
+    public Image workerHappyRef;
+    public Image workerMehRef;
+    public Image workerAngryRef;
 
     //RangeVariables
     private float distanceValue = 200f;
@@ -112,6 +116,27 @@ public class DroneUI : MonoBehaviour
     {
         satisfactionValue -= satisfactionDropRate * Time.deltaTime;
         satisfactionSliderRef.value = satisfactionValue;
+
+        satisfactionRef.GetComponentInChildren<Image>().color = satisfactionGradient.Evaluate(satisfactionSliderRef.normalizedValue);
+
+        if(satisfactionValue < 20)
+        {
+                workerHappyRef.enabled = false;
+                workerMehRef.enabled = false;
+                workerAngryRef.enabled = true;
+}
+        else if (satisfactionValue < 40)
+        {
+            workerHappyRef.enabled = false;
+            workerMehRef.enabled = true;
+            workerAngryRef.enabled = false;
+        }
+        else
+        {
+            workerHappyRef.enabled = true;
+            workerMehRef.enabled = false;
+            workerAngryRef.enabled = false;
+        }
 
         if (satisfactionValue >= 100 || satisfactionValue <= 0)
         {
