@@ -125,7 +125,7 @@ public class DroneUI : MonoBehaviour
                 workerMehRef.enabled = false;
                 workerAngryRef.enabled = true;
 }
-        else if (satisfactionValue < 40)
+        else if (satisfactionValue < 55)
         {
             workerHappyRef.enabled = false;
             workerMehRef.enabled = true;
