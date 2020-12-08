@@ -109,6 +109,7 @@ public class LevelManager : MonoBehaviour
     public void StartButtonMethod()
     {
         SceneManager.LoadScene(2, LoadSceneMode.Single);
+        scoreValue = 0;
     }
 
     public void ControlsButtonMethod()
