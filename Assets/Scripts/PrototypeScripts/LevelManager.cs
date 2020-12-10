@@ -49,12 +49,10 @@ public class LevelManager : MonoBehaviour
             PauseUIRef.GetComponent<Image>().enabled = false;
 
             PauseUIRef.GetComponentsInChildren<Image>()[1].enabled = false;
-            PauseUIRef.GetComponentsInChildren<Button>()[0].enabled = false;
-            PauseUIRef.GetComponentsInChildren<Text>()[0].enabled = false;
+            PauseUIRef.GetComponentsInChildren<Button>()[0].enabled = false;            
             
             PauseUIRef.GetComponentsInChildren<Image>()[2].enabled = false;
-            PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = false;
-            PauseUIRef.GetComponentsInChildren<Text>()[1].enabled = false;
+            PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = false;           
         }
     }
 
@@ -70,12 +68,10 @@ public class LevelManager : MonoBehaviour
                     Cursor.lockState = CursorLockMode.None;
 
                     PauseUIRef.GetComponentsInChildren<Image>()[1].enabled = true;
-                    PauseUIRef.GetComponentsInChildren<Button>()[0].enabled = true;
-                    PauseUIRef.GetComponentsInChildren<Text>()[0].enabled = true;
+                    PauseUIRef.GetComponentsInChildren<Button>()[0].enabled = true;                   
 
                     PauseUIRef.GetComponentsInChildren<Image>()[2].enabled = true;
-                    PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = true;
-                    PauseUIRef.GetComponentsInChildren<Text>()[1].enabled = true;
+                    PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = true;                   
 
                     PauseUIRef.GetComponent<Image>().enabled = true;
                     PauseUIRef.GetComponent<PauseBehaviour>().activePause = true;
@@ -86,12 +82,10 @@ public class LevelManager : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
 
                     PauseUIRef.GetComponentsInChildren<Image>()[1].enabled = false;
-                    PauseUIRef.GetComponentsInChildren<Button>()[0].enabled = false;
-                    PauseUIRef.GetComponentsInChildren<Text>()[0].enabled = false;
+                    PauseUIRef.GetComponentsInChildren<Button>()[0].enabled = false;                   
 
                     PauseUIRef.GetComponentsInChildren<Image>()[2].enabled = false;
-                    PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = false;
-                    PauseUIRef.GetComponentsInChildren<Text>()[1].enabled = false;
+                    PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = false;                   
 
                     Time.timeScale = 1;
                     PauseUIRef.GetComponent<PauseBehaviour>().activePause = false;
@@ -101,7 +95,7 @@ public class LevelManager : MonoBehaviour
             }
         }
         else
-        {
+        {            
             Time.timeScale = 1;
         }
     }

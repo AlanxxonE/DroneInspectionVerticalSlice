@@ -67,11 +67,9 @@ public class HazardManager : MonoBehaviour
             if (uIRef.color == Color.green)
             {
                 stopMovement = true;
-                Debug.Log(hit.collider);
                 hazardRef = hit.collider.GetComponent<HazardTestScript>().HazardPopUpRef;
                 hazardRef.SetActive(true);
                 hit.collider.GetComponentInChildren<HazardTestScript>().hazardTag = hazardRef.tag;
-                Debug.Log(hit.collider.GetComponentInChildren<HazardTestScript>().hazardTag);
                 hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", true);
             }
         }
