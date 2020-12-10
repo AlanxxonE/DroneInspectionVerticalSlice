@@ -65,8 +65,6 @@ public class DroneUI : MonoBehaviour
 
         float signalRatio = range / maxRange;
 
-        Debug.Log(signalRatio);
-
         if(signalRatio < 0.25)
         {
             if (signalImageList[0].enabled == false)

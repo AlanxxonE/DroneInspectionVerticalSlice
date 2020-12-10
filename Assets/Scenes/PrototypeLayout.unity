@@ -31055,6 +31055,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8918384986718085208, guid: 5faa747de369f344391d8fd11f5f415a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8918384986718085209, guid: 5faa747de369f344391d8fd11f5f415a, type: 3}
       propertyPath: far clip plane
       value: 2500

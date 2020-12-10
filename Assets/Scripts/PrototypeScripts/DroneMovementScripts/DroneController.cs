@@ -72,7 +72,6 @@ public class DroneController : MonoBehaviour
         {
             if (GetComponentInChildren<HazardManager>().stopMovement == false)
             {
-
                 Cursor.lockState = CursorLockMode.Locked;
                 canMove = 1;
             }
@@ -167,20 +166,23 @@ public class DroneController : MonoBehaviour
         if (thirdPerson)
         {
             thirdPersonCam.SetActive(true);
+            thirdPersonCam.GetComponent<AudioListener>().enabled = true;
             firstPersonCam.SetActive(false);
+            firstPersonCam.GetComponent<AudioListener>().enabled = false;
         }
         else
         {
             thirdPersonCam.SetActive(false);
+            thirdPersonCam.GetComponent<AudioListener>().enabled = false;
             firstPersonCam.SetActive(true);
+            firstPersonCam.GetComponent<AudioListener>().enabled = true;
         }
     }
 
     private void OnCollisionEnter(Collision obstacle)
     {
 
-        droneHits++;
-        Debug.Log(droneHits);
+        droneHits++;       
         if(droneHits == 3)
         {
             GetComponent<DroneUI>().levelManagerScript.SceneSelectMethod(3);
