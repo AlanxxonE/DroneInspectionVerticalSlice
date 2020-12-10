@@ -27,6 +27,7 @@ public class HazardTestScript : MonoBehaviour
     float rotationAngle = 0;
     float lastRotationAngle = 0;
     GameObject UnscrewBolt;
+    static public bool isScaffoldFixed = false;
 
     //CraneMethod
     GameObject FixedWire;
@@ -34,6 +35,7 @@ public class HazardTestScript : MonoBehaviour
     GameObject TornWire;
     GameObject TornBox;
     bool checkSwapWire = false;
+    static public bool isCraneFixed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -120,6 +122,11 @@ public class HazardTestScript : MonoBehaviour
                     if (lastRotationAngle > rotationAngle)
                     {
                         HazardPopUpRef.GetComponentInChildren<Slider>().value += 0.2f;
+
+                        if (HazardPopUpRef.GetComponentInChildren<Slider>().value >= 100)
+                        {
+                            isScaffoldFixed = true;
+                        }
                     }
                     else if (lastRotationAngle < rotationAngle)
                     {
@@ -171,6 +178,8 @@ public class HazardTestScript : MonoBehaviour
                     FixedWire.transform.position = TornBox.transform.position + new Vector3(0,50);
 
                     HazardPopUpRef.GetComponentInChildren<Slider>().value += 100f;
+
+                    isCraneFixed = true;
                 }
             }
 

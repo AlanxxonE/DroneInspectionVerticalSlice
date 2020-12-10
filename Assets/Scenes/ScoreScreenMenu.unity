@@ -1355,7 +1355,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.5518868, b: 0.5518868, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2100,7 +2100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.50598496, b: 0.48627448, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2225,7 +2225,7 @@ GameObject:
   - component: {fileID: 3732963775719204321}
   - component: {fileID: 3732963775719204322}
   m_Layer: 5
-  m_Name: Score
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2245,6 +2245,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreTextRef: {fileID: 1305566523}
   score: 0
+  isFixedList:
+  - {fileID: 1196549995}
+  - {fileID: 2083846526}
 --- !u!95 &3732963775719204321
 Animator:
   serializedVersion: 3
@@ -2276,9 +2279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4961e9f170d2a94b8e9cb868788faa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFixedList:
-  - {fileID: 1272658287}
-  - {fileID: 2035390039}
 --- !u!1 &6026757486247844000
 GameObject:
   m_ObjectHideFlags: 0
