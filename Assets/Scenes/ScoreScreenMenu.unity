@@ -2223,7 +2223,6 @@ GameObject:
   - component: {fileID: 3732963775719204318}
   - component: {fileID: 3732963775719204320}
   - component: {fileID: 3732963775719204321}
-  - component: {fileID: 3732963775719204322}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2245,7 +2244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreTextRef: {fileID: 1305566523}
   score: 0
-  isFixedList:
+  isFixedImageList:
   - {fileID: 1196549995}
   - {fileID: 2083846526}
 --- !u!95 &3732963775719204321
@@ -2267,18 +2266,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3732963775719204322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3732963775719204319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4961e9f170d2a94b8e9cb868788faa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6026757486247844000
 GameObject:
   m_ObjectHideFlags: 0

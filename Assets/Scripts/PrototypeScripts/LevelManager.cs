@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    //Button References
     public Button startButtonRef;
-
     public Button controlsButtonRef;
-
     public Button backButtonRef;
-
     public Button escButtonRef;
 
     public GameObject PauseUIRef;
 
-    static public int scoreValue = 0;   
+    //Score Variables
+    static public int scoreValue = 0;
+    public static bool isScaffoldFixed = false, isCraneFixed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -59,12 +59,12 @@ public class LevelManager : MonoBehaviour
             PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = false;       
         }
 
-        if (SceneManager.GetActiveScene().buildIndex == 0)
+        /*if (SceneManager.GetActiveScene().buildIndex == 0)
         {
             HazardTestScript.isScaffoldFixed = false;
 
             HazardTestScript.isCraneFixed = false;
-        }
+        }*/
     }
 
     // Update is called once per frame

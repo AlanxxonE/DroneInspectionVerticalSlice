@@ -6348,7 +6348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hazardManagerRef: {fileID: 729142903}
-  HazardPopUpRef: {fileID: 921503419}
+  hazardPopUpRef: {fileID: 921503419}
   hazardTag: 
   optimalDistanceMax: 0
   optimalDistanceMin: 0
@@ -22170,7 +22170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hazardManagerRef: {fileID: 729142903}
-  HazardPopUpRef: {fileID: 3732963775673993191}
+  hazardPopUpRef: {fileID: 3732963775673993191}
   hazardTag: 
   optimalDistanceMax: 0
   optimalDistanceMin: 0

@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 
 public class HazardManager : MonoBehaviour
 {
-
     //References 
     public DroneUI droneUIScript;
 
@@ -26,29 +25,24 @@ public class HazardManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastCheck();
+        RaycastDistanceCheck();
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && uIRef.color == Color.green)
         {
             ShootRaycast();
-        }
-
-        if (stopMovement == true)
-        {
-            FinishHazard();
-        }
+        }       
     }
 
-    public void RaycastCheck()
+    public void RaycastDistanceCheck()
     {
         Physics.Raycast(transform.position, transform.forward, out check, 100f);
-        if (check.collider != null && check.collider.GetComponentInChildren<HazardTestScript>() != null)
+        if (check.collider != null && check.collider.GetComponentInChildren<HazardMechanics>() != null)
         {
-            if (check.distance > check.collider.GetComponentInChildren<HazardTestScript>().optimalDistanceMin && check.distance < check.collider.GetComponentInChildren<HazardTestScript>().optimalDistanceMax)
+            if (check.distance > check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMin && check.distance < check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMax)
             {
                 uIRef.color = Color.green;
             }
-            else if(check.distance < check.collider.GetComponentInChildren<HazardTestScript>().MaximumDistance)
+            else if(check.distance < check.collider.GetComponentInChildren<HazardMechanics>().MaximumDistance)
             {
                 uIRef.color = Color.red;
             }
@@ -62,39 +56,41 @@ public class HazardManager : MonoBehaviour
     public void ShootRaycast()
     {
         Physics.Raycast(transform.position, transform.forward, out hit, 100f);
-        if (hit.collider != null && hit.collider.GetComponentInChildren<HazardTestScript>() != null)
+        if (hit.collider != null && hit.collider.GetComponentInChildren<HazardMechanics>() != null)
         {
             if (uIRef.color == Color.green)
             {
                 stopMovement = true;
-                hazardRef = hit.collider.GetComponent<HazardTestScript>().HazardPopUpRef;
+                hazardRef = hit.collider.GetComponent<HazardMechanics>().hazardPopUpRef;
                 hazardRef.SetActive(true);
-                hit.collider.GetComponentInChildren<HazardTestScript>().hazardTag = hazardRef.tag;
+                //hit.collider.GetComponentInChildren<HazardMechanics>().hazardTag = hazardRef.tag;
                 hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", true);
             }
         }
     }
 
-    public void FinishHazard()
+    public void FinishHazard(int satisfaction,int score, bool isFixed)
     {
-        if (hazardRef.GetComponentInChildren<Slider>().value >= 100)
-        {
-            hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", false);
-            stopMovement = false;
-            droneUIScript.satisfactionValue += 40f; //////This value needs changed
-            LevelManager.scoreValue += 10;
-        }
-        else if (hazardRef.GetComponentInChildren<Slider>().value != 0)
-        {
-            hazardRef.GetComponentInChildren<Slider>().value -= Time.deltaTime * 5f;
-        }
-        else
-        {
-            hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", false);
-            droneUIScript.satisfactionValue -= 40f;
-            stopMovement = false;
-        }
-    }
+        Debug.Log("TestFinish");
+        hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", false);
+        stopMovement = false;
+        droneUIScript.satisfactionValue += satisfaction; //////This value needs changed
+        LevelManager.scoreValue += score;
+        hazardRef.SetActive(false);
 
-    
+        if (isFixed)
+        {
+            switch (hazardRef.tag)
+            {
+                case "ScaffoldHazard":
+                    LevelManager.isScaffoldFixed = true;
+                    break;
+                case "CraneHazard":
+                    LevelManager.isCraneFixed = true;
+                    break;
+                default:
+                    break;                    
+            }
+        }       
+    }   
 }
