@@ -30,9 +30,7 @@ public class DroneUI : MonoBehaviour
     public float satisfactionValue = 50f;
     private Slider satisfactionSliderRef;
     public Gradient satisfactionGradient;
-    public Image workerHappyRef;
-    public Image workerMehRef;
-    public Image workerAngryRef;
+    public List<Image> workersFacesImageList;
     public List<Image> signalImageList;
 
     //RangeVariables
@@ -64,76 +62,37 @@ public class DroneUI : MonoBehaviour
         float staticEffectIntensity = Mathf.Pow(((range - (maxRange * signalLossPoint)) / (maxRange * (1 - (signalLossPoint / 1)))), 1.5f);
 
         float signalRatio = range / maxRange;
+        int x;
 
         if(signalRatio < 0.25)
         {
-            if (signalImageList[0].enabled == false)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    if (i == 0)
-                    {
-                        signalImageList[i].enabled = true;
-                    }
-                    else
-                    {
-                        signalImageList[i].enabled = false;
-                    }
-                }
-            }
+            x = 0;
         }
-        else if(signalRatio < 0.50)
+        else if (signalRatio < 0.50)
         {
-            if (signalImageList[1].enabled == false)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    if (i == 1)
-                    {
-                        signalImageList[i].enabled = true;
-                    }
-                    else
-                    {
-                        signalImageList[i].enabled = false;
-                    }
-                }
-            }
+            x = 1;
         }
-        else if(signalRatio < 0.75)
+        else if (signalRatio < 0.75)
         {
-            if (signalImageList[2].enabled == false)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    if (i == 2)
-                    {
-                        signalImageList[i].enabled = true;
-                    }
-                    else
-                    {
-                        signalImageList[i].enabled = false;
-                    }
-                }
-            }
+            x = 2;
         }
         else
         {
-            if (signalImageList[3].enabled == false)
-            {
-                for (int i = 0; i < 4; i++)
-                {
-                    if (i == 3)
-                    {
-                        signalImageList[i].enabled = true;
-                    }
-                    else
-                    {
-                        signalImageList[i].enabled = false;
-                    }
-                }
-            }
+            x = 3;
         }
 
+        for (int i = 0; i < signalImageList.Count; i++)
+        {
+            if (x == i)
+            {
+                signalImageList[i].enabled = true;
+            }
+            else
+            {
+                signalImageList[i].enabled = false;
+            }
+        }
+        
         if (range > maxRange * signalLossPoint)
         {
             signalUI.GetComponent<Image>().color = new Color(255, 255, 255, staticEffectIntensity);
@@ -165,8 +124,6 @@ public class DroneUI : MonoBehaviour
             {
                 artificialHorizonRef[i].GetComponent<Image>().enabled = true;
             }
-
-
         }
         else if (droneController.thirdPerson == true)
         {
@@ -189,24 +146,31 @@ public class DroneUI : MonoBehaviour
         satisfactionSliderRef.value = satisfactionValue;
 
         satisfactionRef.GetComponentInChildren<Image>().color = satisfactionGradient.Evaluate(satisfactionSliderRef.normalizedValue);
+        int x;
 
         if(satisfactionValue < 20)
         {
-                workerHappyRef.enabled = false;
-                workerMehRef.enabled = false;
-                workerAngryRef.enabled = true;
-}
+            x = 2;
+        }
         else if (satisfactionValue < 55)
         {
-            workerHappyRef.enabled = false;
-            workerMehRef.enabled = true;
-            workerAngryRef.enabled = false;
+            x = 1;
         }
         else
         {
-            workerHappyRef.enabled = true;
-            workerMehRef.enabled = false;
-            workerAngryRef.enabled = false;
+            x = 0;
+        }
+
+        for ( int i = 0; i < workersFacesImageList.Count; i++)
+        {
+            if (x == i)
+            {
+                workersFacesImageList[i].enabled = true;
+            }
+            else
+            {
+                workersFacesImageList[i].enabled = false;
+            }
         }
 
         if (satisfactionValue >= 100 || satisfactionValue <= 0)

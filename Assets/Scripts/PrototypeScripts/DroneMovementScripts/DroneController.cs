@@ -145,6 +145,7 @@ public class DroneController : MonoBehaviour
         {
             thirdPerson = !thirdPerson;
         }
+
         if (Input.GetMouseButton(1))
         {
             turnSpeed = 0;
@@ -163,6 +164,7 @@ public class DroneController : MonoBehaviour
             camXAxisRotation = 0;
             camYAxisRotation = 0;
         }
+
         if (thirdPerson)
         {
             thirdPersonCam.SetActive(true);
@@ -181,7 +183,6 @@ public class DroneController : MonoBehaviour
 
     private void OnCollisionEnter(Collision obstacle)
     {
-
         droneHits++;       
         if(droneHits == 3)
         {
@@ -206,54 +207,6 @@ public class DroneController : MonoBehaviour
         }
         
         Vector3 bounceAngle = (normalAngleAtCollision + Vector3.Scale(angleAtCollision,directionFix)) * 360;      
-        parentRB.AddForce(bounceAngle * pushBackForce);
-        
-        ///Used For Testing
-        /*Debug.Log(angleAtCollision);
-        Debug.Log(normalAngleAtCollision);
-        Debug.Log(directionFix);
-        Debug.Log(bounceAngle); */
-    }
-
-
-    ////Can be deleted if animation not used
-    /*public void BounceBack(Vector3 bounceAngle)
-    {
-        parentRB.AddForce(bounceAngle * pushBackForce);
-        Debug.Log("Bounce");
-        //canMove = 1;
-        //StartCoroutine("ActivateAnimation");
-    }
-
-    IEnumerator ActivateAnimation()
-    {
-        checkBounce = true;
-
-        canMove = 0;
-
-        StartCoroutine("CameraBoolCheck");
-
-        GetComponentsInChildren<Animator>()[0].SetBool("CameraBool", true);
-        GetComponentsInChildren<Animator>()[1].SetBool("CheckCollision", true);
-
-        yield return new WaitForSeconds(1.20f);
-
-        GetComponentsInChildren<Animator>()[0].SetBool("CameraBool", false);
-        GetComponentsInChildren<Animator>()[1].SetBool("CheckCollision", false);
-    }
-
-    IEnumerator CameraBoolCheck()
-    {
-        GetComponentsInChildren<Animator>()[0].enabled = true;
-        GetComponentsInChildren<Animator>()[1].enabled = true;
-
-        yield return new WaitForSeconds(1.205f);
-
-        GetComponentsInChildren<Animator>()[0].enabled = false;
-        GetComponentsInChildren<Animator>()[1].enabled = false;
-
-        canMove = 1;
-        rotationFix = true;
-        checkBounce = false;
-    } */
+        parentRB.AddForce(bounceAngle * pushBackForce);       
+    }   
 }

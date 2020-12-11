@@ -58,13 +58,6 @@ public class LevelManager : MonoBehaviour
             PauseUIRef.GetComponentsInChildren<Image>()[2].enabled = false;
             PauseUIRef.GetComponentsInChildren<Button>()[1].enabled = false;       
         }
-
-        /*if (SceneManager.GetActiveScene().buildIndex == 0)
-        {
-            HazardTestScript.isScaffoldFixed = false;
-
-            HazardTestScript.isCraneFixed = false;
-        }*/
     }
 
     // Update is called once per frame
@@ -109,8 +102,7 @@ public class LevelManager : MonoBehaviour
                     PauseUIRef.GetComponent<Image>().enabled = false;
 
                     Cursor.lockState = CursorLockMode.Locked;
-                }
-                //SceneManager.LoadScene(0, LoadSceneMode.Single);
+                }               
             }
         }
         else

@@ -6,49 +6,55 @@ using UnityEngine.EventSystems;
 
 public class HazardMechanics : MonoBehaviour
 {
-    public PointerEventData pointerData = new PointerEventData(EventSystem.current);
+    /// <summary>
+    /// Class that handles all the hazard mechanics. Each hazard has an instance of this class that is called from the hazard manager class when a hazard is interacted with.
+    /// </summary>
+    /// 
 
-    public List<RaycastResult> pointerHitList = new List<RaycastResult>();
-
-    public HazardManager hazardManagerRef;
-
-    public GameObject hazardPopUpRef;
-    public string hazardTag;
+    public HazardManager hazardManagerRef; //Reference to hazard manager script
 
     //GenericHazardVariables
-    public int optimalDistanceMax = 0;
-    public int optimalDistanceMin = 0;
-    public int MaximumDistance = 0;
+    public int optimalDistanceMax = 0;            //Minimum optimal distance to hazard
+    public int optimalDistanceMin = 0;            //Maximum optimal distance to hazard
+    public int MaximumDistance = 0;               //Maximum distance a raycast can detect a hazard from
 
-    Vector3 currentMousePosition;
+    private PointerEventData pointerData = new PointerEventData(EventSystem.current);        ////////////Alessio///////I don't know how this works !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    private List<RaycastResult> pointerHitList = new List<RaycastResult>();
+
+    Vector3 currentMousePosition;               //Reference for current mouse position
     Vector3 lastMousePosition;
 
-    private Slider hazardSlider;
+    public GameObject hazardPopUpRef;           //Reference to the current hazard being interacted with
+    public string hazardTag;                    //Tag of the hazard being interacted with
+
+    private Slider hazardSlider;                //Slider attached to each hazard, used to keep track of hazard completion progress
     
-    //HazardMethod
-    float rotationAngle = 0;
-    float lastRotationAngle = 0;
+    //ScaffoldMethod
+    float rotationAngle = 0;                    //////Not sure how these work exactly !!!!!!!!!!!!!!!!!!!!!!!!!!
+    float lastRotationAngle = 0;             
     GameObject UnscrewBolt;
 
     //CraneMethod
-    GameObject FixedWire;
-    GameObject WireBox;
-    GameObject TornWire;
-    GameObject TornBox;
-    bool checkSwapWire = false;
+    GameObject FixedWire;      //Reference to fixed wire game object in the crane hazard minigame
+    GameObject WireBox;        //Reference to fixed wire box game object in the crane hazard minigame
+    GameObject TornWire;       //Reference to torn wire game object in the crane hazard minigame
+    GameObject TornBox;        //Reference to torn wire box game object in the crane hazard minigame
+    bool checkSwapWire = false;       // 
 
     // Start is called before the first frame update
     void Start()
     {
-        hazardTag = hazardPopUpRef.tag;
+        hazardTag = hazardPopUpRef.tag;  //Gets the tag of the current hazard being interacted with 
 
+
+        //Reference for minigames
         UnscrewBolt = GameObject.FindGameObjectWithTag("UnscrewBolt");
         FixedWire = GameObject.FindGameObjectWithTag("FixedWire");
         WireBox = GameObject.FindGameObjectWithTag("WireBox");
         TornWire = GameObject.FindGameObjectWithTag("TornWire");
         TornBox = GameObject.FindGameObjectWithTag("TornBox");
 
-        switch (hazardTag)
+        switch (hazardTag)          //Switch case to set optimal distances for hazard interaction dependent on their tag 
         {
             case "ScaffoldHazard":                              
                 optimalDistanceMax = 12;
@@ -67,50 +73,60 @@ public class HazardMechanics : MonoBehaviour
                 break;
         }
 
-        hazardPopUpRef.SetActive(false);
+        hazardPopUpRef.SetActive(false);  //Sets the hazard inactive at the start until interacted with
     }
 
     // Update is called once per frame
     void Update()
-    {        
-        if (hazardManagerRef.hazardRef != null && hazardManagerRef.hazardRef.GetComponent<Animator>().GetBool("ActiveHazard") == true)
-        {
-            currentMousePosition = Input.mousePosition;
+    {
+        currentMousePosition = Input.mousePosition;   //Sets current mouse position
 
-            switch (hazardManagerRef.hazardRef.tag)
+        if (hazardManagerRef.hazardRef != null && hazardManagerRef.hazardRef.GetComponent<Animator>().GetBool("ActiveHazard") == true)   //True if hazard is currently being interacted with
+        {           
+            switch (hazardTag)            //Dependent on the hazard's tag it runs it's corresponding method, aswell as the hazard progress method
             {
                 case "ScaffoldHazard":
                     HazardProgress(40, -20, 20);
                     ScaffoldHazard();
-
                     break;
+
                 case "CraneHazard":
                     HazardProgress(40, -20, 20);
                     CraneHazard();
-
                     break;
+
                 default:
                     break;
             }
         }        
     }
 
+    /// <summary>
+    /// Method to handle to progression of a hazard and manage it's win/lose states
+    /// </summary>
+    /// <param name="satisfaction"></param>  satifaction score gained from winning the minigame
+    /// <param name="dissatisfaction"></param> satisfaction score lost from losing the minigame
+    /// <param name="score"></param>  score added to the score at the end of the game
     public void HazardProgress(int satisfaction, int dissatisfaction, int score)
     {
-        hazardSlider = hazardManagerRef.hazardRef.GetComponentInChildren<Slider>().GetComponent<Slider>();       
-        if (hazardSlider.value >= 100)
+        hazardSlider = hazardManagerRef.hazardRef.GetComponentInChildren<Slider>().GetComponent<Slider>();  //Gets the slider of the hazard, used to keep track of progress
+        
+        if (hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
         {
             hazardManagerRef.FinishHazard(satisfaction, score, true);
         }
-
-        else if (hazardSlider.value <= 0)
+        else if (hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
         {
             hazardManagerRef.FinishHazard(dissatisfaction, 0, false);
         }
 
-        hazardSlider.value -= Time.deltaTime * 5f;
+        hazardSlider.value -= Time.deltaTime * 2f;  //Sets the rate at which the hazard timer counts down
     }
 
+    //////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Don't know how this works, needs commented!!!!!!!!!!!!!!!!!!!!!!!!
+    /// <summary>
+    /// Method to handle the scaffold hazard minigame
+    /// </summary>
     public void ScaffoldHazard()
     {       
         if (Input.GetMouseButton(0))
@@ -148,6 +164,9 @@ public class HazardMechanics : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Method to handle the crane hazard minigame
+    /// </summary>
     public void CraneHazard()
     {       
         pointerData.position = currentMousePosition;
@@ -159,12 +178,12 @@ public class HazardMechanics : MonoBehaviour
             {
                 for (int i = 0; i < pointerHitList.Count; i++)
                 {
-                    if (pointerHitList[i].gameObject.tag == "FixedWire" && (TornWire.transform.position == TornBox.transform.position) && checkSwapWire == false)
+                    if (pointerHitList[i].gameObject.CompareTag("FixedWire") && (TornWire.transform.position == TornBox.transform.position) && checkSwapWire == false)
                     {
                         FixedWire.transform.position = currentMousePosition;
                     }
 
-                    if(pointerHitList[i].gameObject.tag == "TornWire" && (FixedWire.transform.position == WireBox.transform.position))
+                    if(pointerHitList[i].gameObject.CompareTag("TornWire") && (FixedWire.transform.position == WireBox.transform.position))
                     {
                         TornWire.transform.position = currentMousePosition;
                     }
@@ -175,17 +194,15 @@ public class HazardMechanics : MonoBehaviour
         { 
             for (int i = 0; i < pointerHitList.Count; i++)
             {
-                if (pointerHitList[i].gameObject.tag == "BinBox" && (TornWire.transform.position != TornBox.transform.position))
+                if (pointerHitList[i].gameObject.CompareTag("BinBox") && (TornWire.transform.position != TornBox.transform.position))
                 {
                     TornWire.SetActive(false);
                 }
 
-                if(pointerHitList[i].gameObject.tag == "TornBox" && (FixedWire.transform.position != WireBox.transform.position) && TornWire.activeSelf == false)
+                if(pointerHitList[i].gameObject.CompareTag("TornBox") && (FixedWire.transform.position != WireBox.transform.position) && TornWire.activeSelf == false)
                 {
                     checkSwapWire = true;
-
                     FixedWire.transform.position = TornBox.transform.position + new Vector3(0,50);
-
                     hazardSlider.value += 100f;
                 }
             }
@@ -196,7 +213,6 @@ public class HazardMechanics : MonoBehaviour
                 {
                     FixedWire.transform.position = WireBox.transform.position;
                 }
-
                 TornWire.transform.position = TornBox.transform.position;
             }
         }
