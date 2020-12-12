@@ -54,14 +54,14 @@ public class HazardManager : MonoBehaviour
     public void ShootRaycast()
     {
         Physics.Raycast(transform.position, transform.forward, out hit, 100f);
-        if (hit.collider != null && hit.collider.GetComponentInChildren<HazardMechanics>() != null)
+        if (hit.collider != null && hit.collider.GetComponentInChildren<HazardMechanics>() != null && hit.collider.GetComponentInChildren<HazardMechanics>().enabled == true)
         {
             if (uIRef.color == Color.green)
             {
                 stopMovement = true;
                 hazardRef = hit.collider.GetComponent<HazardMechanics>().hazardPopUpRef;
                 hazardRef.SetActive(true);
-                //hit.collider.GetComponentInChildren<HazardMechanics>().hazardTag = hazardRef.tag;
+                hit.collider.GetComponentInChildren<HazardMechanics>().hazardTag = hazardRef.tag;
                 hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", true);
             }
         }

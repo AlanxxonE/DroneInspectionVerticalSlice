@@ -41,11 +41,12 @@ public class HazardMechanics : MonoBehaviour
     GameObject TornBox;        //Reference to torn wire box game object in the crane hazard minigame
     bool checkSwapWire = false;       // 
 
+    public bool checkEffect = false;
+
     // Start is called before the first frame update
     void Start()
     {
         hazardTag = hazardPopUpRef.tag;  //Gets the tag of the current hazard being interacted with 
-
 
         //Reference for minigames
         UnscrewBolt = GameObject.FindGameObjectWithTag("UnscrewBolt");
@@ -60,14 +61,12 @@ public class HazardMechanics : MonoBehaviour
                 optimalDistanceMax = 12;
                 optimalDistanceMin = 8;
                 MaximumDistance = 30;
-
                 break;
 
             case "CraneHazard":                                
                 optimalDistanceMax = 20;
                 optimalDistanceMin = 10;
                 MaximumDistance = 40;
-
                 break;
             default:
                 break;
@@ -114,10 +113,12 @@ public class HazardMechanics : MonoBehaviour
         if (hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
         {
             hazardManagerRef.FinishHazard(satisfaction, score, true);
+            checkEffect = false;
         }
         else if (hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
         {
             hazardManagerRef.FinishHazard(dissatisfaction, 0, false);
+            checkEffect = false;
         }
 
         hazardSlider.value -= Time.deltaTime * 2f;  //Sets the rate at which the hazard timer counts down ////Don't move this
