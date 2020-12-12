@@ -120,7 +120,7 @@ public class HazardMechanics : MonoBehaviour
             hazardManagerRef.FinishHazard(dissatisfaction, 0, false);
         }
 
-        hazardSlider.value -= Time.deltaTime * 2f;  //Sets the rate at which the hazard timer counts down
+        hazardSlider.value -= Time.deltaTime * 2f;  //Sets the rate at which the hazard timer counts down ////Don't move this
     }
 
     //////!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Don't know how this works, needs commented!!!!!!!!!!!!!!!!!!!!!!!!

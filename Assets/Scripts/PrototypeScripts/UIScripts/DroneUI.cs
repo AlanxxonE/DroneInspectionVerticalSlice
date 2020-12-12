@@ -6,43 +6,42 @@ using UnityEngine.UI;
 public class DroneUI : MonoBehaviour
 {
     //References
-    public GameObject altitudeRef;
-    public GameObject rangeRef;
-    public GameObject satisfactionRef;
-    public GameObject horizonCircleRef;
-    public GameObject horizonLineRef;
-    public GameObject horizonPointerRef;
-    public GameObject[] artificialHorizonRef;
-    public Image signalUI;
-    public DroneController droneController;
-    private Vector3 horPosVar;
-    public LevelManager levelManagerScript;
+    public GameObject altitudeRef;   //Reference to altitude slider of the drone UI                           
+    public GameObject rangeRef;      //Reference to range metre of the drone UI  
+    public GameObject satisfactionRef;  //Reference to satisfaction slider of the drone UI  
+    public GameObject horizonCircleRef;  //Reference to circle of the artificial horizon of the drone UI  
+    public GameObject horizonLineRef;    //Reference to horizontal line of the artificial horizon of the drone UI  
+    public GameObject horizonPointerRef;   //Reference to vertical line of the artificial horizon of the drone UI  
+    public GameObject[] artificialHorizonRef;   //List of references to the vertical line, horizontal line and angle markers of the artificial horizon of the drone UI
+    public Image signalUI;     //Reference to the signal strength overlay image of teh drone UI          
+    public DroneController droneController;   //Reference to the drone controller script
+    private Vector3 horPosVar;   //Vector 3 to alter the position of the horizontal line of the artificial horizon of the drone UI
+    public LevelManager levelManagerScript;   //Reference to the level manager script
 
     //UI Variables
-    private float altitude;
-    private float range;
+    private float altitude;   //Altitude variable
+    private float range;   //Range variable
     [Range(0f, 1f)]
     [Tooltip("Sets percentage of the maximum range of the drone at which the drone signal begins to fade and the static effect begins to increase")]
-    public float signalLossPoint;
+    public float signalLossPoint;   //Sets percentage of the maximum range of the drone at which the drone signal begins to fade and the static effect begins to increase
     [Range(0f, 1f)]
     [Tooltip("Sets the rate of satisfaction loss at rate of 0-1 ticks per second. Total ticks = 100.")]
-    public float satisfactionDropRate;
-    public float satisfactionValue = 50f;
-    private Slider satisfactionSliderRef;
-    public Gradient satisfactionGradient;
-    public List<Image> workersFacesImageList;
-    public List<Image> signalImageList;
+    public float satisfactionDropRate;   //Sets the rate of satisfaction loss at rate of 0-1 ticks per second. Total ticks = 100.
+    public float satisfactionValue = 50f;   //Initial value of worker satisfaction
+    private Slider satisfactionSliderRef;   //Reference to the slider of the satisfaction bar
+    public Gradient satisfactionGradient;   //Reference to the colour gradient of the slider of the satisfaction bar
+    public List<Image> workersFacesImageList;  //List of images of the worker's faces
+    public List<Image> signalImageList;   //List of images used to show signal strength
 
     //RangeVariables
-    private float distanceValue = 200f;
-    private float maxRange;
+    private float maxRange;   //Float to indicate the max range the drone can fly from it's origin
 
     private void Start()
     {
-        satisfactionSliderRef = satisfactionRef.GetComponentInChildren<Slider>();
-        satisfactionSliderRef.value = satisfactionValue;
-        maxRange = droneController.maxRange;
-        altitudeRef.GetComponentInChildren<Slider>().maxValue = droneController.flightCeiling;
+        satisfactionSliderRef = satisfactionRef.GetComponentInChildren<Slider>();   //Gets the satisfaction slider
+        satisfactionSliderRef.value = satisfactionValue;   //Sets the value of the satisfaction slider
+        maxRange = droneController.maxRange;   //Sets the max range
+        altitudeRef.GetComponentInChildren<Slider>().maxValue = droneController.flightCeiling;  //Sets the max value of the altitude slider equal to that of the max height the drone can fly at
         rangeRef.GetComponentInChildren<Slider>().maxValue = 1;
         horPosVar = horizonLineRef.GetComponentInParent<Transform>().position;
     }
