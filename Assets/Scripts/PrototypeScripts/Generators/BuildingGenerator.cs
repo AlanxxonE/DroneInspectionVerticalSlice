@@ -5,11 +5,13 @@ using UnityEngine;
 public class BuildingGenerator : MonoBehaviour
 {
     [SerializeField]
-    private GameObject buildingToClone;
+    private List<GameObject> buildingToCloneList;
 
     [SerializeField]
     private int numberOfBuildings = 0;
 
+    private GameObject buildingClone;
+    private float buildingHeight = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,13 +19,30 @@ public class BuildingGenerator : MonoBehaviour
 
         for (int i = 0; i < buildingMultiArray.GetLength(0); i++) 
         {
-            for(int j=0; j<buildingMultiArray.GetLength(1);j++)
+            for (int j = 0; j < buildingMultiArray.GetLength(1); j++) 
             {
-                GameObject buildingClone = Instantiate(buildingToClone);
-                buildingClone.transform.position = buildingToClone.transform.position;
-                buildingClone.transform.position = new Vector3(buildingToClone.transform.position.x + (i * 25), buildingToClone.transform.position.y, buildingToClone.transform.position.z + (j * 20));
+                int z = Random.Range(0, buildingToCloneList.Count);
+                if (z == 0)
+                {
+                    buildingHeight = Random.Range(0.01f, 0.02f);
+                }
+                else if(z == 1)
+                {
+                    buildingHeight = Random.Range(18, 30);
+                }
+                else if(z == 2)
+                {
+                    buildingHeight = Random.Range(2, 5);
+                }
+
+                buildingClone = Instantiate(buildingToCloneList[z]);
+                buildingClone.transform.position = buildingToCloneList[0].transform.position;
+                buildingClone.transform.localScale = new Vector3(buildingToCloneList[z].transform.localScale.x, buildingHeight, buildingToCloneList[z].transform.localScale.z);
+                buildingClone.transform.position = new Vector3(buildingToCloneList[0].transform.position.x + (i * 25), buildingToCloneList[z].transform.position.y, buildingToCloneList[0].transform.position.z + (j * 20));
             }
         }
+            
+        buildingToCloneList[0].SetActive(false);
     }
 
     // Update is called once per frame
