@@ -72,6 +72,8 @@ public class HazardMechanics : MonoBehaviour
                 break;
         }
 
+        hazardTag = null;
+
         hazardPopUpRef.SetActive(false);  //Sets the hazard inactive at the start until interacted with
     }
 
@@ -112,13 +114,15 @@ public class HazardMechanics : MonoBehaviour
         
         if (hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
         {
-            hazardManagerRef.FinishHazard(satisfaction, score, true);
-            checkEffect = false;
+            this.GetComponent<HazardEffect>().endEffect = true;
+            hazardTag = null;
+            hazardManagerRef.FinishHazard(satisfaction, score, true);          
         }
         else if (hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
         {
+            this.GetComponent<HazardEffect>().endEffect = true;
+            hazardTag = null;
             hazardManagerRef.FinishHazard(dissatisfaction, 0, false);
-            checkEffect = false;
         }
 
         hazardSlider.value -= Time.deltaTime * 2f;  //Sets the rate at which the hazard timer counts down ////Don't move this

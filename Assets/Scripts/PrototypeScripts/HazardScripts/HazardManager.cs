@@ -36,7 +36,7 @@ public class HazardManager : MonoBehaviour
         Physics.Raycast(transform.position, transform.forward, out check, 100f);
         if (check.collider != null && check.collider.GetComponentInChildren<HazardMechanics>() != null)
         {
-            if (check.distance > check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMin && check.distance < check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMax)
+            if (check.distance > check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMin && check.distance < check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMax && check.collider.GetComponentInChildren<HazardMechanics>().checkEffect == true)
             {
                 uIRef.color = Color.green;
             }
@@ -54,11 +54,12 @@ public class HazardManager : MonoBehaviour
     public void ShootRaycast()
     {
         Physics.Raycast(transform.position, transform.forward, out hit, 100f);
-        if (hit.collider != null && hit.collider.GetComponentInChildren<HazardMechanics>() != null && hit.collider.GetComponentInChildren<HazardMechanics>().enabled == true)
+        if (hit.collider != null && hit.collider.GetComponentInChildren<HazardMechanics>() != null && hit.collider.GetComponentInChildren<HazardMechanics>().checkEffect == true)
         {
             if (uIRef.color == Color.green)
             {
                 stopMovement = true;
+                hit.collider.GetComponent<HazardEffect>().particleClone.GetComponent<ParticleSystem>().Pause();
                 hazardRef = hit.collider.GetComponent<HazardMechanics>().hazardPopUpRef;
                 hazardRef.SetActive(true);
                 hit.collider.GetComponentInChildren<HazardMechanics>().hazardTag = hazardRef.tag;

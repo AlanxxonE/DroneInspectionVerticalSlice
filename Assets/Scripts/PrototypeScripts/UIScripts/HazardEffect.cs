@@ -1,41 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HazardEffect : MonoBehaviour
 {
 
     [SerializeField]
-    private ParticleSystem hazardEffectRef; //Reference to the particle system warning the player about fixing the hazard
+    private GameObject hazardEffectRef; //Reference to the particle system warning the player about fixing the hazard
     public Transform hazardEffectTarget; //Where the particle effect needs to spawn based on the hazard
-    public ParticleSystem particleClone;
+    public GameObject particleClone;
+    public DroneUI satisfactionRef;
+    public bool endEffect = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<HazardMechanics>().checkEffect = true;
         particleClone = Instantiate(hazardEffectRef);
         particleClone.transform.position = hazardEffectTarget.position;
         particleClone.transform.localScale *= 3;
-        particleClone.Play();
+        particleClone.GetComponent<ParticleSystem>().Play();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(particleClone.isPlaying)
+        if(particleClone.activeSelf == true && particleClone.GetComponent<ParticleSystem>().isPlaying)
         {
-            GetComponent<HazardMechanics>().enabled = true;
+            this.GetComponent<HazardMechanics>().checkEffect = true;
         }
-        else
+        else if(!particleClone.GetComponent<ParticleSystem>().isPaused)
         {
-            GetComponent<HazardMechanics>().enabled = false;
+            endEffect = true;
         }
 
-        if(GetComponent<HazardMechanics>().checkEffect == false)
+        if(endEffect == true)
         {
-            particleClone.gameObject.SetActive(false);
-            GetComponent<HazardMechanics>().enabled = false;
+            satisfactionRef.satisfactionValue -= 10f;
+            particleClone.SetActive(false);
+            this.GetComponent<HazardMechanics>().checkEffect = false;
+            Destroy(this);
         }
     }
 }

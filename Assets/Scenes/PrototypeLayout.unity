@@ -3002,6 +3002,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -6067200636698690116, guid: 4ad9ab06580668e4fa79038af955c5b1, type: 3}
+--- !u!1 &162188440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5309102799828620921, guid: a21f5307acc1b1f42a8ef70ea1e2fb8c, type: 3}
+  m_PrefabInstance: {fileID: 4373827993415796651}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &162351168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9891,7 +9896,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 518573053}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a1f3e5cf5bd0854e811c42c228a9afa, type: 3}
   m_Name: 
@@ -9928,9 +9933,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3cd2b218c92c648965f4d44ba49c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardEffectRef: {fileID: 1839848081}
+  hazardEffectRef: {fileID: 162188440}
   hazardEffectTarget: {fileID: 889862636}
   particleClone: {fileID: 0}
+  satisfactionRef: {fileID: 1986370827}
 --- !u!1 &524130410 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -344004081357383697, guid: 4ad9ab06580668e4fa79038af955c5b1, type: 3}
@@ -33835,7 +33841,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551174513}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a1f3e5cf5bd0854e811c42c228a9afa, type: 3}
   m_Name: 
@@ -33877,9 +33883,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3cd2b218c92c648965f4d44ba49c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardEffectRef: {fileID: 1839848081}
+  hazardEffectRef: {fileID: 162188440}
   hazardEffectTarget: {fileID: 1776996573}
   particleClone: {fileID: 0}
+  satisfactionRef: {fileID: 1986370827}
 --- !u!1 &1551175213 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3419035107271191133, guid: ca8ba3ace0ba82e4ebff86211c0b2a4e, type: 3}
@@ -40302,11 +40309,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7846685681052900924, guid: 967e7df32aa30984fb706d6550b3f019, type: 3}
---- !u!198 &1839848081 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2924226620462291243, guid: a21f5307acc1b1f42a8ef70ea1e2fb8c, type: 3}
-  m_PrefabInstance: {fileID: 4373827993415796651}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1842894032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1eb252cf06d966f4f900cef8ebd60d01, type: 3}
