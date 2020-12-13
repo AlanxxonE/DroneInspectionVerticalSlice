@@ -22,17 +22,13 @@ public class BuildingGenerator : MonoBehaviour
             for (int j = 0; j < buildingMultiArray.GetLength(1); j++) 
             {
                 int z = Random.Range(0, buildingToCloneList.Count);
-                if (z == 0)
+                if (z == 0 || z == 2)
                 {
                     buildingHeight = Random.Range(0.01f, 0.02f);
                 }
                 else if(z == 1)
                 {
                     buildingHeight = Random.Range(18, 30);
-                }
-                else if(z == 2)
-                {
-                    buildingHeight = Random.Range(2, 5);
                 }
 
                 buildingClone = Instantiate(buildingToCloneList[z]);
