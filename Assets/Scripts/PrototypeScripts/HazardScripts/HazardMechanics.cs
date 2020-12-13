@@ -43,6 +43,18 @@ public class HazardMechanics : MonoBehaviour
 
     public bool checkEffect = false;
 
+    public List<Image> dangerImageList;
+    private int dangerToDisplay;
+
+    public enum LevelsOfDangers
+    {
+        Green,
+        Amber,
+        Red
+    }
+
+    public LevelsOfDangers hazardDangerLevel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -73,6 +85,36 @@ public class HazardMechanics : MonoBehaviour
         }
 
         hazardTag = null;
+
+        switch (hazardDangerLevel)
+        {
+            case HazardMechanics.LevelsOfDangers.Green:
+                dangerToDisplay = 0;
+                break;
+
+            case HazardMechanics.LevelsOfDangers.Amber:
+                dangerToDisplay = 1;
+                break;
+
+            case HazardMechanics.LevelsOfDangers.Red:
+                dangerToDisplay = 2;
+                break;
+
+            default:
+                break;
+        }
+
+        for (int i = 0; i < dangerImageList.Count; i++)
+        {
+            if (dangerToDisplay == i)
+            {
+                dangerImageList[i].enabled = true;
+            }
+            else
+            {
+                dangerImageList[i].enabled = false;
+            }
+        }
 
         hazardPopUpRef.SetActive(false);  //Sets the hazard inactive at the start until interacted with
     }
