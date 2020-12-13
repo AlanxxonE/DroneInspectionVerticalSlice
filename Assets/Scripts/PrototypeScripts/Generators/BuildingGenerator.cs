@@ -22,18 +22,18 @@ public class BuildingGenerator : MonoBehaviour
             for (int j = 0; j < buildingMultiArray.GetLength(1); j++) 
             {
                 int z = Random.Range(0, buildingToCloneList.Count);
-                if (z == 0 || z == 2)
-                {
-                    buildingHeight = Random.Range(0.01f, 0.02f);
-                }
-                else if(z == 1)
-                {
-                    buildingHeight = Random.Range(18, 30);
-                }
+                //if (z == 0 || z == 2)
+                //{
+                //    buildingHeight = Random.Range(0.01f, 0.02f);
+                //}
+                //else if(z == 1)
+                //{
+                //    buildingHeight = Random.Range(18, 30);
+                //}
 
                 buildingClone = Instantiate(buildingToCloneList[z]);
                 buildingClone.transform.position = buildingToCloneList[0].transform.position;
-                buildingClone.transform.localScale = new Vector3(buildingToCloneList[z].transform.localScale.x, buildingHeight, buildingToCloneList[z].transform.localScale.z);
+                //buildingClone.transform.localScale = new Vector3(buildingToCloneList[z].transform.localScale.x, buildingHeight, buildingToCloneList[z].transform.localScale.z);
                 buildingClone.transform.position = new Vector3(buildingToCloneList[0].transform.position.x + (i * 25), buildingToCloneList[z].transform.position.y, buildingToCloneList[0].transform.position.z + (j * 20));
             }
         }
