@@ -55,6 +55,7 @@ public class HazardEffect : MonoBehaviour
             if (endEffect == true)
             {
                 satisfactionRef.satisfactionValue -= 10f;
+
                 particleClone.SetActive(false);
                 this.GetComponent<HazardMechanics>().checkEffect = false;
                 Destroy(this);
