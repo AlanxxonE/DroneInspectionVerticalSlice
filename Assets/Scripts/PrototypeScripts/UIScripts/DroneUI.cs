@@ -42,8 +42,8 @@ public class DroneUI : MonoBehaviour
         satisfactionSliderRef.value = satisfactionValue;   //Sets the value of the satisfaction slider
         maxRange = droneController.maxRange;   //Sets the max range
         altitudeRef.GetComponentInChildren<Slider>().maxValue = droneController.flightCeiling;  //Sets the max value of the altitude slider equal to that of the max height the drone can fly at
-        rangeRef.GetComponentInChildren<Slider>().maxValue = 1;
-        horPosVar = horizonLineRef.GetComponentInParent<Transform>().position;
+        rangeRef.GetComponentInChildren<Slider>().maxValue = 1;  //Sets the maximum value of the range metre
+        horPosVar = horizonLineRef.GetComponentInParent<Transform>().position;  //Sets the vector 3 of the horizontal line
     }
     private void Update()
     {
@@ -53,16 +53,35 @@ public class DroneUI : MonoBehaviour
         Satisfaction();
     }
 
+    /// <summary>
+    /// Method to determine the distance the drone has flown from it's origin and apply a static effect if it's range is too far
+    /// </summary>
     private void Range()
     {
-        range = Vector3.Distance(transform.position, droneController.startPosition);
-        rangeRef.GetComponentInChildren<Text>().text = Mathf.RoundToInt(100 - ((range / maxRange) * 100)) + "%";
+        range = Vector3.Distance(transform.position, droneController.startPosition);   //Gets the distance the drone has flown from it's origin
+        rangeRef.GetComponentInChildren<Text>().text = Mathf.RoundToInt(100 - ((range / maxRange) * 100)) + "%";   //Sets the range text equal to the percentage of the maximum range the drone has flown
 
-        float staticEffectIntensity = Mathf.Pow(((range - (maxRange * signalLossPoint)) / (maxRange * (1 - (signalLossPoint / 1)))), 1.5f);
+        float staticEffectIntensity = Mathf.Pow(((range - (maxRange * signalLossPoint)) / (maxRange * (1 - (signalLossPoint / 1)))), 1.5f);  //Sets an exponentialy increasing intensity for the static effect after the drone has flown past the point where it begins to lose signal
 
-        float signalRatio = range / maxRange;
-        int x;
+        if (range > maxRange * signalLossPoint)  //If the drone has flown past the point where it begins to lose signal
+        {
+            signalUI.GetComponent<Image>().color = new Color(255, 255, 255, staticEffectIntensity); //Applies a static effect over the screen
 
+            if (range > maxRange)  //If the drone flies outside it max range and loses signalk
+            {
+                droneController.parentRB.transform.position = droneController.startPosition;  //Resets the drone's position
+                droneController.parentRB.velocity = Vector3.zero;  //Resets the drone's velocity
+            }
+        }
+        else   //Else removes the static effect
+        {
+            signalUI.GetComponent<Image>().color = new Color(255, 255, 255, 0f); 
+        }
+
+        float signalRatio = range / maxRange;  //Ratio to determine how much signal strength it has based on the distance flown
+        int x; //Temp variable used for indexing
+
+        //Statements to determine which index should be used based on the signal strength
         if(signalRatio < 0.25)
         {
             x = 0;
@@ -80,6 +99,7 @@ public class DroneUI : MonoBehaviour
             x = 3;
         }
 
+        //Enables different images for the range UI dependent on the distance the droen has flown
         for (int i = 0; i < signalImageList.Count; i++)
         {
             if (x == i)
@@ -90,41 +110,32 @@ public class DroneUI : MonoBehaviour
             {
                 signalImageList[i].enabled = false;
             }
-        }
-        
-        if (range > maxRange * signalLossPoint)
-        {
-            signalUI.GetComponent<Image>().color = new Color(255, 255, 255, staticEffectIntensity);
-
-            if (range > maxRange)
-            {
-                droneController.parentRB.transform.position = droneController.startPosition;
-                droneController.parentRB.velocity = Vector3.zero;
-            }
-        }
-        else
-        {
-            signalUI.GetComponent<Image>().color = new Color(255, 255, 255, 0f);
-        }
+        }        
     }
 
+    /// <summary>
+    /// Method to determine the altitude the drone is at and set the UI elements for this
+    /// </summary>
     private void Altitude()
     {
-        altitude = Mathf.RoundToInt(transform.position.y);
-        altitudeRef.GetComponentInChildren<Text>().text = altitude + "M";
-        altitudeRef.GetComponentInChildren<Slider>().value = altitude;
+        altitude = Mathf.RoundToInt(transform.position.y);  //Gets the drone's altitude
+        altitudeRef.GetComponentInChildren<Text>().text = altitude + "M";  //Sets the text of the altitude slider 
+        altitudeRef.GetComponentInChildren<Slider>().value = altitude;  //Sets the value of the altitude slider
     }
 
+    /// <summary>
+    /// Method tha t controls the horizontal horizon of the drone's UI
+    /// </summary>
     private void ArtificialHorizon()
     {
-        if (droneController.thirdPerson == false)
+        if (droneController.thirdPerson == false) //Sets the artificial horizon active if in first person
         {
             for (int i = 0; i < artificialHorizonRef.Length; i++)
             {
                 artificialHorizonRef[i].GetComponent<Image>().enabled = true;
             }
         }
-        else if (droneController.thirdPerson == true)
+        else if (droneController.thirdPerson == true) //Sets the artificial horizon inactive if in third person
         {
             for (int i = 0; i < artificialHorizonRef.Length; i++)
             {
@@ -132,21 +143,25 @@ public class DroneUI : MonoBehaviour
             }
         }
 
-        if (horizonLineRef.GetComponent<Image>().enabled == true)
+        if (horizonLineRef.GetComponent<Image>().enabled == true)  //If the artificial horizon is active
         {
-            horizonLineRef.transform.localEulerAngles = new Vector3(0, 0, droneController.Tilt().z * -1);
-            horizonLineRef.transform.position = new Vector3(horPosVar.x, horPosVar.y + (droneController.Tilt().x * 40 / droneController.maxTiltAngle), 0);
+            horizonLineRef.transform.localEulerAngles = new Vector3(0, 0, droneController.Tilt().z * -1); //Sets the tilt of the artificial horizon about the z-axis counter to that of the drone's tilt
+            horizonLineRef.transform.position = new Vector3(horPosVar.x, horPosVar.y + (droneController.Tilt().x * 40 / droneController.maxTiltAngle), 0);  //Sets the vertical position of the artificial horizon based on the drone's forward tilt angle
         }
     }
 
+    /// <summary>
+    /// Method to handle the satisfaction UI 
+    /// </summary>
     private void Satisfaction()
     {
-        satisfactionValue -= satisfactionDropRate * Time.deltaTime;
-        satisfactionSliderRef.value = satisfactionValue;
+        satisfactionValue -= satisfactionDropRate * Time.deltaTime; //Removes satisfaction over time
+        satisfactionSliderRef.value = satisfactionValue;  //Sets the new satisfaction value to the UI slider
 
-        satisfactionRef.GetComponentInChildren<Image>().color = satisfactionGradient.Evaluate(satisfactionSliderRef.normalizedValue);
-        int x;
+        satisfactionRef.GetComponentInChildren<Image>().color = satisfactionGradient.Evaluate(satisfactionSliderRef.normalizedValue);  //Sets the colour of the satisfaction slider based on it's value
+        int x; //Integer index to determine which worker face image should be displayed based on the satisfaction level
 
+        //Sets the index for which image shoulde be selected
         if(satisfactionValue < 20)
         {
             x = 2;
@@ -159,7 +174,8 @@ public class DroneUI : MonoBehaviour
         {
             x = 0;
         }
-
+        
+        //Enables or disables worker face images based on  the satisfaction
         for ( int i = 0; i < workersFacesImageList.Count; i++)
         {
             if (x == i)
@@ -172,6 +188,8 @@ public class DroneUI : MonoBehaviour
             }
         }
 
+
+        //If satisfaction of 100 is achieved the score scene is loaded
         if (satisfactionValue >= 100 || satisfactionValue <= 0)
         {
             levelManagerScript.SceneSelectMethod(3);

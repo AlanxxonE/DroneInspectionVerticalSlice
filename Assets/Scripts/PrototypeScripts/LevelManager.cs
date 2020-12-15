@@ -7,16 +7,16 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     //Button References
-    public Button startButtonRef;
-    public Button controlsButtonRef;
-    public Button backButtonRef;
-    public Button escButtonRef;
+    public Button startButtonRef;  //Reference to the start button
+    public Button controlsButtonRef;  //Reference to the controls button
+    public Button backButtonRef;  //Reference to the back button
+    public Button escButtonRef;  //Reference to the escape button
 
-    public GameObject PauseUIRef;
+    public GameObject PauseUIRef;   //Reference to the pause menu
 
     //Score Variables
-    static public int scoreValue = 0;
-    public static bool isScaffoldFixed = false, isCraneFixed = false;
+    static public int scoreValue = 0;   //Sets score equal to zero initially
+    public static bool isScaffoldFixed = false, isCraneFixed = false;    //Booleans to determine if hazards have been 
 
     // Start is called before the first frame update
     void Start()
