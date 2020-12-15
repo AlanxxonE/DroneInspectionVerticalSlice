@@ -115,6 +115,8 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(2, LoadSceneMode.Single);
         scoreValue = 0;
+        isScaffoldFixed = false;
+        isCraneFixed = false;
     }
 
     public void ControlsButtonMethod()

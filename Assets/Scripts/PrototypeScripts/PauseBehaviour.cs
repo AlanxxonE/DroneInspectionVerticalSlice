@@ -10,16 +10,4 @@ public class PauseBehaviour : MonoBehaviour
     public DroneController dronMovRef;
 
     public bool activePause = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
