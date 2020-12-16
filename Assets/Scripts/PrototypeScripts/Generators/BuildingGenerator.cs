@@ -48,7 +48,9 @@ public class BuildingGenerator : MonoBehaviour
 
                 //buildingClone.transform.localScale = new Vector3(buildingToCloneList[z].transform.localScale.x, buildingHeight, buildingToCloneList[z].transform.localScale.z); //When activated, it will stretch the height of the newly generated building
 
-                buildingClone.transform.position = new Vector3(buildingToCloneList[0].transform.position.x + (i * 25), buildingToCloneList[z].transform.position.y, buildingToCloneList[0].transform.position.z + (j * 20)); //Change the building position inside the grid based on the original start position and the number of rows and columns avoiding overlapping
+                buildingClone.transform.localScale *= 2;
+
+                buildingClone.transform.position = new Vector3(buildingToCloneList[0].transform.position.x + (i * 30), buildingToCloneList[z].transform.position.y, buildingToCloneList[0].transform.position.z + (j * 25)); //Change the building position inside the grid based on the original start position and the number of rows and columns avoiding overlapping
             }
         }
         
