@@ -18556,14 +18556,13 @@ GameObject:
   - component: {fileID: 789193383}
   - component: {fileID: 789193385}
   - component: {fileID: 789193384}
-  - component: {fileID: 789193386}
   m_Layer: 5
   m_Name: PausePopUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &789193383
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18623,20 +18622,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 789193382}
   m_CullTransparentMesh: 0
---- !u!114 &789193386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 789193382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f36397f87378e2c4098f4101b3f24e7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dronMovRef: {fileID: 262108804047911978}
-  activePause: 0
 --- !u!1 &795246905 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3957782524123411102, guid: 967e7df32aa30984fb706d6550b3f019, type: 3}
@@ -29829,7 +29814,6 @@ MonoBehaviour:
   controlsButtonRef: {fileID: 0}
   backButtonRef: {fileID: 1773974964}
   escButtonRef: {fileID: 1711900837}
-  PauseUIRef: {fileID: 789193382}
 --- !u!4 &1265277255
 Transform:
   m_ObjectHideFlags: 0
@@ -42826,7 +42810,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1711900838}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1265277254}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: QuitMethod
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1711900838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44821,7 +44817,7 @@ GameObject:
   - component: {fileID: 1773974965}
   - component: {fileID: 1773974964}
   m_Layer: 5
-  m_Name: BackButton
+  m_Name: MenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44888,7 +44884,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1773974965}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1265277254}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: SceneSelectMethod
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1773974965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46021,6 +46029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1832769605}
   - component: {fileID: 1832769604}
+  - component: {fileID: 1832769606}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46055,6 +46064,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1832769606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832769603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738c7ac849e0a2d44841acb54e00d2cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseUIRef: {fileID: 789193382}
+  droneController: {fileID: 262108804047911978}
 --- !u!4 &1842894032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 1eb252cf06d966f4f900cef8ebd60d01, type: 3}
@@ -55336,7 +55359,7 @@ PrefabInstance:
     - target: {fileID: 3153678030050401640, guid: 5faa747de369f344391d8fd11f5f415a, type: 3}
       propertyPath: pauseRef
       value: 
-      objectReference: {fileID: 789193386}
+      objectReference: {fileID: 0}
     - target: {fileID: 3153678030050401640, guid: 5faa747de369f344391d8fd11f5f415a, type: 3}
       propertyPath: droneHits
       value: 0

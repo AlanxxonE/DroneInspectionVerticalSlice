@@ -1,4 +1,128 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DroneController">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUiAAgBDCAyAJAgFQAAIAAAAAAAAYAKAAEAAAKAIFY=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\DroneMovementScripts\DroneController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingGenerator">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAASAAAAAAAAEAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\Generators\BuildingGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FenceGenerator">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="FenceGenerator.Directions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\PrototypeScripts\Generators\FenceGenerator.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\Generators\FenceGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StreetLightsGenerator">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="StreetLightsGenerator.Directions" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\PrototypeScripts\Generators\StreetLightsGenerator.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Enum Name="StreetLightsGenerator.SpawnDirection" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\PrototypeScripts\Generators\StreetLightsGenerator.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAACAAAAACAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\Generators\StreetLightsGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HazardEffect">
+    <Position X="3" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACBAgAQAAAAQAAAAAAAAEAACAAAAAAAAEAg=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\HazardScripts\HazardEffect.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HazardManager">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAAAIAgACAAAAAAABAAAAAAAEAAEAIAABAAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\HazardScripts\HazardManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HazardMechanics">
+    <Position X="4.75" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="HazardMechanics.LevelsOfDangers" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\PrototypeScripts\HazardScripts\HazardMechanics.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQCCKACyDAAAAIAAAAAgACCIAAMAIgkECAwAACAAAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\HazardScripts\HazardMechanics.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager">
+    <Position X="7.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQgAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\ManagerScripts\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LevelManager">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAIABACAACAAQAAAAAACAAQAAACAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\ManagerScripts\LevelManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CarBehaviour">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="CarBehaviour.Lane" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\PrototypeScripts\MiscellaneousScripts\CarBehaviour.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAUAAIAAACAAAAAEAAAAAAAAAAAAAAAAQAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\MiscellaneousScripts\CarBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DevTools">
+    <Position X="15.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\MiscellaneousScripts\DevTools.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DroneUI">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJQAAQwoCCAACACIABAEgAAAAoAwAAAAJgAABAQAAIg=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\UIScripts\DroneUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScoreScript">
+    <Position X="12.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAABADAAAIAAQAAIAAAAAAgAAAAAAAAQAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\PrototypeScripts\UIScripts\ScoreScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

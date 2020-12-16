@@ -73,7 +73,7 @@ public class HazardEffect : MonoBehaviour
     }
 
     /// <summary>
-    /// The Coroutine the makes the particle play while also cofnirming that the effect has started by chaning the boolean variable, after a specific amount of time
+    /// The Coroutine that makes the particle play while also cofnirming that the effect has started by chaning the boolean variable, after a specific amount of time
     /// </summary>
     IEnumerator GenerateEffect()
     {

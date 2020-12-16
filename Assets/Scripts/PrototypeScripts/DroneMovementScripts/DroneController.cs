@@ -7,7 +7,11 @@ public class DroneController : MonoBehaviour
     /// <summary>
     /// Class that handles the drone's movement ,tilt and camera
     /// </summary>
+    
+    //General Variables
     public Rigidbody parentRB; //Reference to the drone's rigidbody
+    public bool isPaused;
+    public int droneHits = 0; //How many time the drone can collide before being destroyed 
 
     //Camera Variables
     public bool thirdPerson = true;  //Boolean to determine if in third person
@@ -48,11 +52,7 @@ public class DroneController : MonoBehaviour
     [SerializeField]
     [Tooltip("Sets the force for the Push Back when Colliding with something")]
     public float pushBackForce;
-
-    public PauseBehaviour pauseRef; //Reference to pause behaviour script
-
-    public int droneHits = 0; //How many time the drone can collide before being destroyed 
-
+    
     private void Awake()
     {
         startPosition = parentRB.transform.position;  //Sets the start position
@@ -69,7 +69,7 @@ public class DroneController : MonoBehaviour
 
     void Update()
     {
-        if (pauseRef.activePause == false) //If game is not paused
+        if (!isPaused) //If game is not paused
         {
             if (GetComponentInChildren<HazardManager>().stopMovement == false) //If the drone can move
             {
