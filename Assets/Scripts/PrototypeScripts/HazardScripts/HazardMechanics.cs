@@ -41,7 +41,7 @@ public class HazardMechanics : MonoBehaviour
     GameObject TornBox;        //Reference to torn wire box game object in the crane hazard minigame
     bool checkSwapWire = false;       //Boolean to check if the cable has been swapped 
 
-    public bool checkEffect = false;
+    //public bool checkEffect = false;
 
     public List<Image> dangerImageList;  //List to determine danger level of a hazard
     private int dangerToDisplay;         //Reference to determine which danger image to display
@@ -124,13 +124,13 @@ public class HazardMechanics : MonoBehaviour
     {
         currentMousePosition = Input.mousePosition;   //Sets current mouse position
 
-        if (hazardManagerRef.hazardRef != null && hazardManagerRef.hazardRef.GetComponent<Animator>().GetBool("ActiveHazard") == true)   //True if hazard is currently being interacted with
+        if (hazardManagerRef.hazardRef != null /*&& hazardManagerRef.hazardRef.GetComponent<Animator>().GetBool("ActiveHazard") == true*/)   //True if hazard is currently being interacted with
         {           
             switch (hazardTag)            //Dependent on the hazard's tag it runs it's corresponding method, aswell as the hazard progress method
             {
                 case "ScaffoldHazard":
                     HazardProgress(40, -20, 20);
-                    ScaffoldHazard();
+                    //ScaffoldHazard();
                     break;
 
                 case "CraneHazard":

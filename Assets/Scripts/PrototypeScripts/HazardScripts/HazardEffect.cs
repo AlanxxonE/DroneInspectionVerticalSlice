@@ -53,7 +53,7 @@ public class HazardEffect : MonoBehaviour
             //then if the player fixed/failed a minigame or too much time has elapsed the boolean variable confirms the end of the effect
             if (particleClone.activeSelf == true && particleClone.GetComponent<ParticleSystem>().isPlaying)
             {
-                this.GetComponent<HazardMechanics>().checkEffect = true;
+                //this.GetComponent<HazardMechanics>().checkEffect = true;
             }
             else if (!particleClone.GetComponent<ParticleSystem>().isPaused)
             {
@@ -66,7 +66,7 @@ public class HazardEffect : MonoBehaviour
                 satisfactionRef.satisfactionValue -= 10f;
 
                 particleClone.SetActive(false);
-                this.GetComponent<HazardMechanics>().checkEffect = false;
+                //this.GetComponent<HazardMechanics>().checkEffect = false;
                 Destroy(this);
             }
         }

@@ -42,7 +42,7 @@ public class HazardManager : MonoBehaviour
         if (check.collider != null && check.collider.GetComponentInChildren<HazardMechanics>() != null)
         {
             //If the hazard is within the optimal distance from the drone
-            if (check.distance > check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMin && check.distance < check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMax && check.collider.GetComponentInChildren<HazardMechanics>().checkEffect == true)
+            if (check.distance > check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMin && check.distance < check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMax /*&& check.collider.GetComponentInChildren<HazardMechanics>().checkEffect == true*/)
             {
                 uIRef.color = Color.green;  //Sets the artificial horizon UI elements to green
             }
@@ -68,16 +68,16 @@ public class HazardManager : MonoBehaviour
         Physics.Raycast(transform.position, transform.forward, out hit, 100f);  //Shoots out a raycast
 
         //If the raycast hits a hazard that is still in danger
-        if (hit.collider != null && hit.collider.GetComponentInChildren<HazardMechanics>() != null && hit.collider.GetComponentInChildren<HazardMechanics>().checkEffect == true)
+        if (hit.collider != null && hit.collider.GetComponentInChildren<HazardMechanics>() != null /*&& hit.collider.GetComponentInChildren<HazardMechanics>().checkEffect == true*/)
         {
             if (uIRef.color == Color.green)
             {
                 stopMovement = true;   //Stops the drone
-                hit.collider.GetComponent<HazardEffect>().particleClone.GetComponent<ParticleSystem>().Pause();  //Pause the particle effect of the hazard
+                //hit.collider.GetComponent<HazardEffect>().particleClone.GetComponent<ParticleSystem>().Pause();  //Pause the particle effect of the hazard
                 hazardRef = hit.collider.GetComponent<HazardMechanics>().hazardPopUpRef;  //Gets the reference to the minigame canvas pop up of the subsequent hazard
                 hazardRef.SetActive(true);  //Sets the minigame canvas pop up active
                 hit.collider.GetComponentInChildren<HazardMechanics>().hazardTag = hazardRef.tag;   //Gets the tag of the subsequent hazard
-                hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", true);   //Sets the hazards run state equal to true
+                //hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", true);   //Sets the hazards run state equal to true
             }
         }
     }
@@ -90,7 +90,7 @@ public class HazardManager : MonoBehaviour
     /// <param name="isFixed"></param>  boolean to determine if a hazard was fixed successfully or not
     public void FinishHazard(int satisfaction,int score, bool isFixed)
     {
-        hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", false);  //Sets the hazard inactive on completion, win or lose
+        //hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", false);  //Sets the hazard inactive on completion, win or lose
         stopMovement = false;   //Allows the drone to move again
         droneUIScript.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose
         LevelManager.scoreValue += score;  //Adds score to the end game score
