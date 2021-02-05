@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     //References
     public GameObject pauseUIRef;   //Reference to the pause menu
     public DroneController droneController; //Reference to the drone controller script
+    public HazardManager hazardManager;
     private bool isPaused = false;   //Boolean to determine pause state
 
     // Update is called once per frame

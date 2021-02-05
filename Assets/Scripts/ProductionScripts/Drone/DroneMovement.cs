@@ -2,19 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneController : MonoBehaviour
+public class DroneMovement : MonoBehaviour
 {
     /// <summary>
     /// Class that handles the drone's movement ,tilt and camera
     /// </summary>
-    
+
     //General Variables
-    public Rigidbody parentRB; //Reference to the drone's rigidbody
-    public bool isPaused;
-    public int droneHits = 0; //How many time the drone can collide before being destroyed 
+    private Rigidbody parentRB; //Reference to the drone's rigidbody
+    private DroneController droneController;
+
+    //Movement Variables
+    private float turnSpeed = 2f;  //Variable for turn speed
+    [SerializeField]
+    [Tooltip("Sets the velocity of the drone in meters per second")]
+    private float droneVelocity;
+    private float speed;   //Variable to determine speed of the drone
+    private Vector3 desiredVelocity;  //Velocity the drone is aiming for
+    private Vector3 referenceVelocity; //Reference to the default velocity of the drone
+    private float smoothTime = 0.2f;  //Time taken to accelerate to new velocity, smaller is faster
+    [SerializeField]
+    [Tooltip("Sets the maximum height the drone can fly to in metres")]
+    public float flightCeiling = 150;
+    [SerializeField]
+    [Tooltip("Sets the maximum range the drone can fly from it's start position in metres, i.e. the distance where signal strength becomes zero and the 'static' is at it's maximum")]
+    public float maxRange;
+    public Vector3 startPosition;   //Reference to the position teh dropne starts at
+    public float canMove = 1;    //Float to allow/disallow movement
+    private Vector3 currentVelocity;  //Reference to current velocity of the drone
 
     //Camera Variables
-    public bool thirdPerson = true;  //Boolean to determine if in third person
+    private bool thirdPerson = true;  //Boolean to determine if in third person
     public GameObject thirdPersonCam;   //Reference to third person camera
     public GameObject firstPersonCam;   //Reference to first person camera
     public bool freelook = false;   //Boolean to determine if the players is free looking
@@ -22,25 +40,6 @@ public class DroneController : MonoBehaviour
     public float camMaxVerticalFreeLookAngle = 90f; //Variable to set the max angle the free look camera can rotate through
     private float camXAxisRotation;  //Reference to the x-axis rotation of the camera
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
-
-    //Movement Variables
-    private float turnSpeed = 2f;  //Variable for turn speed
-    [SerializeField]
-    [Tooltip("Sets the velocity of the drone in meters per second")]
-    private float droneVelocity;  
-    private float speed;   //Variable to determine speed of the drone
-    private Vector3 desiredVelocity;  //Velocity the drone is aiming for
-    private Vector3 referenceVelocity; //Reference to the default velocity of the drone
-    private float smoothTime = 0.2f;  //Time taken to accelerate to new velocity, smaller is faster
-    [SerializeField]
-    [Tooltip("Sets the maximum height the drone can fly to in metres")]
-    public float flightCeiling = 150;  
-    [SerializeField]
-    [Tooltip("Sets the maximum range the drone can fly from it's start position in metres, i.e. the distance where signal strength becomes zero and the 'static' is at it's maximum")]
-    public float maxRange;
-    public Vector3 startPosition;   //Reference to the position teh dropne starts at
-    public float canMove = 1;    //Float to allow/disallow movement
-    private Vector3 currentVelocity;  //Reference to current velocity of the drone
 
     //Tilt Variables
     public GameObject tiltingChild;  //The child object opf the drone that tilts about the parent
@@ -52,24 +51,21 @@ public class DroneController : MonoBehaviour
     [SerializeField]
     [Tooltip("Sets the force for the Push Back when Colliding with something")]
     public float pushBackForce;
-    
+
     private void Awake()
     {
+        parentRB = GetComponent<Rigidbody>(); //gets the drone's rigidbody
         startPosition = parentRB.transform.position;  //Sets the start position
         speed = droneVelocity / Time.fixedDeltaTime;  //Sets speed
         theta = maxTiltAngle / droneVelocity;   //Sets the theta maths function
-        camTurnSpeed = turnSpeed;  //Sets the camera turn speed equal to that of the drone turn speed
-    }
-    void Start()
-    { 
-        parentRB = GetComponent<Rigidbody>(); //gets the drone's rigidbody
-
+        camTurnSpeed = turnSpeed;  //Sets the camera turn speed equal to that of the drone turn speed        
         Cursor.lockState = CursorLockMode.Locked; //Locks the mouse cursor
+        
     }
 
-    void Update()
+    private void Update()
     {
-        if (!isPaused) //If game is not paused
+        if (!droneController.GetIsPaused()) //If game is not paused
         {
             if (GetComponentInChildren<HazardManager>().stopMovement == false) //If the drone can move
             {
@@ -88,6 +84,7 @@ public class DroneController : MonoBehaviour
             Camera();
             currentVelocity = parentRB.velocity;  //Sets the current velocity of the drone equal to the drone's velocity
         }
+        
     }
 
     /// <summary>
@@ -121,9 +118,9 @@ public class DroneController : MonoBehaviour
         float turnTemp = turnSpeed * Input.GetAxis("Mouse X"); //Sets the rate at which the drone should turn based on the mouse's x-axis input
         transform.Rotate(0, turnTemp * canMove, 0);  //Rotates the drone based on the value of turn temp
 
-        if (canMove == 0 ) //If the drone can't move (when interacting with a hazard)
+        if (canMove == 0) //If the drone can't move (when interacting with a hazard)
         {
-            transform.LookAt(GetComponentInChildren<HazardManager>().hit.collider.transform.position); //Looks at the hazard
+            transform.LookAt(droneController.GetDroneRayCast().hit.collider.transform.position); //Looks at the hazard
             rotationFix = true;  //Sets rotation fix equals true
         }
         else if (canMove == 1 && rotationFix == true)  //If the drone can move and has interacted with a hazard
@@ -205,17 +202,17 @@ public class DroneController : MonoBehaviour
     private void OnCollisionEnter(Collision obstacle)
     {
         droneHits++;       //keeps track of number of collisions 
-        if(droneHits == 3) //If the drone collides 3 times
+        if (droneHits == 3) //If the drone collides 3 times
         {
             GetComponent<DroneUI>().levelManagerScript.SceneSelectMethod(3);  //Loads score scene
         }
 
         Vector3 angleAtCollision = currentVelocity.normalized;  //Normalised vector of the direction the drone is flying in at time of collision
         Vector3 normalAngleAtCollision = obstacle.contacts[0].normal.normalized;  //Normal angle of the face the drone collides with
-        Vector3 directionFix = new Vector3(1,1,1);  //Vector to determine which angle the drone should be knocked in
+        Vector3 directionFix = new Vector3(1, 1, 1);  //Vector to determine which angle the drone should be knocked in
 
         //If the face has been rotated around any axis the angle to drone bounces off will change
-        if(normalAngleAtCollision.x !=0)  
+        if (normalAngleAtCollision.x != 0)
         {
             directionFix += new Vector3(-2, 0, 0);
         }
@@ -225,10 +222,10 @@ public class DroneController : MonoBehaviour
         }
         if (normalAngleAtCollision.z != 0)
         {
-            directionFix += new Vector3(0, 0, -2); 
+            directionFix += new Vector3(0, 0, -2);
         }
-        
-        Vector3 bounceAngle = (normalAngleAtCollision + Vector3.Scale(angleAtCollision,directionFix)) * 360;    //Bounce angle  is equal to the normal angle at collision plus the angle the drone is flying at rotated around the normal  
+
+        Vector3 bounceAngle = (normalAngleAtCollision + Vector3.Scale(angleAtCollision, directionFix)) * 360;    //Bounce angle  is equal to the normal angle at collision plus the angle the drone is flying at rotated around the normal  
         parentRB.AddForce(bounceAngle * pushBackForce);       //Adds force in teh driection of the bounce angle
-    }   
+    }
 }

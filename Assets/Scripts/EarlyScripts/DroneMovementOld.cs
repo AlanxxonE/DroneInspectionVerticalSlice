@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DroneMovement : MonoBehaviour
+public class DroneMovementOld : MonoBehaviour
 {
     protected Vector3 movementHorizontalVelocity;
     protected Vector3 movementVerticalVelocity;
