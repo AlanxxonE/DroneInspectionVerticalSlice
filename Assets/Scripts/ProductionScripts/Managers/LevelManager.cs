@@ -6,13 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    //Button References
-    public Button startButtonRef;  //Reference to the start button
-    public Button controlsButtonRef;  //Reference to the controls button
-    public Button backButtonRef;  //Reference to the back button
-    public Button escButtonRef;  //Reference to the escape button
-
-
+    ////Button References
+    //public Button startButtonRef;  //Reference to the start button
+    //public Button controlsButtonRef;  //Reference to the controls button
+    //public Button backButtonRef;  //Reference to the back button
+    //public Button escButtonRef;  //Reference to the escape button
 
     //Score Variables
     static public int scoreValue = 0;   //Sets score equal to zero initially
@@ -42,7 +40,6 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(i, LoadSceneMode.Single);  //Loads scene from build index 
         Time.timeScale = 1;  //Sets time scale equal to 1 when a level is loaded 
     }
-
 
     /// <summary>
     /// Method to quit the game

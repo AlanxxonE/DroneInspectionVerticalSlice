@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class DroneUI : MonoBehaviour
 {
+    //Class References
+    private DroneController droneController;
+
     //References
     public GameObject altitudeRef;   //Reference to altitude slider of the drone UI                           
     public GameObject rangeRef;      //Reference to range metre of the drone UI  
@@ -13,10 +16,8 @@ public class DroneUI : MonoBehaviour
     public GameObject horizonLineRef;    //Reference to horizontal line of the artificial horizon of the drone UI  
     public GameObject horizonPointerRef;   //Reference to vertical line of the artificial horizon of the drone UI  
     public GameObject[] artificialHorizonRef;   //List of references to the vertical line, horizontal line and angle markers of the artificial horizon of the drone UI
-    public Image signalUI;     //Reference to the signal strength overlay image of teh drone UI          
-    public DroneController droneController;   //Reference to the drone controller script
+    public Image signalUI;     //Reference to the signal strength overlay image of the drone UI          
     private Vector3 horPosVar;   //Vector 3 to alter the position of the horizontal line of the artificial horizon of the drone UI
-    public LevelManager levelManagerScript;   //Reference to the level manager script
 
     //UI Variables
     private float altitude;   //Altitude variable
@@ -38,6 +39,7 @@ public class DroneUI : MonoBehaviour
 
     private void Start()
     {
+        droneController = GetComponent<DroneController>();
         satisfactionSliderRef = satisfactionRef.GetComponentInChildren<Slider>();   //Gets the satisfaction slider
         satisfactionSliderRef.value = satisfactionValue;   //Sets the value of the satisfaction slider
         maxRange = droneController.maxRange;   //Sets the max range
@@ -58,7 +60,7 @@ public class DroneUI : MonoBehaviour
     /// </summary>
     private void Range()
     {
-        range = Vector3.Distance(transform.position, droneController.startPosition);   //Gets the distance the drone has flown from it's origin
+        range = Vector3.Distance(transform.position, droneController.droneMovement.startPosition);   //Gets the distance the drone has flown from it's origin
         rangeRef.GetComponentInChildren<Text>().text = Mathf.RoundToInt(100 - ((range / maxRange) * 100)) + "%";   //Sets the range text equal to the percentage of the maximum range the drone has flown
 
         float staticEffectIntensity = Mathf.Pow(((range - (maxRange * signalLossPoint)) / (maxRange * (1 - (signalLossPoint / 1)))), 1.5f);  //Sets an exponentialy increasing intensity for the static effect after the drone has flown past the point where it begins to lose signal
@@ -69,8 +71,8 @@ public class DroneUI : MonoBehaviour
 
             if (range > maxRange)  //If the drone flies outside it max range and loses signalk
             {
-                droneController.parentRB.transform.position = droneController.startPosition;  //Resets the drone's position
-                droneController.parentRB.velocity = Vector3.zero;  //Resets the drone's velocity
+                droneController.droneMovement.parentRB.transform.position = droneController.droneMovement.startPosition;  //Resets the drone's position
+                droneController.droneMovement.parentRB.velocity = Vector3.zero;  //Resets the drone's velocity
             }
         }
         else   //Else removes the static effect
@@ -128,14 +130,14 @@ public class DroneUI : MonoBehaviour
     /// </summary>
     private void ArtificialHorizon()
     {
-        if (droneController.thirdPerson == false) //Sets the artificial horizon active if in first person
+        if (droneController.droneMovement.thirdPerson == false) //Sets the artificial horizon active if in first person
         {
             for (int i = 0; i < artificialHorizonRef.Length; i++)
             {
                 artificialHorizonRef[i].GetComponent<Image>().enabled = true;
             }
         }
-        else if (droneController.thirdPerson == true) //Sets the artificial horizon inactive if in third person
+        else if (droneController.droneMovement.thirdPerson == true) //Sets the artificial horizon inactive if in third person
         {
             for (int i = 0; i < artificialHorizonRef.Length; i++)
             {
@@ -145,8 +147,8 @@ public class DroneUI : MonoBehaviour
 
         if (horizonLineRef.GetComponent<Image>().enabled == true)  //If the artificial horizon is active
         {
-            horizonLineRef.transform.localEulerAngles = new Vector3(0, 0, droneController.Tilt().z * -1); //Sets the tilt of the artificial horizon about the z-axis counter to that of the drone's tilt
-            horizonLineRef.transform.position = new Vector3(horPosVar.x, horPosVar.y + (droneController.Tilt().x * 40 / droneController.maxTiltAngle), 0);  //Sets the vertical position of the artificial horizon based on the drone's forward tilt angle
+            horizonLineRef.transform.localEulerAngles = new Vector3(0, 0, droneController.droneMovement.Tilt().z * -1); //Sets the tilt of the artificial horizon about the z-axis counter to that of the drone's tilt
+            horizonLineRef.transform.position = new Vector3(horPosVar.x, horPosVar.y + (droneController.droneMovement.Tilt().x * 40 / droneController.maxTiltAngle), 0);  //Sets the vertical position of the artificial horizon based on the drone's forward tilt angle
         }
     }
 
@@ -188,11 +190,10 @@ public class DroneUI : MonoBehaviour
             }
         }
 
-
         //If satisfaction of 100 is achieved the score scene is loaded
         if (satisfactionValue >= 100 || satisfactionValue <= 0)
         {
-            levelManagerScript.SceneSelectMethod(3);
+            droneController.gameManager.levelManager.SceneSelectMethod(3);
         }
     }
 }

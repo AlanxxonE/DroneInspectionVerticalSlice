@@ -9,23 +9,34 @@ public class GameManager : MonoBehaviour
     /// Game manager class
     /// </summary>
     
-    //References
-    public GameObject pauseUIRef;   //Reference to the pause menu
-    public DroneController droneController; //Reference to the drone controller script
+    //Class References
+    public DroneController droneController; 
     public HazardManager hazardManager;
+    public LevelManager levelManager;
+
+    //General Variables
+    [Tooltip("Reference for the pause menu popup")]
+    public GameObject pauseUIRef;  
     private bool isPaused = false;   //Boolean to determine pause state
 
-    // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 2 || SceneManager.GetActiveScene().buildIndex == 4)
-        {          
-            if (Input.GetButtonDown("Pause")) 
-            {               
-                isPaused = !isPaused;  //Swaps the pause boolean           
-                Pause(isPaused);  //Calls the pause method
+        if (Input.GetButtonDown("Pause"))
+        {
+            switch (SceneManager.GetActiveScene().buildIndex)
+            {
+                case 2:
+                    isPaused = !isPaused;  //Swaps the pause boolean           
+                    Pause(isPaused);  //Calls the pause method
+                    break;
+                case 4:
+                    isPaused = !isPaused;  //Swaps the pause boolean           
+                    Pause(isPaused);  //Calls the pause method
+                    break;
+                default:
+                    break;
             }
-        }
+        }       
     }
 
     /// <summary>

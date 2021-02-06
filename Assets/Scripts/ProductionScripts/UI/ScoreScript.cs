@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class ScoreScript : MonoBehaviour
 {
     /// <summary>
-    /// Class to data on the score of the game and which hazards were fixed
+    /// Class to hold data on the score of the game and which hazards were fixed
     /// </summary>
     
     //References
