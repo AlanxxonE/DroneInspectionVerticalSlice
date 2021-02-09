@@ -12,8 +12,12 @@ public class DroneRayCast : MonoBehaviour
     //Hazard Interaction Variables
     private RaycastHit check;        //Holds reference for the object a raycast hit 
     [HideInInspector]public RaycastHit hit;          //Variable to determine what the raycast hit    
-    [HideInInspector]public GameObject hazardRef;       //Reference to the current hazard being interacted with
     [HideInInspector]public bool stopMovement = false;   //Bool to determine if the drone should stop moving
+
+    private void Awake()
+    {
+        droneController = this.GetComponent<DroneController>();
+    }
 
     private void Update()
     {
@@ -39,11 +43,13 @@ public class DroneRayCast : MonoBehaviour
             if (check.distance > droneController.gameManager.hazardManager.optimalDistanceMin && check.distance < droneController.gameManager.hazardManager.optimalDistanceMax)
             {
                 droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.green;  //Sets the artificial horizon UI elements to green
+                Debug.Log("Green");
             }
             //If the hazard is ouwith the optimal distance from the drone
             else if (check.distance < droneController.gameManager.hazardManager.maxDetectionDistance)
             {
                 droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.red;   //Sets the artificial horizon UI elements to red
+                Debug.Log("Red");
             }
         }
 
@@ -65,9 +71,7 @@ public class DroneRayCast : MonoBehaviour
         if (hit.collider != null && hit.collider.CompareTag("Hazard"))
         {            
             stopMovement = true;   //Stops the drone     
-            ///
-            ///  Mechanics initialised here
-            ///
+            droneController.gameManager.hazardManager.RunHazard(hit.collider.gameObject);
         }
     }
 }

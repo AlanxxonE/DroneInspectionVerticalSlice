@@ -14,23 +14,21 @@ public class DroneUI : MonoBehaviour
     public GameObject satisfactionRef;  //Reference to satisfaction slider of the drone UI  
     public GameObject artificialHorizonCircle;  //Reference to circle of the artificial horizon of the drone UI  
     public GameObject artificialHorizonLine;    //Reference to horizontal line of the artificial horizon of the drone UI  
-    public Image signalUI;     //Reference to the signal strength overlay image of the drone UI          
+    public Image staticEffect;     //Reference to the signal strength overlay image of the drone UI          
     private Vector3 horPosVar;   //Vector 3 to alter the position of the horizontal line of the artificial horizon of the drone UI
 
     //UI Variables
     private float altitude;   //Altitude variable
     private float range;   //Range variable    
     private Slider satisfactionSliderRef;   //Reference to the slider of the satisfaction bar
-    private Gradient satisfactionGradient;   //Reference to the colour gradient of the slider of the satisfaction bar
     public List<Image> workersFacesImageList;  //List of images of the worker's faces
     public List<Image> signalImageList;   //List of images used to show signal strength
 
-    private void Start()
+    private void Awake()
     {
-        droneController = GetComponent<DroneController>();
+        droneController = this.GetComponent<DroneController>();
         satisfactionSliderRef = satisfactionRef.GetComponentInChildren<Slider>();   //Gets the satisfaction slider
         satisfactionSliderRef.value = droneController.satisfactionValue;   //Sets the value of the satisfaction slider
-        satisfactionGradient = satisfactionSliderRef.GetComponent<Gradient>();
         altitudeRef.GetComponentInChildren<Slider>().maxValue = droneController.flightCeiling;  //Sets the max value of the altitude slider equal to that of the max height the drone can fly at
         rangeRef.GetComponentInChildren<Slider>().maxValue = 1;  //Sets the maximum value of the range metre
         horPosVar = artificialHorizonLine.GetComponentInParent<Transform>().position;  //Sets the vector 3 of the horizontal line
@@ -55,7 +53,7 @@ public class DroneUI : MonoBehaviour
 
         if (range > droneController.maxRange * droneController.signalLossPoint)  //If the drone has flown past the point where it begins to lose signal
         {
-            signalUI.GetComponent<Image>().color = new Color(255, 255, 255, staticEffectIntensity); //Applies a static effect over the screen
+            staticEffect.GetComponent<Image>().color = new Color(255, 255, 255, staticEffectIntensity); //Applies a static effect over the screen
 
             if (range > droneController.maxRange)  //If the drone flies outside it max range and loses signalk
             {
@@ -65,7 +63,7 @@ public class DroneUI : MonoBehaviour
         }
         else   //Else removes the static effect
         {
-            signalUI.GetComponent<Image>().color = new Color(255, 255, 255, 0f); 
+            staticEffect.GetComponent<Image>().color = new Color(255, 255, 255, 0f); 
         }
 
         float signalRatio = range / droneController.maxRange;  //Ratio to determine how much signal strength it has based on the distance flown
@@ -144,7 +142,7 @@ public class DroneUI : MonoBehaviour
         droneController.satisfactionValue -= droneController.satisfactionDropRate * Time.deltaTime; //Removes satisfaction over time
         satisfactionSliderRef.value = droneController.satisfactionValue;  //Sets the new satisfaction value to the UI slider
 
-        satisfactionRef.GetComponentInChildren<Image>().color = satisfactionGradient.Evaluate(satisfactionSliderRef.normalizedValue);  //Sets the colour of the satisfaction slider based on it's value
+        satisfactionRef.GetComponentInChildren<Image>().color = droneController.satisfactionGradient.Evaluate(satisfactionSliderRef.normalizedValue);  //Sets the colour of the satisfaction slider based on it's value
         int x; //Integer index to determine which worker face image should be displayed based on the satisfaction level
 
         //Sets the index for which image shoulde be selected

@@ -48,5 +48,7 @@ public class DroneController : MonoBehaviour
     public float satisfactionDropRate;
     [Range(0f, 100f)]
     [Tooltip("Sets the initial value of worker satisfaction. Range from 0 - 100.")]
-    public float satisfactionValue = 50f;   
+    public float satisfactionValue = 50f;
+    [Tooltip("Sets the gradient for the satisfaction slider")]
+    public Gradient satisfactionGradient;
 }

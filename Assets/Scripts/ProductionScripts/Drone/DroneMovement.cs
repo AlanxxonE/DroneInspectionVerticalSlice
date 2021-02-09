@@ -35,7 +35,7 @@ public class DroneMovement : MonoBehaviour
 
     private void Awake()
     {
-        droneController = GetComponent<DroneController>();
+        droneController = this.GetComponent<DroneController>();
         parentRB = GetComponent<Rigidbody>(); //gets the drone's rigidbody
         startPosition = parentRB.transform.position;  //Sets the start position
         speed = droneController.droneVelocity / Time.fixedDeltaTime;  //Sets speed
