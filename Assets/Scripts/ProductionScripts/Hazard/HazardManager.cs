@@ -22,6 +22,9 @@ public class HazardManager : MonoBehaviour
     public int maxDetectionDistance;
     [Tooltip("Integer to set how fast the hazard loses progress, i.e. how many ticks per second")]
     public int hazardProgressDropRate;
+    [Range(0,100)]
+    [Tooltip("Initial value for the hazard slider")]
+    public int hazardSliderInitialValue;
 
     //General
     [Tooltip("Reference to the hazard slider parent object")]
@@ -52,7 +55,7 @@ public class HazardManager : MonoBehaviour
     {
         if (hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
         {            
-            FinishHazard(satisfaction, score, true, currentHazardScript);
+            FinishHazard(satisfaction, score, true, currentHazardScript);            
         }
         else if (hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
         {
@@ -88,7 +91,9 @@ public class HazardManager : MonoBehaviour
         //            break;                    
         //    }
         //}
+        hazardSlider.value = hazardSliderInitialValue;
         hazardSliderRef.SetActive(false);
+        
         currentHazardScript.enabled = false;
         currentHazardScript = null;
     }   

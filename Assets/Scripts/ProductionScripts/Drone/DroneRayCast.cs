@@ -23,7 +23,7 @@ public class DroneRayCast : MonoBehaviour
     {
         RaycastDistanceCheck();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color == Color.green)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color == Color.green && droneController.firstPersonCam.activeSelf == true)
         {
             ShootRaycast();
         }
@@ -43,13 +43,11 @@ public class DroneRayCast : MonoBehaviour
             if (check.distance > droneController.gameManager.hazardManager.optimalDistanceMin && check.distance < droneController.gameManager.hazardManager.optimalDistanceMax)
             {
                 droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.green;  //Sets the artificial horizon UI elements to green
-                Debug.Log("Green");
             }
             //If the hazard is ouwith the optimal distance from the drone
             else if (check.distance < droneController.gameManager.hazardManager.maxDetectionDistance)
             {
                 droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.red;   //Sets the artificial horizon UI elements to red
-                Debug.Log("Red");
             }
         }
 

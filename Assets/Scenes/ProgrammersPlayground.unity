@@ -251,6 +251,7 @@ MonoBehaviour:
   optimalDistanceMin: 10
   maxDetectionDistance: 60
   hazardProgressDropRate: 2
+  hazardSliderInitialValue: 50
   hazardSliderRef: {fileID: 1993848338}
   hazardSlider: {fileID: 0}
   currentHazardScript: {fileID: 0}
@@ -657,12 +658,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276983875}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a01a3f6223acad4091c7aab73d45df9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hazardManager: {fileID: 261446562}
+  isFixed: 0
 --- !u!65 &1276983877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1191,7 +1193,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 58f6b06986240464f9259a9741329578, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0ca2dbd5e7c2b3f43b76172d0b02cd48, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

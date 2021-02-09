@@ -9,7 +9,6 @@ public class HazardMechanics : MonoBehaviour
     /// <summary>
     /// Class that handles all the hazard mechanics. Each hazard has an instance of this class that is called from the hazard manager class when a hazard is interacted with.
     /// </summary>
-    /// 
 
     public HazardManager hazardManagerRef; //Reference to hazard manager script
 
