@@ -15,7 +15,6 @@ public class DroneMovement : MonoBehaviour
 
     //Camera Variables
     [HideInInspector]public bool thirdPerson = true;  //Boolean to determine if in third person   
-    private bool freelook = false;   //Boolean to determine if the players is free looking
     private float camTurnSpeed;   //Variable to set the turn speed of teh camera
     private float camXAxisRotation;  //Reference to the x-axis rotation of the camera
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
@@ -138,12 +137,10 @@ public class DroneMovement : MonoBehaviour
             thirdPerson = !thirdPerson;  //If the camera toggle is pressed it swaps the camera state between third or first person
         }
 
-        if (Input.GetMouseButton(1)) //If mopuse 2 is pressed
+        if (Input.GetMouseButton(1)) //If mouse 2 is pressed
         {
             turnSpeed = 0; //The drone cant turn
-            freelook = true;  //Free look is set to true
             thirdPerson = false;  //Third person is set to false
-
             camXAxisRotation += Input.GetAxis("Mouse Y") * -camTurnSpeed; camYAxisRotation += Input.GetAxis("Mouse X") * camTurnSpeed;  //Gets the x-axis and y-axis rotation based on mouse input
             float camXAxisRotationTemp = Mathf.Clamp(camXAxisRotation, -droneController.camMaxVerticalFreeLookAngle, droneController.camMaxVerticalFreeLookAngle);  //Clamps the rotation about the x-axis 
             droneController.firstPersonCam.transform.localEulerAngles = new Vector3(camXAxisRotationTemp, camYAxisRotation, 0);  //Applies the y-axis and clamped x-axis rotation to the camera
@@ -151,7 +148,6 @@ public class DroneMovement : MonoBehaviour
         else if (Input.GetMouseButtonUp(1)) //If mouse 2 is no longer pressed
         {
             turnSpeed = camTurnSpeed;  //Resets the tunr speed 
-            freelook = false;  //Sets free look equal to false
             droneController.firstPersonCam.transform.localEulerAngles = Vector3.zero;  //Resets the angle of the first person camera
             camXAxisRotation = 0;  //Resets the x-axis rotation of the camera
             camYAxisRotation = 0;  //Resets the Y-axis rotation of the camera
