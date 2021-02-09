@@ -185,7 +185,7 @@ public class DroneMovement : MonoBehaviour
         droneHits++;       //keeps track of number of collisions 
         if (droneHits == droneController.droneLives) //If the drone collides 3 times
         {
-            GetComponent<DroneUI>().levelManagerScript.SceneSelectMethod(3);  //Loads score scene
+            droneController.gameManager.levelManager.SceneSelectMethod(3);  //Loads score scene
         }
 
         Vector3 angleAtCollision = currentVelocity.normalized;  //Normalised vector of the direction the drone is flying in at time of collision

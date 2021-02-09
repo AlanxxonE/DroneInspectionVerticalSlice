@@ -10,10 +10,18 @@ public class HazardManager : MonoBehaviour
     
     //References 
     public DroneUI droneUIScript;   //Reference to the drone UI script 
-    
+    private GameManager gameManager;
+    private HazardMechanics hazardMechanics;
 
-    // Update is called once per frame
-    void Update()
+    //Variables
+    [Tooltip("Maximum optimal distance to interact with a hazard")]
+    public int optimalDistanceMax;
+    [Tooltip("Minimum optimal distance to interact with a hazard")]
+    public int optimalDistanceMin;
+    [Tooltip("Maximum distance a hazard will be detected from")]
+    public int maxDetectionDistance;
+
+    private void Start()
     {
         
     }
@@ -27,8 +35,8 @@ public class HazardManager : MonoBehaviour
     public void FinishHazard(int satisfaction,int score, bool isFixed)
     {
         //hazardRef.GetComponent<Animator>().SetBool("ActiveHazard", false);  //Sets the hazard inactive on completion, win or lose
-        stopMovement = false;   //Allows the drone to move again
-        droneUIScript.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose
+        gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
+        gameManager.droneController.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose
         LevelManager.scoreValue += score;  //Adds score to the end game score
         hazardRef.SetActive(false);  //Sets the hazard in question inactive
 

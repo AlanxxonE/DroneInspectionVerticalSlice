@@ -6,19 +6,20 @@ using UnityEngine.EventSystems;
 
 public class DroneRayCast : MonoBehaviour
 {
+    //Clasas Reference
+    private DroneController droneController;
 
     //Hazard Interaction Variables
-    public RaycastHit hit;          //Variable to determine what the raycast hit
-    RaycastHit check;        //Holds reference for the object a raycast hit
-    public Image horizonRectangle;     //Reference to the UI element of the rectangular border and the artificial horizon circle  
-    public GameObject hazardRef;       //Reference to the current hazard being interacted with
-    public bool stopMovement = false;   //Bool to determine if the drone should stop moving
+    private RaycastHit check;        //Holds reference for the object a raycast hit 
+    [HideInInspector]public RaycastHit hit;          //Variable to determine what the raycast hit    
+    [HideInInspector]public GameObject hazardRef;       //Reference to the current hazard being interacted with
+    [HideInInspector]public bool stopMovement = false;   //Bool to determine if the drone should stop moving
 
     private void Update()
     {
         RaycastDistanceCheck();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && horizonRectangle.color == Color.green)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color == Color.green)
         {
             ShootRaycast();
         }
@@ -32,24 +33,24 @@ public class DroneRayCast : MonoBehaviour
         Physics.Raycast(transform.position, transform.forward, out check, 100f); //Sends out a raycast 100m in front of the drone each frame
 
         //If the raycast hits a hazard
-        if (check.collider != null && check.collider.GetComponentInChildren<HazardMechanics>() != null)
+        if (check.collider != null && check.collider.CompareTag("Hazard"))
         {
             //If the hazard is within the optimal distance from the drone
-            if (check.distance > check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMin && check.distance < check.collider.GetComponentInChildren<HazardMechanics>().optimalDistanceMax /*&& check.collider.GetComponentInChildren<HazardMechanics>().checkEffect == true*/)
+            if (check.distance > droneController.gameManager.hazardManager.optimalDistanceMin && check.distance < droneController.gameManager.hazardManager.optimalDistanceMax)
             {
-                horizonRectangle.color = Color.green;  //Sets the artificial horizon UI elements to green
+                droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.green;  //Sets the artificial horizon UI elements to green
             }
             //If the hazard is ouwith the optimal distance from the drone
-            else if (check.distance < check.collider.GetComponentInChildren<HazardMechanics>().MaximumDistance)
+            else if (check.distance < droneController.gameManager.hazardManager.maxDetectionDistance)
             {
-                horizonRectangle.color = Color.red;   //Sets the artificial horizon UI elements to red
+                droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.red;   //Sets the artificial horizon UI elements to red
             }
         }
 
         //If the raycast hits nothing 
         else if (check.collider == null)
         {
-            horizonRectangle.color = Color.gray;  //Sets the artificial horizon UI elements to grey
+            droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.black;  //Sets the artificial horizon UI elements to grey
         }
     }
 
@@ -61,15 +62,12 @@ public class DroneRayCast : MonoBehaviour
         Physics.Raycast(transform.position, transform.forward, out hit, 100f);  //Shoots out a raycast
 
         //If the raycast hits a hazard that is still in danger
-        if (hit.collider != null && hit.collider.GetComponentInChildren<HazardMechanics>() != null /*&& hit.collider.GetComponentInChildren<HazardMechanics>().checkEffect == true*/)
-        {
-            if (horizonRectangle.color == Color.green)
-            {
-                stopMovement = true;   //Stops the drone
-                hazardRef = hit.collider.GetComponent<HazardMechanics>().hazardPopUpRef;  //Gets the reference to the minigame canvas pop up of the subsequent hazard
-                hazardRef.SetActive(true);  //Sets the minigame canvas pop up active
-                hit.collider.GetComponentInChildren<HazardMechanics>().hazardTag = hazardRef.tag;   //Gets the tag of the subsequent hazard               
-            }
+        if (hit.collider != null && hit.collider.CompareTag("Hazard"))
+        {            
+            stopMovement = true;   //Stops the drone     
+            ///
+            ///  Mechanics initialised here
+            ///
         }
     }
 }
