@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class DroneController : MonoBehaviour
 {
-    //Class References
+    //Class References   
+    [Header("Class References")]
     public DroneUI droneUI;
     public DroneMovement droneMovement;
     public DroneRayCast droneRayCast;
     public GameManager gameManager;
 
     //General Variables
+    [Header("General Variables")]
     public bool isPaused;
     public int droneLives = 3; //How many time the drone can collide before being destroyed 
 
     //Camera Variables
+    [Header("Camera Variables")]
     [Tooltip("Sets the first person camera of the drone")]
     public GameObject thirdPersonCam;
     [Tooltip("Sets the third person camera of the drone")]
@@ -22,7 +25,8 @@ public class DroneController : MonoBehaviour
     [Tooltip("Sets the vertical angle limit of the first person camera")]
     public float camMaxVerticalFreeLookAngle = 90f;
 
-    //Movement Variables    
+    //Movement Variables
+    [Header("Movement Variables")]
     [Tooltip("Sets the velocity of the drone in meters per second")]
     public float droneVelocity = 12;
     [Tooltip("Sets the maximum height the drone can fly to in metres")]
@@ -32,6 +36,7 @@ public class DroneController : MonoBehaviour
     [HideInInspector] public float canMove = 1; //Float to allow/disallow movement
 
     //Tilt Variables
+    [Header("Tilt Variables")]
     [Tooltip("Sets the child game object, i.e. the drone model, that tilts about the parent object")]
     public GameObject tiltingChild;
     [Tooltip("Sets the maximum angle the drone will tilt by in any given direction when at it's maximum velocity in any given direction. Does not affect flight mechanics, purely visual.")]
@@ -40,6 +45,7 @@ public class DroneController : MonoBehaviour
     public float pushBackForce;
 
     //UI Variables
+    [Header("UI Variables")]
     [Range(0f, 1f)]
     [Tooltip("Sets percentage of the maximum range of the drone at which the drone signal begins to fade and the static effect begins to increase")]
     public float signalLossPoint;

@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class DroneUI : MonoBehaviour
 {
     //Class References
+    [Header("Class References")]
     private DroneController droneController;
 
     //References
+    [Header("UI References")]
     public GameObject altitudeRef;   //Reference to altitude slider of the drone UI                           
     public GameObject rangeRef;      //Reference to range metre of the drone UI  
     public GameObject satisfactionRef;  //Reference to satisfaction slider of the drone UI  
@@ -18,6 +20,7 @@ public class DroneUI : MonoBehaviour
     private Vector3 horPosVar;   //Vector 3 to alter the position of the horizontal line of the artificial horizon of the drone UI
 
     //UI Variables
+    [Header("UI Variables")]
     private float altitude;   //Altitude variable
     private float range;   //Range variable    
     private Slider satisfactionSliderRef;   //Reference to the slider of the satisfaction bar

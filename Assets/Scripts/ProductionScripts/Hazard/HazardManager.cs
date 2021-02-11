@@ -8,12 +8,21 @@ public class HazardManager : MonoBehaviour
     /// <summary>
     /// Class used to manage the initial interaction with hazards and the win/lose conditions and score associated with each subsequent hazard
     /// </summary>
-    
+
     //Class References 
+    [Header("Class References")]
     public GameManager gameManager;
     //public HazardMechanics hazardMechanics;
 
-    //Variables
+    //General References
+    [Header("General References")]
+    [Tooltip("Reference to the hazard slider parent object")]
+    public GameObject hazardSliderRef;
+    [HideInInspector] public Slider hazardSlider;
+    [HideInInspector] public MonoBehaviour currentHazardScript = null;
+
+    //Hazard Mechanics Variables
+    [Header("Hazard Mechanics Variables")]
     [Tooltip("Maximum optimal distance to interact with a hazard")]
     public int optimalDistanceMax;
     [Tooltip("Minimum optimal distance to interact with a hazard")]
@@ -25,12 +34,6 @@ public class HazardManager : MonoBehaviour
     [Range(0,100)]
     [Tooltip("Initial value for the hazard slider")]
     public int hazardSliderInitialValue;
-
-    //General
-    [Tooltip("Reference to the hazard slider parent object")]
-    public GameObject hazardSliderRef;
-    [HideInInspector]public Slider hazardSlider;
-    [HideInInspector]public MonoBehaviour currentHazardScript = null;
 
     private void Awake()
     {
