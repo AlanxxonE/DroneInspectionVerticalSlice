@@ -23,17 +23,20 @@ public class HazardManager : MonoBehaviour
 
     //Hazard Mechanics Variables
     [Header("Hazard Mechanics Variables")]
-    [Tooltip("Maximum optimal distance to interact with a hazard")]
-    public int optimalDistanceMax;
-    [Tooltip("Minimum optimal distance to interact with a hazard")]
-    public int optimalDistanceMin;
-    [Tooltip("Maximum distance a hazard will be detected from")]
-    public int maxDetectionDistance;
     [Tooltip("Integer to set how fast the hazard loses progress, i.e. how many ticks per second")]
     public int hazardProgressDropRate;
     [Range(0,100)]
     [Tooltip("Initial value for the hazard slider")]
     public int hazardSliderInitialValue;
+
+    //Hazard Optimal Ranges
+    [Header("Hazard Optimal Ranges")]
+    [Tooltip("Maximum distance a hazard will be detected from")]
+    public int maxDetectionDistance;
+    [Tooltip("Optimal range to interact with scaffold hazard")]
+    public Vector2 scaffoldOptimalRange;
+    [Tooltip("Optimal range to interact with crane hazard")]
+    public Vector2 craneOptimalRange;
 
     private void Awake()
     {
@@ -41,32 +44,24 @@ public class HazardManager : MonoBehaviour
         hazardSliderRef.SetActive(false);
     }
     
-    public void RunHazard(GameObject hazardRef)
+    public Vector2 GetOptimalRange(string hazardName)
+    {
+        switch (hazardName)
+        {
+            case "Scaffold":
+                return scaffoldOptimalRange;
+            case "Crane":
+                return craneOptimalRange;
+            default:
+                return new Vector2(0, 0);
+        }
+    }
+    public void InitialiseHazard(GameObject hazardRef)
     {
         currentHazardScript = hazardRef.GetComponent<MonoBehaviour>();
         currentHazardScript.enabled = true;
         hazardSliderRef.SetActive(true);
         gameManager.droneController.droneUI.artificialHorizonCircle.SetActive(false);
-    }
-
-    /// <summary>
-    /// Method to handle to progression of a hazard and manage it's win/lose states
-    /// </summary>
-    /// <param name="satisfaction"></param>  satifaction score gained from winning the minigame
-    /// <param name="dissatisfaction"></param> satisfaction score lost from losing the minigame
-    /// <param name="score"></param>  score added to the score at the end of the game
-    public void HazardProgress(int satisfaction, int dissatisfaction, int score, string hazardName)
-    {
-        if (hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
-        {            
-            FinishHazard(satisfaction, score, true, currentHazardScript, hazardName);            
-        }
-        else if (hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
-        {
-            FinishHazard(dissatisfaction, 0, false, currentHazardScript, hazardName);
-        }
-
-        hazardSlider.value -= Time.deltaTime * hazardProgressDropRate;  //Sets the rate at which the hazard timer counts down ////Don't move this
     }
 
     /// <summary>
@@ -79,8 +74,7 @@ public class HazardManager : MonoBehaviour
     {      
         gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
         gameManager.droneController.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose
-        LevelManager.scoreValue += score;  //Adds score to the end game score
-
+        
         hazardSlider.value = hazardSliderInitialValue;
         hazardSliderRef.SetActive(false);
 
@@ -88,24 +82,11 @@ public class HazardManager : MonoBehaviour
 
         if (isFixed)
         {
-            switch (hazardName)
-            {
-                case "Scaffold":
-                    Score.isScaffoldFixed = true;
-                    currentHazardScript.tag = "Fixed";
-                    break;
-
-                case "InsertString":
-                    break;
-
-                default:
-                    break;
-            }
+            Score.SetFixedBooleans(hazardName);
+            currentHazardScript.tag = "Fixed";
         }
             
         currentHazardScript.enabled = false;
         currentHazardScript = null;
     }   
 }
-
-

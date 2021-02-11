@@ -213,6 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 261446561}
   - component: {fileID: 261446562}
+  - component: {fileID: 261446563}
   m_Layer: 0
   m_Name: HazardManager
   m_TagString: Untagged
@@ -247,14 +248,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1854876523792113281}
-  optimalDistanceMax: 30
-  optimalDistanceMin: 10
-  maxDetectionDistance: 60
-  hazardProgressDropRate: 2
-  hazardSliderInitialValue: 50
   hazardSliderRef: {fileID: 1993848338}
   hazardSlider: {fileID: 0}
   currentHazardScript: {fileID: 0}
+  hazardProgressDropRate: 2
+  hazardSliderInitialValue: 50
+  maxDetectionDistance: 60
+  scaffoldOptimalRange: {x: 10, y: 20}
+  craneOptimalRange: {x: 10, y: 20}
+--- !u!114 &261446563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261446560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 264c42b7cc1fd1e4d831bdbf64022bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hazardManager: {fileID: 261446562}
 --- !u!1 &286696136
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,7 +678,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hazardManager: {fileID: 261446562}
-  isFixed: 0
 --- !u!65 &1276983877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1581,7 +1594,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4059132161411628888}
         m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
         m_MethodName: QuitMethod
         m_Mode: 1
@@ -1693,7 +1706,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4059132161411628888}
         m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
         m_MethodName: SceneSelectMethod
         m_Mode: 3
@@ -4558,14 +4571,16 @@ MonoBehaviour:
   droneMovement: {fileID: 8890673895413449715}
   droneRayCast: {fileID: 8890673895413449714}
   gameManager: {fileID: 1854876523792113281}
-  isPaused: 0
   droneLives: 3
-  thirdPersonCam: {fileID: 8620854080377399630}
+  isPaused: 0
   firstPersonCam: {fileID: 8620854079099973878}
+  thirdPersonCam: {fileID: 8620854080377399630}
   camMaxVerticalFreeLookAngle: 90
   droneVelocity: 12
   flightCeiling: 150
   maxRange: 300
+  turnSpeed: 2
+  smoothTime: 0.2
   canMove: 1
   tiltingChild: {fileID: 2936730467947669005}
   maxTiltAngle: 15

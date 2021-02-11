@@ -6,9 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {    
-    //Score Variables
-    static public int scoreValue = 0;   //Sets score equal to zero initially
-    public static bool isScaffoldFixed, isCraneFixed;    //Booleans to determine if hazards have been 
 
     // Start is called before the first frame update
     void Start()
@@ -18,10 +15,10 @@ public class LevelManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex == 2)  //If main level
         {
-            //Sets these variables when the level is loaded
-            scoreValue = 0;   
-            isScaffoldFixed = false;
-            isCraneFixed = false;
+            ////Sets these variables when the level is loaded
+            //scoreValue = 0;   
+            //isScaffoldFixed = false;
+            //isCraneFixed = false;
         }
     }
 

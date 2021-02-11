@@ -34,13 +34,14 @@ public class DroneRayCast : MonoBehaviour
     /// </summary>
     public void RaycastDistanceCheck()
     {
-        Physics.Raycast(transform.position, transform.forward, out check, 100f); //Sends out a raycast 100m in front of the drone each frame
+        Physics.Raycast(transform.position, transform.forward, out check, droneController.gameManager.hazardManager.maxDetectionDistance); //Sends out a raycast 100m in front of the drone each frame
 
         //If the raycast hits a hazard
         if (check.collider != null && check.collider.CompareTag("Hazard"))
         {
+            string hazardName = check.collider.GetComponent<MonoBehaviour>().GetType().Name;
             //If the hazard is within the optimal distance from the drone
-            if (check.distance > droneController.gameManager.hazardManager.optimalDistanceMin && check.distance < droneController.gameManager.hazardManager.optimalDistanceMax)
+            if (check.distance > droneController.gameManager.hazardManager.GetOptimalRange(hazardName).x && check.distance < droneController.gameManager.hazardManager.GetOptimalRange(hazardName).y)
             {
                 droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.green;  //Sets the artificial horizon UI elements to green
             }
@@ -69,7 +70,7 @@ public class DroneRayCast : MonoBehaviour
         if (hit.collider != null && hit.collider.CompareTag("Hazard"))
         {            
             stopMovement = true;   //Stops the drone     
-            droneController.gameManager.hazardManager.RunHazard(hit.collider.gameObject);            
+            droneController.gameManager.hazardManager.InitialiseHazard(hit.collider.gameObject);            
         }
     }
 }

@@ -4,16 +4,9 @@ using UnityEngine;
 
 public class Scaffold : HazardMechanics
 {
-    //Class Reference
-    public HazardManager hazardManager;
-
-    //General Variables 
-    private int satisfaction = 40;
-    private int dissatisfaction = 20;
-    private int score = 50;
+    //General Variables     
     private string hazardName = "Scaffold";
-    [HideInInspector]public bool isFixed = false;
-
+    
     private void Awake()
     {
         this.GetComponent<MonoBehaviour>().enabled = false;        
@@ -26,13 +19,12 @@ public class Scaffold : HazardMechanics
 
     private void Update()
     {
-        //Debug.Log("It is running!!!!");
         Mechanics();
     }
 
     public void Mechanics()
     {
-        hazardManager.HazardProgress(satisfaction, dissatisfaction, score, hazardName);
-        hazardManager.hazardSlider.value += 10 * Time.deltaTime; ///Change for the actual mechanics
+        float temp = 10 * Time.deltaTime; ///Change for the actual mechanics   
+        RunHazard(hazardName, temp);       
     }
 }

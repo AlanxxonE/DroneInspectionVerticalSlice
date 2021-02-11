@@ -12,16 +12,16 @@ public class DroneController : MonoBehaviour
     public GameManager gameManager;
 
     //General Variables
-    [Header("General Variables")]
-    public bool isPaused;
+    [Header("General Variables")]    
     public int droneLives = 3; //How many time the drone can collide before being destroyed 
+    [HideInInspector] public bool isPaused;
 
     //Camera Variables
     [Header("Camera Variables")]
     [Tooltip("Sets the first person camera of the drone")]
-    public GameObject thirdPersonCam;
-    [Tooltip("Sets the third person camera of the drone")]
     public GameObject firstPersonCam;
+    [Tooltip("Sets the third person camera of the drone")]
+    public GameObject thirdPersonCam;
     [Tooltip("Sets the vertical angle limit of the first person camera")]
     public float camMaxVerticalFreeLookAngle = 90f;
 
