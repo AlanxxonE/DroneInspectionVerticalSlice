@@ -9,7 +9,7 @@ public class ScoreScript : MonoBehaviour
     /// <summary>
     /// Class to hold data on the score of the game and which hazards were fixed
     /// </summary>
-    
+
     //References
     public GameObject scoreTextRef;   //Reference to the score text
     public int score;  //Integer to hold the score
@@ -18,7 +18,7 @@ public class ScoreScript : MonoBehaviour
     private List<bool> isFixedBoolList = new List<bool>();  //List of booleans of which hazards were fixed
 
     public GameObject cardsOverlayRef;  //Reference to the overlay of the hazard cards
-     
+
     private PointerEventData pointerData = new PointerEventData(EventSystem.current);   //Gets data for what the mouse is hovering over
     private List<RaycastResult> pointerHitList = new List<RaycastResult>(); //Holds data for what the mouse is hovering over
 
@@ -31,9 +31,9 @@ public class ScoreScript : MonoBehaviour
         scoreTextRef.GetComponent<Text>().text = "Your score is: " + score.ToString();  //Writes score
 
         //Adds the booleans for which hazards are fixed to the isFixedBoolList from the level manager
-        isFixedBoolList.Add(LevelManager.isScaffoldFixed); 
+        isFixedBoolList.Add(LevelManager.isScaffoldFixed);
         isFixedBoolList.Add(LevelManager.isCraneFixed);
-        
+
         for (int i = 0; i < isFixedImageList.Count; i++)
         {
             if (isFixedBoolList[i] == true)
@@ -50,7 +50,7 @@ public class ScoreScript : MonoBehaviour
     private void Update()
     {
         pointerData.position = Input.mousePosition;   //Sets pointer data position equal to the mouse position
-        EventSystem.current.RaycastAll(pointerData, pointerHitList);   
+        EventSystem.current.RaycastAll(pointerData, pointerHitList);
 
         HazardInfoCards();
     }

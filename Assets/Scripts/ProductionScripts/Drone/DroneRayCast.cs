@@ -52,7 +52,7 @@ public class DroneRayCast : MonoBehaviour
         }
 
         //If the raycast hits nothing 
-        else if (check.collider == null)
+        else if (check.collider == null || check.collider.CompareTag("Fixed"))
         {
             droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.black;  //Sets the artificial horizon UI elements to grey
         }
@@ -69,7 +69,7 @@ public class DroneRayCast : MonoBehaviour
         if (hit.collider != null && hit.collider.CompareTag("Hazard"))
         {            
             stopMovement = true;   //Stops the drone     
-            droneController.gameManager.hazardManager.RunHazard(hit.collider.gameObject);
+            droneController.gameManager.hazardManager.RunHazard(hit.collider.gameObject);            
         }
     }
 }

@@ -28,11 +28,15 @@ public class DroneController : MonoBehaviour
     //Movement Variables
     [Header("Movement Variables")]
     [Tooltip("Sets the velocity of the drone in meters per second")]
-    public float droneVelocity = 12;
+    public float droneVelocity;
     [Tooltip("Sets the maximum height the drone can fly to in metres")]
-    public float flightCeiling = 150;
+    public float flightCeiling;
     [Tooltip("Sets the maximum range the drone can fly from it's start position in metres, i.e. the distance where signal strength becomes zero and the 'static' is at it's maximum")]
     public float maxRange;
+    [Tooltip("Sets the speed at which the drone turns")]
+    public float turnSpeed;
+    [Tooltip("Time taken to accelerate to new velocity, smaller is faster")]
+    public float smoothTime;  
     [HideInInspector] public float canMove = 1; //Float to allow/disallow movement
 
     //Tilt Variables

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scaffold : MonoBehaviour
+public class Scaffold : HazardMechanics
 {
     //Class Reference
     public HazardManager hazardManager;
@@ -11,6 +11,7 @@ public class Scaffold : MonoBehaviour
     private int satisfaction = 40;
     private int dissatisfaction = 20;
     private int score = 50;
+    private string hazardName = "Scaffold";
     [HideInInspector]public bool isFixed = false;
 
     private void Awake()
@@ -31,7 +32,7 @@ public class Scaffold : MonoBehaviour
 
     public void Mechanics()
     {
-        hazardManager.HazardProgress(satisfaction, dissatisfaction, score);
+        hazardManager.HazardProgress(satisfaction, dissatisfaction, score, hazardName);
         hazardManager.hazardSlider.value += 10 * Time.deltaTime; ///Change for the actual mechanics
     }
 }
