@@ -6,12 +6,6 @@ public static class Score
 {
     public static bool isScaffoldFixed, isCraneFixed;
 
-    public static void ResetScore()
-    {
-        isScaffoldFixed = false;
-        isCraneFixed = false;
-    }
-
     public static (int satisfaction, int dissatisfaction, int score) GetScore(string hazardName)
     {
         switch (hazardName)
@@ -25,19 +19,26 @@ public static class Score
         }        
     }
     
-    public static void SetFixedBooleans(string hazardName)
-    {
-        switch (hazardName)
+    public static void SetFixedBooleans(string hazardName, bool isFixed, bool resetBools)
+    {               
+        if(resetBools)
         {
-            case "Scaffold":
-                isScaffoldFixed = true;
-                break;
-            case "Crane":
-                isCraneFixed = true;
-                break;
-            default:
-                break;
-        }       
+            isScaffoldFixed = isCraneFixed = !resetBools;
+        }
+
+        else
+        {
+            switch (hazardName)
+            {
+                case "Scaffold":
+                    isScaffoldFixed = isFixed;
+                    break;
+                case "Crane":
+                    isCraneFixed = isFixed;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
-

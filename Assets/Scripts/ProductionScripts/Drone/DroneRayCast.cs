@@ -70,7 +70,7 @@ public class DroneRayCast : MonoBehaviour
         if (hit.collider != null && hit.collider.CompareTag("Hazard"))
         {            
             stopMovement = true;   //Stops the drone     
-            droneController.gameManager.hazardManager.InitialiseHazard(hit.collider.gameObject);            
+            droneController.gameManager.hazardManager.InitialiseHazard(hit.collider.GetComponent<MonoBehaviour>());            
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
@@ -13,12 +12,9 @@ public class LevelManager : MonoBehaviour
         Cursor.visible = true;   //Sets cursor visible
         Cursor.lockState = CursorLockMode.None;  //Locks cursor
 
-        if (SceneManager.GetActiveScene().buildIndex == 2)  //If main level
+        if (SceneManager.GetActiveScene().buildIndex == 0)  //If main level
         {
-            ////Sets these variables when the level is loaded
-            //scoreValue = 0;   
-            //isScaffoldFixed = false;
-            //isCraneFixed = false;
+            Score.SetFixedBooleans(null,false,true);            
         }
     }
 

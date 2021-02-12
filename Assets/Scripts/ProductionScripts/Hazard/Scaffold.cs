@@ -3,28 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Scaffold : HazardMechanics
-{
-    //General Variables     
-    private string hazardName = "Scaffold";
-    
+{    
     private void Awake()
     {
         this.GetComponent<MonoBehaviour>().enabled = false;        
     }
 
-    private void OnEnable()
-    {
-        Debug.Log("It works!!!!");
-    }
-
     private void Update()
     {
-        Mechanics();
+        RunHazard(Mechanics());
     }
 
-    public void Mechanics()
+    private float Mechanics()
     {
-        float temp = 10 * Time.deltaTime; ///Change for the actual mechanics   
-        RunHazard(hazardName, temp);       
+        float progress = 10 * Time.deltaTime; ///Change for the actual mechanics          
+        return progress;
     }
 }

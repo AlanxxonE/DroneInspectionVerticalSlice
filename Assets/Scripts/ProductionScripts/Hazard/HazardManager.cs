@@ -20,6 +20,7 @@ public class HazardManager : MonoBehaviour
     public GameObject hazardSliderRef;
     [HideInInspector] public Slider hazardSlider;
     [HideInInspector] public MonoBehaviour currentHazardScript = null;
+    [HideInInspector] public string hazardName;
 
     //Hazard Mechanics Variables
     [Header("Hazard Mechanics Variables")]
@@ -56,10 +57,11 @@ public class HazardManager : MonoBehaviour
                 return new Vector2(0, 0);
         }
     }
-    public void InitialiseHazard(GameObject hazardRef)
+    public void InitialiseHazard(MonoBehaviour currenHazardScript)
     {
-        currentHazardScript = hazardRef.GetComponent<MonoBehaviour>();
+        currentHazardScript = currenHazardScript;
         currentHazardScript.enabled = true;
+        hazardName = currenHazardScript.GetType().Name;
         hazardSliderRef.SetActive(true);
         gameManager.droneController.droneUI.artificialHorizonCircle.SetActive(false);
     }
@@ -70,7 +72,7 @@ public class HazardManager : MonoBehaviour
     /// <param name="satisfaction"></param> satisfaction score gained or lost by winning/losing a minigame
     /// <param name="score"></param>  score achieved at the end of the game
     /// <param name="isFixed"></param>  boolean to determine if a hazard was fixed successfully or not
-    public void FinishHazard(int satisfaction,int score, bool isFixed, MonoBehaviour currentHazardScript, string hazardName)
+    public void FinishHazard(int satisfaction,int score, bool isFixed)
     {      
         gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
         gameManager.droneController.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose
@@ -82,11 +84,12 @@ public class HazardManager : MonoBehaviour
 
         if (isFixed)
         {
-            Score.SetFixedBooleans(hazardName);
+            Score.SetFixedBooleans(hazardName, isFixed, false);
             currentHazardScript.tag = "Fixed";
         }
             
         currentHazardScript.enabled = false;
         currentHazardScript = null;
+        hazardName = null;
     }   
 }
