@@ -15,15 +15,12 @@ public class DroneMovement : MonoBehaviour
 
     //Camera Variables
     [HideInInspector]public bool thirdPerson = true;  //Boolean to determine if in third person   
-    private bool freelook = false;   //Boolean to determine if the players is free looking
     private float camTurnSpeed;   //Variable to set the turn speed of teh camera
     private float camXAxisRotation;  //Reference to the x-axis rotation of the camera
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
 
     //Movement Variables
-    private float turnSpeed = 2f;  //Variable for turn speed
     private float speed;   //Variable to determine speed of the drone
-    private float smoothTime = 0.2f;  //Time taken to accelerate to new velocity, smaller is faster   
     [HideInInspector] public Vector3 startPosition;   //Reference to the position teh dropne starts at   
     private Vector3 desiredVelocity;  //Velocity the drone is aiming for
     private Vector3 referenceVelocity; //Reference to the default velocity of the drone          
@@ -35,12 +32,12 @@ public class DroneMovement : MonoBehaviour
 
     private void Awake()
     {
-        droneController = GetComponent<DroneController>();
+        droneController = this.GetComponent<DroneController>();
         parentRB = GetComponent<Rigidbody>(); //gets the drone's rigidbody
         startPosition = parentRB.transform.position;  //Sets the start position
         speed = droneController.droneVelocity / Time.fixedDeltaTime;  //Sets speed
         theta = droneController.maxTiltAngle / droneController.droneVelocity;   //Sets the theta maths function
-        camTurnSpeed = turnSpeed;  //Sets the camera turn speed equal to that of the drone turn speed        
+        camTurnSpeed = droneController.turnSpeed;  //Sets the camera turn speed equal to that of the drone turn speed        
         Cursor.lockState = CursorLockMode.Locked; //Locks the mouse cursor        
     }
 
@@ -88,7 +85,7 @@ public class DroneMovement : MonoBehaviour
             yVelocityLimiter = 1; //Sets the drones velocity back to normal if under the flight ceiling 
         }
         desiredVelocity = ((normalVelocityX * speed) + (normalVelocityY * speed * yVelocityLimiter) + (normalVelocityZ * speed)) * droneController.canMove; //Sets the drone's desired velocity
-        parentRB.velocity = Vector3.SmoothDamp(parentRB.velocity, desiredVelocity * Time.fixedDeltaTime, ref referenceVelocity, smoothTime);  //Sets the drone's velocity
+        parentRB.velocity = Vector3.SmoothDamp(parentRB.velocity, desiredVelocity * Time.fixedDeltaTime, ref referenceVelocity, droneController.smoothTime);  //Sets the drone's velocity
     }
 
     /// <summary>
@@ -96,7 +93,7 @@ public class DroneMovement : MonoBehaviour
     /// </summary>
     private void Rotation()
     {
-        float turnTemp = turnSpeed * Input.GetAxis("Mouse X"); //Sets the rate at which the drone should turn based on the mouse's x-axis input
+        float turnTemp = droneController.turnSpeed * Input.GetAxis("Mouse X"); //Sets the rate at which the drone should turn based on the mouse's x-axis input
         transform.Rotate(0, turnTemp * droneController.canMove, 0);  //Rotates the drone based on the value of turn temp
 
         if (droneController.canMove == 0) //If the drone can't move (when interacting with a hazard)
@@ -138,20 +135,17 @@ public class DroneMovement : MonoBehaviour
             thirdPerson = !thirdPerson;  //If the camera toggle is pressed it swaps the camera state between third or first person
         }
 
-        if (Input.GetMouseButton(1)) //If mopuse 2 is pressed
+        if (Input.GetMouseButton(1)) //If mouse 2 is pressed
         {
-            turnSpeed = 0; //The drone cant turn
-            freelook = true;  //Free look is set to true
+            droneController.turnSpeed = 0; //The drone cant turn
             thirdPerson = false;  //Third person is set to false
-
             camXAxisRotation += Input.GetAxis("Mouse Y") * -camTurnSpeed; camYAxisRotation += Input.GetAxis("Mouse X") * camTurnSpeed;  //Gets the x-axis and y-axis rotation based on mouse input
             float camXAxisRotationTemp = Mathf.Clamp(camXAxisRotation, -droneController.camMaxVerticalFreeLookAngle, droneController.camMaxVerticalFreeLookAngle);  //Clamps the rotation about the x-axis 
             droneController.firstPersonCam.transform.localEulerAngles = new Vector3(camXAxisRotationTemp, camYAxisRotation, 0);  //Applies the y-axis and clamped x-axis rotation to the camera
         }
         else if (Input.GetMouseButtonUp(1)) //If mouse 2 is no longer pressed
         {
-            turnSpeed = camTurnSpeed;  //Resets the tunr speed 
-            freelook = false;  //Sets free look equal to false
+            droneController.turnSpeed = camTurnSpeed;  //Resets the tunr speed 
             droneController.firstPersonCam.transform.localEulerAngles = Vector3.zero;  //Resets the angle of the first person camera
             camXAxisRotation = 0;  //Resets the x-axis rotation of the camera
             camYAxisRotation = 0;  //Resets the Y-axis rotation of the camera
@@ -185,7 +179,7 @@ public class DroneMovement : MonoBehaviour
         droneHits++;       //keeps track of number of collisions 
         if (droneHits == droneController.droneLives) //If the drone collides 3 times
         {
-            GetComponent<DroneUI>().levelManagerScript.SceneSelectMethod(3);  //Loads score scene
+            droneController.gameManager.levelManager.SceneSelectMethod(3);  //Loads score scene
         }
 
         Vector3 angleAtCollision = currentVelocity.normalized;  //Normalised vector of the direction the drone is flying in at time of collision

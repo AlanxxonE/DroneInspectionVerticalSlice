@@ -8,15 +8,19 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Game manager class
     /// </summary>
-    
+
     //Class References
+    [Header("Class References")]
     public DroneController droneController; 
     public HazardManager hazardManager;
     public LevelManager levelManager;
 
-    //General Variables
+    //General References
+    [Header("General References")]
     [Tooltip("Reference for the pause menu popup")]
     public GameObject pauseUIRef;  
+
+    //General Variables
     private bool isPaused = false;   //Boolean to determine pause state
 
     void Update()
