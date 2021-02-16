@@ -13,7 +13,7 @@ public class DroneController : MonoBehaviour
 
     //General Variables
     [Header("General Variables")]    
-    public int droneLives = 3; //How many time the drone can collide before being destroyed 
+    public int droneLives = 3; //How many times the drone can collide before being destroyed 
     [HideInInspector] public bool isPaused;
 
     //Camera Variables

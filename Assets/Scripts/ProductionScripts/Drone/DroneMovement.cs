@@ -20,7 +20,6 @@ public class DroneMovement : MonoBehaviour
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
 
     //Movement Variables
-    private float speed;   //Variable to determine speed of the drone
     [HideInInspector] public Vector3 startPosition;   //Reference to the position teh dropne starts at   
     private Vector3 desiredVelocity;  //Velocity the drone is aiming for
     private Vector3 referenceVelocity; //Reference to the default velocity of the drone          
@@ -35,7 +34,6 @@ public class DroneMovement : MonoBehaviour
         droneController = this.GetComponent<DroneController>();
         parentRB = GetComponent<Rigidbody>(); //gets the drone's rigidbody
         startPosition = parentRB.transform.position;  //Sets the start position
-        speed = droneController.droneVelocity / Time.fixedDeltaTime;  //Sets speed
         theta = droneController.maxTiltAngle / droneController.droneVelocity;   //Sets the theta maths function
         camTurnSpeed = droneController.turnSpeed;  //Sets the camera turn speed equal to that of the drone turn speed        
         Cursor.lockState = CursorLockMode.Locked; //Locks the mouse cursor        
@@ -70,7 +68,7 @@ public class DroneMovement : MonoBehaviour
     /// </summary>
     private void Movement()
     {
-        //Sets normalised value fopr each vector of the drone's velocity
+        //Sets normalised value for each vector of the drone's velocity
         Vector3 normalVelocityX = Input.GetAxisRaw("velX") * transform.right;
         Vector3 normalVelocityY = Input.GetAxisRaw("velY") * transform.up;
         Vector3 normalVelocityZ = Input.GetAxisRaw("velZ") * transform.forward;
@@ -84,8 +82,8 @@ public class DroneMovement : MonoBehaviour
         {
             yVelocityLimiter = 1; //Sets the drones velocity back to normal if under the flight ceiling 
         }
-        desiredVelocity = ((normalVelocityX * speed) + (normalVelocityY * speed * yVelocityLimiter) + (normalVelocityZ * speed)) * droneController.canMove; //Sets the drone's desired velocity
-        parentRB.velocity = Vector3.SmoothDamp(parentRB.velocity, desiredVelocity * Time.fixedDeltaTime, ref referenceVelocity, droneController.smoothTime);  //Sets the drone's velocity
+        desiredVelocity = (normalVelocityX + (normalVelocityY * yVelocityLimiter) + normalVelocityZ) * droneController.droneVelocity * droneController.canMove; //Sets the drone's desired velocity
+        parentRB.velocity = Vector3.SmoothDamp(parentRB.velocity, desiredVelocity, ref referenceVelocity, droneController.smoothTime);  //Sets the drone's velocity
     }
 
     /// <summary>
