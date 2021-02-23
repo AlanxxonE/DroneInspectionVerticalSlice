@@ -63,7 +63,8 @@ public class HazardManager : MonoBehaviour
         currentHazardScript.enabled = true;
         hazardName = currenHazardScript.GetType().Name;
         hazardSliderRef.SetActive(true);
-        gameManager.droneController.droneUI.artificialHorizonCircle.SetActive(false);
+        gameManager.droneController.droneCamera.SwitchPerspective(false);
+        gameManager.droneController.droneCamera.interpolationTime = 0;
     }
 
     /// <summary>
@@ -80,7 +81,7 @@ public class HazardManager : MonoBehaviour
         hazardSlider.value = hazardSliderInitialValue;
         hazardSliderRef.SetActive(false);
 
-        gameManager.droneController.droneUI.artificialHorizonCircle.SetActive(true);
+        gameManager.droneController.droneCamera.SwitchPerspective(true);
 
         if (isFixed)
         {

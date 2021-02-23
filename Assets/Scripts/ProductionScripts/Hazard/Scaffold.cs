@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Scaffold : HazardMechanics
-{    
+{
+    public Transform target;
+
     private void Awake()
     {
         this.GetComponent<MonoBehaviour>().enabled = false;        
@@ -11,7 +13,14 @@ public class Scaffold : HazardMechanics
 
     private void Update()
     {
-        RunHazard(Mechanics());
+        if(CheckCameraPosition(target))
+        {
+            RunHazard(Mechanics());
+        }
+        else if (!CheckCameraPosition(target))
+        {
+            CheckCameraPosition(target);
+        }
     }
 
     private float Mechanics()

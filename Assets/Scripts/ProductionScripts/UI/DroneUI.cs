@@ -38,70 +38,28 @@ public class DroneUI : MonoBehaviour
     }
     private void Update() 
     {
-        Range();
-        Altitude();
         ArtificialHorizon();
+        Altitude();        
         Satisfaction();
+        Range();
+    }
+
+    public void EnableUI(bool enable)
+    {
+        artificialHorizonCircle.SetActive(enable);
+        artificialHorizonLine.SetActive(enable);
     }
 
     /// <summary>
-    /// Method to determine the distance the drone has flown from it's origin and apply a static effect if it's range is too far
+    /// Method tha t controls the horizontal horizon of the drone's UI
     /// </summary>
-    private void Range()
+    private void ArtificialHorizon()
     {
-        range = Vector3.Distance(transform.position, droneController.droneMovement.startPosition);   //Gets the distance the drone has flown from it's origin
-        rangeRef.GetComponentInChildren<Text>().text = Mathf.RoundToInt(100 - ((range / droneController.maxRange) * 100)) + "%";   //Sets the range text equal to the percentage of the maximum range the drone has flown
-
-        float staticEffectIntensity = Mathf.Pow(((range - (droneController.maxRange * droneController.signalLossPoint)) / (droneController.maxRange * (1 - (droneController.signalLossPoint / 1)))), 1.5f);  //Sets an exponentialy increasing intensity for the static effect after the drone has flown past the point where it begins to lose signal
-
-        if (range > droneController.maxRange * droneController.signalLossPoint)  //If the drone has flown past the point where it begins to lose signal
+        if (artificialHorizonLine.GetComponent<Image>().enabled == true)  //If the artificial horizon is active
         {
-            staticEffect.GetComponent<Image>().color = new Color(255, 255, 255, staticEffectIntensity); //Applies a static effect over the screen
-
-            if (range > droneController.maxRange)  //If the drone flies outside it max range and loses signalk
-            {
-                droneController.droneMovement.parentRB.transform.position = droneController.droneMovement.startPosition;  //Resets the drone's position
-                droneController.droneMovement.parentRB.velocity = Vector3.zero;  //Resets the drone's velocity
-            }
+            artificialHorizonLine.transform.localEulerAngles = new Vector3(0, 0, droneController.droneMovement.Tilt().z * -1); //Sets the tilt of the artificial horizon about the z-axis counter to that of the drone's tilt
+            artificialHorizonLine.transform.position = new Vector3(horPosVar.x, horPosVar.y + (droneController.droneMovement.Tilt().x * 40 / droneController.maxTiltAngle), 0);  //Sets the vertical position of the artificial horizon based on the drone's forward tilt angle
         }
-        else   //Else removes the static effect
-        {
-            staticEffect.GetComponent<Image>().color = new Color(255, 255, 255, 0f); 
-        }
-
-        float signalRatio = range / droneController.maxRange;  //Ratio to determine how much signal strength it has based on the distance flown
-        int x; //Temp variable used for indexing
-
-        //Statements to determine which index should be used based on the signal strength
-        if(signalRatio < 0.25)
-        {
-            x = 0;
-        }
-        else if (signalRatio < 0.50)
-        {
-            x = 1;
-        }
-        else if (signalRatio < 0.75)
-        {
-            x = 2;
-        }
-        else
-        {
-            x = 3;
-        }
-
-        //Enables different images for the range UI dependent on the distance the droen has flown
-        for (int i = 0; i < signalImageList.Count; i++)
-        {
-            if (x == i)
-            {
-                signalImageList[i].enabled = true;
-            }
-            else
-            {
-                signalImageList[i].enabled = false;
-            }
-        }        
     }
 
     /// <summary>
@@ -112,30 +70,7 @@ public class DroneUI : MonoBehaviour
         altitude = Mathf.RoundToInt(transform.position.y);  //Gets the drone's altitude
         altitudeRef.GetComponentInChildren<Text>().text = altitude + "M";  //Sets the text of the altitude slider 
         altitudeRef.GetComponentInChildren<Slider>().value = altitude;  //Sets the value of the altitude slider
-    }
-
-    /// <summary>
-    /// Method tha t controls the horizontal horizon of the drone's UI
-    /// </summary>
-    private void ArtificialHorizon()
-    {
-        if (droneController.droneMovement.thirdPerson == false) //Sets the artificial horizon active if in first person
-        {
-            artificialHorizonCircle.SetActive(true);
-            artificialHorizonLine.SetActive(true);
-        }
-        else if (droneController.droneMovement.thirdPerson == true) //Sets the artificial horizon inactive if in third person
-        {
-            artificialHorizonCircle.SetActive(false);
-            artificialHorizonLine.SetActive(false);
-        }
-
-        if (artificialHorizonLine.GetComponent<Image>().enabled == true)  //If the artificial horizon is active
-        {
-            artificialHorizonLine.transform.localEulerAngles = new Vector3(0, 0, droneController.droneMovement.Tilt().z * -1); //Sets the tilt of the artificial horizon about the z-axis counter to that of the drone's tilt
-            artificialHorizonLine.transform.position = new Vector3(horPosVar.x, horPosVar.y + (droneController.droneMovement.Tilt().x * 40 / droneController.maxTiltAngle), 0);  //Sets the vertical position of the artificial horizon based on the drone's forward tilt angle
-        }
-    }
+    }    
 
     /// <summary>
     /// Method to handle the satisfaction UI 
@@ -179,6 +114,66 @@ public class DroneUI : MonoBehaviour
         if (droneController.satisfactionValue >= 100 || droneController.satisfactionValue <= 0)
         {
             droneController.gameManager.levelManager.SceneSelectMethod(3);
+        }
+    }
+
+    /// <summary>
+    /// Method to determine the distance the drone has flown from it's origin and apply a static effect if it's range is too far
+    /// </summary>
+    private void Range()
+    {
+        range = Vector3.Distance(transform.position, droneController.droneMovement.startPosition);   //Gets the distance the drone has flown from it's origin
+        rangeRef.GetComponentInChildren<Text>().text = Mathf.RoundToInt(100 - ((range / droneController.maxRange) * 100)) + "%";   //Sets the range text equal to the percentage of the maximum range the drone has flown
+
+        float staticEffectIntensity = Mathf.Pow(((range - (droneController.maxRange * droneController.signalLossPoint)) / (droneController.maxRange * (1 - (droneController.signalLossPoint / 1)))), 1.5f);  //Sets an exponentialy increasing intensity for the static effect after the drone has flown past the point where it begins to lose signal
+
+        if (range > droneController.maxRange * droneController.signalLossPoint)  //If the drone has flown past the point where it begins to lose signal
+        {
+            staticEffect.GetComponent<Image>().color = new Color(255, 255, 255, staticEffectIntensity); //Applies a static effect over the screen
+
+            if (range > droneController.maxRange)  //If the drone flies outside it max range and loses signalk
+            {
+                droneController.droneMovement.parentRB.transform.position = droneController.droneMovement.startPosition;  //Resets the drone's position
+                droneController.droneMovement.parentRB.velocity = Vector3.zero;  //Resets the drone's velocity
+            }
+        }
+        else   //Else removes the static effect
+        {
+            staticEffect.GetComponent<Image>().color = new Color(255, 255, 255, 0f);
+        }
+
+        float signalRatio = range / droneController.maxRange;  //Ratio to determine how much signal strength it has based on the distance flown
+        int x; //Temp variable used for indexing
+
+        //Statements to determine which index should be used based on the signal strength
+        if (signalRatio < 0.25)
+        {
+            x = 0;
+        }
+        else if (signalRatio < 0.50)
+        {
+            x = 1;
+        }
+        else if (signalRatio < 0.75)
+        {
+            x = 2;
+        }
+        else
+        {
+            x = 3;
+        }
+
+        //Enables different images for the range UI dependent on the distance the droen has flown
+        for (int i = 0; i < signalImageList.Count; i++)
+        {
+            if (x == i)
+            {
+                signalImageList[i].enabled = true;
+            }
+            else
+            {
+                signalImageList[i].enabled = false;
+            }
         }
     }
 }

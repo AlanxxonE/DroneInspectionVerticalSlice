@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class Template : HazardMechanics     //Needs to inherit from HazardMechanics
 {
+    public Transform target; //Reference to target position of where the hazard is exactly
+
     private void Awake()
     {
         this.GetComponent<MonoBehaviour>().enabled = false;    //Needs to stay in

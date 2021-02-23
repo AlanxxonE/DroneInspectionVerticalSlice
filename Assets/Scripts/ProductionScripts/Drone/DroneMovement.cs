@@ -5,19 +5,13 @@ using UnityEngine;
 public class DroneMovement : MonoBehaviour
 {
     /// <summary>
-    /// Class that handles the drone's movement ,tilt and camera
+    /// Class that handles the drone's movement and tilt
     /// </summary>
-   
+
     //General Variables
     [HideInInspector]public Rigidbody parentRB; //Reference to the drone's rigidbody
     private DroneController droneController; 
-    private int droneHits = 0; //Keeps track of drone collision count
-
-    //Camera Variables
-    [HideInInspector]public bool thirdPerson = true;  //Boolean to determine if in third person   
-    private float camTurnSpeed;   //Variable to set the turn speed of teh camera
-    private float camXAxisRotation;  //Reference to the x-axis rotation of the camera
-    private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
+    private int droneHits = 0; //Keeps track of drone collision count    
 
     //Movement Variables
     [HideInInspector] public Vector3 startPosition;   //Reference to the position teh dropne starts at   
@@ -34,8 +28,7 @@ public class DroneMovement : MonoBehaviour
         droneController = this.GetComponent<DroneController>();
         parentRB = GetComponent<Rigidbody>(); //gets the drone's rigidbody
         startPosition = parentRB.transform.position;  //Sets the start position
-        theta = droneController.maxTiltAngle / droneController.droneVelocity;   //Sets the theta maths function
-        camTurnSpeed = droneController.turnSpeed;  //Sets the camera turn speed equal to that of the drone turn speed        
+        theta = droneController.maxTiltAngle / droneController.droneVelocity;   //Sets the theta maths function        
         Cursor.lockState = CursorLockMode.Locked; //Locks the mouse cursor        
     }
 
@@ -56,11 +49,9 @@ public class DroneMovement : MonoBehaviour
 
             Movement();
             Rotation();
-            Tilt();
-            Camera();
+            Tilt();            
             currentVelocity = parentRB.velocity;  //Sets the current velocity of the drone equal to the drone's velocity
-        }
-        
+        }        
     }
 
     /// <summary>
@@ -121,51 +112,6 @@ public class DroneMovement : MonoBehaviour
         droneController.tiltingChild.transform.localEulerAngles = desiredTiltAngle;  //Sets the tilt angle of the drone
 
         return desiredTiltAngle;
-    }
-
-    /// <summary>
-    /// Method to handle the different camera states 
-    /// </summary>
-    private void Camera()
-    {
-        if (Input.GetButtonDown("ToggleCam"))
-        {
-            thirdPerson = !thirdPerson;  //If the camera toggle is pressed it swaps the camera state between third or first person
-        }
-
-        if (Input.GetMouseButton(1)) //If mouse 2 is pressed
-        {
-            droneController.turnSpeed = 0; //The drone cant turn
-            thirdPerson = false;  //Third person is set to false
-            camXAxisRotation += Input.GetAxis("Mouse Y") * -camTurnSpeed; camYAxisRotation += Input.GetAxis("Mouse X") * camTurnSpeed;  //Gets the x-axis and y-axis rotation based on mouse input
-            float camXAxisRotationTemp = Mathf.Clamp(camXAxisRotation, -droneController.camMaxVerticalFreeLookAngle, droneController.camMaxVerticalFreeLookAngle);  //Clamps the rotation about the x-axis 
-            droneController.firstPersonCam.transform.localEulerAngles = new Vector3(camXAxisRotationTemp, camYAxisRotation, 0);  //Applies the y-axis and clamped x-axis rotation to the camera
-        }
-        else if (Input.GetMouseButtonUp(1)) //If mouse 2 is no longer pressed
-        {
-            droneController.turnSpeed = camTurnSpeed;  //Resets the tunr speed 
-            droneController.firstPersonCam.transform.localEulerAngles = Vector3.zero;  //Resets the angle of the first person camera
-            camXAxisRotation = 0;  //Resets the x-axis rotation of the camera
-            camYAxisRotation = 0;  //Resets the Y-axis rotation of the camera
-        }
-
-        //Sets third person camera active and first person camera inactive
-        if (thirdPerson)
-        {
-            droneController.thirdPersonCam.SetActive(true);
-            droneController.thirdPersonCam.GetComponent<AudioListener>().enabled = true;
-            droneController.firstPersonCam.SetActive(false);
-            droneController.firstPersonCam.GetComponent<AudioListener>().enabled = false;
-        }
-
-        //Sets first person camera active and third person camera inactive
-        else
-        {
-            droneController.thirdPersonCam.SetActive(false);
-            droneController.thirdPersonCam.GetComponent<AudioListener>().enabled = false;
-            droneController.firstPersonCam.SetActive(true);
-            droneController.firstPersonCam.GetComponent<AudioListener>().enabled = true;
-        }
     }
 
     /// <summary>
