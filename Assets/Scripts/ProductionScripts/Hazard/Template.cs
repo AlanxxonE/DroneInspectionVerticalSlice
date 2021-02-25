@@ -16,7 +16,14 @@ public class Template : HazardMechanics     //Needs to inherit from HazardMechan
 
     private void Update()
     {
-        RunHazard(Mechanics());     //RunHazard() takes in a float for the 'progress' of the hazard and needs to be called like this
+        if (CheckCameraPosition(target))
+        {
+            RunHazard(Mechanics(), target);  //RunHazard() takes in a float for the 'progress' of the hazard and needs to be called like this
+        }
+        else if (!CheckCameraPosition(target))
+        {
+            CheckCameraPosition(target);
+        }
     }
 
     //Add mechanics here

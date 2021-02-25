@@ -15,7 +15,7 @@ public class Scaffold : HazardMechanics
     {
         if(CheckCameraPosition(target))
         {
-            RunHazard(Mechanics());
+            RunHazard(Mechanics(), target);
         }
         else if (!CheckCameraPosition(target))
         {

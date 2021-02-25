@@ -11,12 +11,14 @@ public class DroneCamera : MonoBehaviour
     //Class Reference
     private DroneController droneController;
 
-    //Camera Variables
+    //General Variables
     private bool firstPerson = false;  //Boolean to determine if in third person   
     private float camTurnSpeed;   //Variable to set the turn speed of teh camera
     private float camXAxisRotation;  //Reference to the x-axis rotation of the camera
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
     [HideInInspector]public float interpolationTime = 0.0f;
+    [HideInInspector]public Vector3 cameraPosition;
+    private Vector3 startPosition, targetPosition;
 
     private void Awake()
     {        
@@ -51,6 +53,9 @@ public class DroneCamera : MonoBehaviour
         {
             FreeLook();
         }
+        
+        Debug.Log("Positon: " + cameraPosition);    
+        
     }
 
     private void FreeLook()
@@ -71,11 +76,21 @@ public class DroneCamera : MonoBehaviour
         droneController.droneUI.EnableUI(firstPerson);
     }
 
-    public bool FocusOnHazard(Transform target)
+    public bool FocusOnHazard(Transform target, bool resetCameraPosition)
     {
-        //While Lerping
-        
-        droneController.thirdPersonCam.transform.position = new Vector3(Mathf.Lerp(this.transform.position.x, target.position.x, interpolationTime), Mathf.Lerp(this.transform.position.y, target.position.y, interpolationTime), Mathf.Lerp(this.transform.position.z, target.position.z, interpolationTime)) - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
+        if(!resetCameraPosition)
+        {
+            startPosition = cameraPosition; 
+            targetPosition = target.position;
+        }
+
+        else if (resetCameraPosition)
+        {
+            startPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
+            targetPosition = cameraPosition;
+        }
+
+        droneController.thirdPersonCam.transform.position = new Vector3(Mathf.Lerp(startPosition.x, targetPosition.x, interpolationTime), Mathf.Lerp(startPosition.y, targetPosition.y, interpolationTime), Mathf.Lerp(startPosition.z, targetPosition.z, interpolationTime)) - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
         interpolationTime += droneController.interpolationTime * Time.deltaTime;
 
         droneController.thirdPersonCam.transform.LookAt(target.position);
