@@ -87,7 +87,7 @@ public class DroneMovement : MonoBehaviour
 
         if (droneController.canMove == 0) //If the drone can't move (when interacting with a hazard)
         {
-            transform.LookAt(droneController.droneRayCast.hit.collider.transform.position); //Looks at the hazard
+            
             rotationFix = true;  //Sets rotation fix equals true
         }
         else if (droneController.canMove == 1 && rotationFix == true)  //If the drone can move and has interacted with a hazard

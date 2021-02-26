@@ -59,12 +59,13 @@ public class HazardManager : MonoBehaviour
     }
     public void InitialiseHazard(MonoBehaviour currenHazardScript)
     {
+        gameManager.droneController.droneCamera.interpolationTime = 0;
+        gameManager.droneController.droneCamera.SwitchPerspective(false);
+
         currentHazardScript = currenHazardScript;
         currentHazardScript.enabled = true;
         hazardName = currenHazardScript.GetType().Name;
-        hazardSliderRef.SetActive(true);
-        gameManager.droneController.droneCamera.SwitchPerspective(false);
-        gameManager.droneController.droneCamera.interpolationTime = 0;
+        hazardSliderRef.SetActive(true);        
     }
 
     /// <summary>
@@ -73,24 +74,27 @@ public class HazardManager : MonoBehaviour
     /// <param name="satisfaction"></param> satisfaction score gained or lost by winning/losing a minigame
     /// <param name="score"></param>  score achieved at the end of the game
     /// <param name="isFixed"></param>  boolean to determine if a hazard was fixed successfully or not
-    public void FinishHazard(int satisfaction,int score, bool isFixed)
-    {      
-        gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
-        gameManager.droneController.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose
-        
-        hazardSlider.value = hazardSliderInitialValue;
-        hazardSliderRef.SetActive(false);
-
-        gameManager.droneController.droneCamera.SwitchPerspective(true);
-
-        if (isFixed)
+    public void FinishHazard(int satisfaction,int score, bool isFixed, Transform target)
+    {
+        if (gameManager.droneController.droneCamera.FocusOnHazard(target, true))
         {
-            Score.SetFixedBooleans(hazardName, isFixed, false);
-            currentHazardScript.tag = "Fixed";
+            gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
+            gameManager.droneController.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose            
+
+            hazardSlider.value = hazardSliderInitialValue;
+            hazardSliderRef.SetActive(false);
+
+            if (isFixed)
+            {
+                Score.SetFixedBooleans(hazardName, isFixed, false);
+                currentHazardScript.tag = "Fixed";
+            }
+
+            currentHazardScript.enabled = false;
+            currentHazardScript = null;
+            hazardName = null;
+
+            gameManager.droneController.droneCamera.SwitchPerspective(true); 
         }
-            
-        currentHazardScript.enabled = false;
-        currentHazardScript = null;
-        hazardName = null;
     }   
 }

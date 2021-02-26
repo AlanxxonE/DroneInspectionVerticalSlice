@@ -5,6 +5,7 @@ using UnityEngine;
 public class Scaffold : HazardMechanics
 {
     public Transform target;
+    private bool keepCheckingCameras = true;
 
     private void Awake()
     {
@@ -13,13 +14,27 @@ public class Scaffold : HazardMechanics
 
     private void Update()
     {
-        if(CheckCameraPosition(target))
+        if(keepCheckingCameras)
         {
-            RunHazard(Mechanics());
+            CheckCameras();
+        }        
+        else
+        {
+            RunHazard(Mechanics(), target);            
+        }        
+    }
+
+    private void CheckCameras()
+    {
+        if (CheckCameraPosition(target, keepCheckingCameras))
+        {
+            keepCheckingCameras = false;
+            hazardManager.gameManager.droneController.droneCamera.interpolationTime = 0;
+
         }
-        else if (!CheckCameraPosition(target))
+        else if (!CheckCameraPosition(target, keepCheckingCameras))
         {
-            CheckCameraPosition(target);
+            CheckCameraPosition(target, keepCheckingCameras);
         }
     }
 
