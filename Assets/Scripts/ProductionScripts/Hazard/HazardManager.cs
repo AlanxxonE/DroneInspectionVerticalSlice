@@ -59,13 +59,13 @@ public class HazardManager : MonoBehaviour
     }
     public void InitialiseHazard(MonoBehaviour currenHazardScript)
     {
+        gameManager.droneController.droneCamera.interpolationTime = 0;
+        gameManager.droneController.droneCamera.SwitchPerspective(false);
+
         currentHazardScript = currenHazardScript;
         currentHazardScript.enabled = true;
         hazardName = currenHazardScript.GetType().Name;
-        hazardSliderRef.SetActive(true);
-        gameManager.droneController.droneCamera.SwitchPerspective(false);
-        gameManager.droneController.droneCamera.interpolationTime = 0;
-        gameManager.droneController.droneCamera.cameraPosition = gameManager.droneController.thirdPersonCam.transform.position;
+        hazardSliderRef.SetActive(true);        
     }
 
     /// <summary>
@@ -79,7 +79,7 @@ public class HazardManager : MonoBehaviour
         if (gameManager.droneController.droneCamera.FocusOnHazard(target, true))
         {
             gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
-            gameManager.droneController.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose
+            gameManager.droneController.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose            
 
             hazardSlider.value = hazardSliderInitialValue;
             hazardSliderRef.SetActive(false);

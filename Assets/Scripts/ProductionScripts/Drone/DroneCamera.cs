@@ -17,12 +17,14 @@ public class DroneCamera : MonoBehaviour
     private float camXAxisRotation;  //Reference to the x-axis rotation of the camera
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
     [HideInInspector]public float interpolationTime = 0.0f;
-    [HideInInspector]public Vector3 cameraPosition;
-    private Vector3 startPosition, targetPosition;
+    private Vector3 cameraPosition, cameraRotation;    
+    [HideInInspector]public Vector3 startPosition, targetPosition;
 
     private void Awake()
     {        
         droneController = this.GetComponent<DroneController>();
+        cameraPosition = this.transform.position - droneController.thirdPersonCam.transform.position;
+        cameraRotation = droneController.thirdPersonCam.transform.rotation.eulerAngles;
         camTurnSpeed = droneController.turnSpeed;  //Sets the camera turn speed equal to that of the drone turn speed  
         SwitchPerspective(firstPerson);
     }
@@ -53,9 +55,7 @@ public class DroneCamera : MonoBehaviour
         {
             FreeLook();
         }
-        
-        Debug.Log("Positon: " + cameraPosition);    
-        
+        Debug.Log(targetPosition);
     }
 
     private void FreeLook()
@@ -80,25 +80,31 @@ public class DroneCamera : MonoBehaviour
     {
         if(!resetCameraPosition)
         {
-            startPosition = cameraPosition; 
-            targetPosition = target.position;
+            startPosition = this.transform.position + cameraPosition; 
+            targetPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
+            droneController.thirdPersonCam.transform.LookAt(target.position);
+
+            if (droneController.thirdPersonCam.transform.position == targetPosition )
+            {               
+                return true;
+            }
         }
 
         else if (resetCameraPosition)
-        {
+        {           
             startPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
-            targetPosition = cameraPosition;
+            targetPosition = this.transform.position - cameraPosition;
+
+            if(Vector3.Distance(droneController.thirdPersonCam.transform.position, targetPosition) == 0.00f)
+            {
+                droneController.thirdPersonCam.transform.position = targetPosition;
+                droneController.thirdPersonCam.transform.eulerAngles = cameraRotation;
+                return true;
+            }
         }
 
-        droneController.thirdPersonCam.transform.position = new Vector3(Mathf.Lerp(startPosition.x, targetPosition.x, interpolationTime), Mathf.Lerp(startPosition.y, targetPosition.y, interpolationTime), Mathf.Lerp(startPosition.z, targetPosition.z, interpolationTime)) - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
-        interpolationTime += droneController.interpolationTime * Time.deltaTime;
-
-        droneController.thirdPersonCam.transform.LookAt(target.position);
-
-        if (interpolationTime >= 1)
-        {
-            return true;
-        }
+        droneController.thirdPersonCam.transform.position = new Vector3(Mathf.Lerp(startPosition.x, targetPosition.x, interpolationTime), Mathf.Lerp(startPosition.y, targetPosition.y, interpolationTime), Mathf.Lerp(startPosition.z, targetPosition.z, interpolationTime));
+        interpolationTime += droneController.interpolationTime * Time.deltaTime;       
 
         return false;
     }
