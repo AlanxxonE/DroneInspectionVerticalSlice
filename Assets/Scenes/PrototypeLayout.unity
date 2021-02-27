@@ -7851,8 +7851,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738c7ac849e0a2d44841acb54e00d2cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseUIRef: {fileID: 789193382}
   droneController: {fileID: 262108804047911978}
+  hazardManager: {fileID: 0}
+  levelManager: {fileID: 0}
+  pauseUIRef: {fileID: 789193382}
 --- !u!114 &374576771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11067,13 +11069,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3cd2b218c92c648965f4d44ba49c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardEffectRef: {fileID: 0}
-  hazardEffectTarget: {fileID: 889862636}
-  particleClone: {fileID: 0}
-  satisfactionRef: {fileID: 5632989216310981028}
-  startEffect: 0
-  endEffect: 0
-  timeToGenerate: 0
 --- !u!1 &518817464
 GameObject:
   m_ObjectHideFlags: 0
@@ -28735,10 +28730,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbe47cc7ca067442b1a3f6dbdb2f09f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startButtonRef: {fileID: 0}
-  controlsButtonRef: {fileID: 0}
-  backButtonRef: {fileID: 1773974964}
-  escButtonRef: {fileID: 1711900837}
 --- !u!1 &1266473930
 GameObject:
   m_ObjectHideFlags: 0
@@ -36155,13 +36146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a3cd2b218c92c648965f4d44ba49c1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hazardEffectRef: {fileID: 0}
-  hazardEffectTarget: {fileID: 1776996573}
-  particleClone: {fileID: 0}
-  satisfactionRef: {fileID: 5632989216310981028}
-  startEffect: 0
-  endEffect: 0
-  timeToGenerate: 0
 --- !u!1 &1551175213 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3419035107271191133, guid: ca8ba3ace0ba82e4ebff86211c0b2a4e, type: 3}
@@ -51312,17 +51296,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5632989216310981028 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7650578670622098262, guid: c1fca6981da7b9748b38d41872da406b, type: 3}
-  m_PrefabInstance: {fileID: 2594131783386542834}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 506f07cdca6c60742afbac998365ad62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &7402746537176286125
