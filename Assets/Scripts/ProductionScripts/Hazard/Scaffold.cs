@@ -6,13 +6,12 @@ public class Scaffold : HazardMechanics
 {
     private void Awake()
     {
-        GetComponent<MonoBehaviour>().enabled = false;
-        target = transform.Find("Target");
+        OnWake("Target");
     }
 
     private void OnEnable()
     {
-        checkCameraPosition = true;
+        InitiateVariables();
     }
 
     private void Update()

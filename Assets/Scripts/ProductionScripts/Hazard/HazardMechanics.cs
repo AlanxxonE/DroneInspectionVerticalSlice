@@ -8,10 +8,28 @@ public class HazardMechanics : MonoBehaviour
     [HideInInspector]public HazardManager hazardManager;
 
     //General variables
-    protected Transform target;
-    protected bool checkCameraPosition = false;
+    protected Transform target;    //Transform of the target game object, as it's protected it will be unique for any class that derives from hazard mechanics
+    protected bool checkCameraPosition = false;   //Boolean used to determine if the CheckCameraPosition() method should run
 
-    public void RunHazard(float sliderProgress, Transform target)
+    /// <summary>
+    /// Sets current script inactive and sets it's unique target transform
+    /// </summary>
+    /// <param name="nameOfTargetGameObject"></param>
+    protected void OnWake(string nameOfTargetGameObject)
+    {
+        GetComponent<MonoBehaviour>().enabled = false;
+        target = transform.Find(nameOfTargetGameObject);
+    }
+
+    /// <summary>
+    /// Initiates unique variables for the script the calls this method
+    /// </summary>
+    protected void InitiateVariables()
+    {
+        checkCameraPosition = true;
+    }
+
+    protected void RunHazard(float sliderProgress, Transform target)
     {
         if (checkCameraPosition)
         {

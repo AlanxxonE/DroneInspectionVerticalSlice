@@ -7,18 +7,16 @@ using UnityEngine;
 /// </summary>
 public class Template : HazardMechanics     //Needs to inherit from HazardMechanics
 {
-    public Transform target; //Reference to target position of where the hazard is exactly
-
     ///////Don't remove///////
     private void Awake()
     {
-        GetComponent<MonoBehaviour>().enabled = false;    //Needs to stay in, sets the script inactive on awake so it doesn't run until needed
+        OnWake("InsertNameOfTargetGameObjectHereAsString");  //Calls the OnWake() method
     }
 
     ///////Don't remove///////
     private void OnEnable()
     {
-        checkCameraPosition = true;     //Sets the bool to check if camera is in position
+        InitiateVariables();     //Can be used to initiate variables, currently just for the protected bool of checkCameraPosition
     }
 
     ///////Don't remove///////
