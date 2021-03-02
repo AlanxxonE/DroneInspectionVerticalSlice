@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public DroneController droneController; 
     public HazardManager hazardManager;
     public LevelManager levelManager;
+    public DialogueManager dialogueManager;
 
     //General References
     [Header("General References")]
