@@ -5,37 +5,20 @@ using UnityEngine;
 public class Scaffold : HazardMechanics
 {
     public Transform target;
-    private bool keepCheckingCameras = true;
 
     private void Awake()
     {
         this.GetComponent<MonoBehaviour>().enabled = false;        
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if(keepCheckingCameras)
-        {
-            CheckCameras();
-        }        
-        else
-        {
-            RunHazard(Mechanics(), target);            
-        }        
+        InstantiateVariables(true);
     }
 
-    private void CheckCameras()
-    {
-        if (CheckCameraPosition(target, keepCheckingCameras))
-        {
-            keepCheckingCameras = false;
-            hazardManager.gameManager.droneController.droneCamera.interpolationTime = 0;
-
-        }
-        else if (!CheckCameraPosition(target, keepCheckingCameras))
-        {
-            CheckCameraPosition(target, keepCheckingCameras);
-        }
+    private void Update()
+    {           
+        RunHazard(Mechanics(), target);                                       
     }
 
     private float Mechanics()

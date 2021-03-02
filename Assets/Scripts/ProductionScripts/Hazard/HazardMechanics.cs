@@ -4,26 +4,46 @@ using UnityEngine;
 
 public class HazardMechanics : MonoBehaviour
 {
+    //Class references
     [HideInInspector]public HazardManager hazardManager;
 
-    public void RunHazard(float sliderProgress, Transform target)
-    {       
-        if (hazardManager.hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
-        {
-            hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).satisfaction, Score.GetScore(hazardManager.hazardName).score, true, target);
-            //Debug.Log("Finish");
-        }        
-        else if (hazardManager.hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
-        {
-            hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).dissatisfaction, 0, false, target);
-        }
+    //General variables
+    [HideInInspector]public bool checkCameraPosition = false;
 
-        hazardManager.hazardSlider.value += sliderProgress - (hazardManager.hazardProgressDropRate * Time.deltaTime);  //Sets the rate at which the hazard timer counts down ////Don't move this
+    public void InstantiateVariables(bool setBool)
+    {
+        checkCameraPosition = setBool;
     }
 
-    public bool CheckCameraPosition(Transform target, bool keepCheckingCameras)
+    public void RunHazard(float sliderProgress, Transform target)
+    {
+        if (checkCameraPosition)
+        {
+            if (CheckCameraPosition(target))
+            {
+                checkCameraPosition = false;
+                hazardManager.gameManager.droneController.droneCamera.interpolationTime = 0;
+            }
+        }
+
+        else
+        {
+            if (hazardManager.hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
+            {
+                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).satisfaction, Score.GetScore(hazardManager.hazardName).score, true, target);
+            }
+            else if (hazardManager.hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
+            {
+                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).dissatisfaction, 0, false, target);
+            }
+
+            hazardManager.hazardSlider.value += sliderProgress - (hazardManager.hazardProgressDropRate * Time.deltaTime);  //Sets the rate at which the hazard timer counts down ////Don't move this
+        }        
+    }
+
+    private bool CheckCameraPosition(Transform target)
     {        
-        if(keepCheckingCameras)
+        if(checkCameraPosition) ///maybe take out
         {
             if (hazardManager.gameManager.droneController.droneCamera.FocusOnHazard(target, false))
             {

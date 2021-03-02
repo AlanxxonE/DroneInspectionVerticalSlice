@@ -353,6 +353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hazardManager: {fileID: 261446562}
+  checkCameraPosition: 0
 --- !u!1 &286696136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,6 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hazardManager: {fileID: 261446562}
+  checkCameraPosition: 0
   target: {fileID: 495437627}
 --- !u!65 &1276983877
 BoxCollider:
@@ -4587,7 +4589,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8890673895413449712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -30}
+  m_LocalPosition: {x: 0, y: 20, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8620854080377399631}
@@ -5050,4 +5052,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interpolationTime: 0
   startPosition: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
+  endPosition: {x: 0, y: 0, z: 0}

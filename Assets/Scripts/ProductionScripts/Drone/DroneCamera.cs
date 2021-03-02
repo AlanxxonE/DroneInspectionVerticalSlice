@@ -18,7 +18,7 @@ public class DroneCamera : MonoBehaviour
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
     [HideInInspector]public float interpolationTime = 0.0f;
     private Vector3 cameraPosition, cameraRotation;    
-    [HideInInspector]public Vector3 startPosition, targetPosition;
+    [HideInInspector]public Vector3 startPosition, endPosition;
 
     private void Awake()
     {        
@@ -55,7 +55,7 @@ public class DroneCamera : MonoBehaviour
         {
             FreeLook();
         }
-        Debug.Log(targetPosition);
+
     }
 
     private void FreeLook()
@@ -81,31 +81,38 @@ public class DroneCamera : MonoBehaviour
         if(!resetCameraPosition)
         {
             startPosition = this.transform.position + cameraPosition; 
-            targetPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
+            endPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
             droneController.thirdPersonCam.transform.LookAt(target.position);
 
-            if (droneController.thirdPersonCam.transform.position == targetPosition )
+            if (droneController.thirdPersonCam.transform.position == endPosition )
             {               
                 return true;
             }
         }
 
         else if (resetCameraPosition)
-        {           
+        {
             startPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
-            targetPosition = this.transform.position - cameraPosition;
-
-            if(Vector3.Distance(droneController.thirdPersonCam.transform.position, targetPosition) == 0.00f)
+            endPosition = this.transform.position - cameraPosition; ///This line needs fixed, I can do it (Aaron) just too tired now 
+            
+            if(Vector3.Distance(droneController.thirdPersonCam.transform.position, endPosition) == 0.00f)
             {
-                droneController.thirdPersonCam.transform.position = targetPosition;
-                droneController.thirdPersonCam.transform.eulerAngles = cameraRotation;
+                droneController.thirdPersonCam.transform.position = endPosition;
+                //droneController.thirdPersonCam.transform.eulerAngles = cameraRotation;
                 return true;
             }
         }
 
-        droneController.thirdPersonCam.transform.position = new Vector3(Mathf.Lerp(startPosition.x, targetPosition.x, interpolationTime), Mathf.Lerp(startPosition.y, targetPosition.y, interpolationTime), Mathf.Lerp(startPosition.z, targetPosition.z, interpolationTime));
+        droneController.thirdPersonCam.transform.position = new Vector3(Mathf.Lerp(startPosition.x, endPosition.x, interpolationTime), Mathf.Lerp(startPosition.y, endPosition.y, interpolationTime), Mathf.Lerp(startPosition.z, endPosition.z, interpolationTime));
         interpolationTime += droneController.interpolationTime * Time.deltaTime;       
 
         return false;
     }
 }
+
+//test
+//float theta = this.transform.rotation.y;
+//Vector3 dronePos = this.transform.position;
+
+//float endPosX = Mathf.Cos(theta) * (cameraPosition.x - dronePos.x) - Mathf.Sin(theta) * (cameraPosition.z - dronePos.z) + dronePos.x;
+//float endPosZ = Mathf.Sin(theta) * (cameraPosition.x - dronePos.x) + Mathf.Cos(theta) * (cameraPosition.z - dronePos.z) + dronePos.z;

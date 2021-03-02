@@ -12,7 +12,6 @@ public class HazardManager : MonoBehaviour
     //Class References 
     [Header("Class References")]
     public GameManager gameManager;
-    //public HazardMechanics hazardMechanics;
 
     //General References
     [Header("General References")]
@@ -57,6 +56,7 @@ public class HazardManager : MonoBehaviour
                 return new Vector2(0, 0);
         }
     }
+
     public void InitialiseHazard(MonoBehaviour currenHazardScript)
     {
         gameManager.droneController.droneCamera.interpolationTime = 0;
@@ -65,6 +65,7 @@ public class HazardManager : MonoBehaviour
         currentHazardScript = currenHazardScript;
         currentHazardScript.enabled = true;
         hazardName = currenHazardScript.GetType().Name;
+
         hazardSliderRef.SetActive(true);        
     }
 
