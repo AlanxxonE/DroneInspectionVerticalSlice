@@ -51,7 +51,10 @@ public class HazardMechanics : MonoBehaviour
                 hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).dissatisfaction, 0, false, target);
             }
 
-            hazardManager.hazardSlider.value += sliderProgress - (hazardManager.hazardProgressDropRate * Time.deltaTime);  //Sets the rate at which the hazard timer counts down ////Don't move this
+            else if(hazardManager.hazardSlider.value < 100 && hazardManager.hazardSlider.value > 0)
+            {
+                hazardManager.hazardSlider.value += sliderProgress - (hazardManager.hazardProgressDropRate * Time.deltaTime);  //Sets the rate at which the hazard timer counts down ////Don't move this
+            }            
         }        
     }
 
