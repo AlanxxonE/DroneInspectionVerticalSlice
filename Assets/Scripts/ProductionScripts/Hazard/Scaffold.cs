@@ -15,13 +15,19 @@ public class Scaffold : HazardMechanics
     }
 
     private void Update()
-    {           
+    {
         RunHazard(Mechanics(), target);                                       
     }
 
-    private float Mechanics()
+    public float Mechanics()
     {
-        float progress = 10 * Time.deltaTime; ///Change for the actual mechanics          
+        if(GetComponentInChildren<HazardInteraction>().isClicked)
+        {
+            float interactedProgress = 100;
+            return interactedProgress;
+        }
+
+        float progress = -1 * Time.deltaTime; ///Change for the actual mechanics          
         return progress;
     }
 }

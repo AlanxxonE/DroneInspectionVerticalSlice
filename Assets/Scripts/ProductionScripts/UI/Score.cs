@@ -11,9 +11,9 @@ public static class Score
         switch (hazardName)
         {
             case "Scaffold":
-                return (40, 20, 50);
+                return (40, -20, 50);
             case "Crane":
-                return (30, 20, 60);
+                return (30, -20, 60);
             default:
                 return (0, 0, 0);
         }        

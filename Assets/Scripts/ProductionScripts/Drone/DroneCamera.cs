@@ -57,7 +57,7 @@ public class DroneCamera : MonoBehaviour
             FreeLook();
         }
 
-        Debug.Log(cameraPosition);
+        //Debug.Log(cameraPosition);
     }
 
     private void FreeLook()
