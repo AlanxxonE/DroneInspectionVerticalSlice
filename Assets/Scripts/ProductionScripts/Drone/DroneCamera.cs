@@ -17,14 +17,15 @@ public class DroneCamera : MonoBehaviour
     private float camXAxisRotation;  //Reference to the x-axis rotation of the camera
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
     [HideInInspector]public float interpolationTime = 0.0f;
-    private Vector3 cameraPosition, cameraRotation;    
+    private Vector3 cameraPosition;
+    private Quaternion cameraRotation;
     [HideInInspector]public Vector3 startPosition, endPosition;
 
     private void Awake()
     {        
         droneController = this.GetComponent<DroneController>();
-        cameraPosition = this.transform.position - droneController.thirdPersonCam.transform.position;
-        cameraRotation = droneController.thirdPersonCam.transform.rotation.eulerAngles;
+        cameraPosition = droneController.thirdPersonCam.transform.localPosition;
+        cameraRotation = droneController.thirdPersonCam.transform.rotation;
         camTurnSpeed = droneController.turnSpeed;  //Sets the camera turn speed equal to that of the drone turn speed  
         SwitchPerspective(firstPerson);
     }
@@ -56,6 +57,7 @@ public class DroneCamera : MonoBehaviour
             FreeLook();
         }
 
+        Debug.Log(cameraPosition);
     }
 
     private void FreeLook()
@@ -93,12 +95,12 @@ public class DroneCamera : MonoBehaviour
         else if (resetCameraPosition)
         {
             startPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
-            endPosition = this.transform.position - cameraPosition; ///This line needs fixed, I can do it (Aaron) just too tired now 
+            endPosition = transform.position + cameraPosition; ///This line may need fixed further, I can do it (Aaron) just too tired now 
             
             if(Vector3.Distance(droneController.thirdPersonCam.transform.position, endPosition) == 0.00f)
             {
-                droneController.thirdPersonCam.transform.position = endPosition;
-                //droneController.thirdPersonCam.transform.eulerAngles = cameraRotation;
+                droneController.thirdPersonCam.transform.localRotation = cameraRotation;
+                droneController.thirdPersonCam.transform.localPosition = cameraPosition;                
                 return true;
             }
         }
