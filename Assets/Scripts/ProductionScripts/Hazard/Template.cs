@@ -12,13 +12,13 @@ public class Template : HazardMechanics     //Needs to inherit from HazardMechan
     ///////Don't remove///////
     private void Awake()
     {
-        this.GetComponent<MonoBehaviour>().enabled = false;    //Needs to stay in, sets the script inactive on awake so it doesn't run until needed
+        GetComponent<MonoBehaviour>().enabled = false;    //Needs to stay in, sets the script inactive on awake so it doesn't run until needed
     }
 
     ///////Don't remove///////
     private void OnEnable()
     {
-        InstantiateVariables(true);    //Instantiates variables in the hazard mechanics script once the class is enabled, currently only 1 boolean is activated but room to expand if needed
+        checkCameraPosition = true;     //Sets the bool to check if camera is in position
     }
 
     ///////Don't remove///////

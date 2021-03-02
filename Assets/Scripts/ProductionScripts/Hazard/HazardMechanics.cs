@@ -8,12 +8,8 @@ public class HazardMechanics : MonoBehaviour
     [HideInInspector]public HazardManager hazardManager;
 
     //General variables
-    [HideInInspector]public bool checkCameraPosition = false;
-
-    public void InstantiateVariables(bool setBool)
-    {
-        checkCameraPosition = setBool;
-    }
+    protected Transform target;
+    protected bool checkCameraPosition = false;
 
     public void RunHazard(float sliderProgress, Transform target)
     {

@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Scaffold : HazardMechanics
 {
-    public Transform target;
-
     private void Awake()
     {
-        this.GetComponent<MonoBehaviour>().enabled = false;        
+        GetComponent<MonoBehaviour>().enabled = false;
+        target = transform.Find("Target");
     }
 
     private void OnEnable()
     {
-        InstantiateVariables(true);
+        checkCameraPosition = true;
     }
 
     private void Update()

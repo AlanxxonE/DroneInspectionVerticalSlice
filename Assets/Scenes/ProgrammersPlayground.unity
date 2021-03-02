@@ -353,7 +353,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hazardManager: {fileID: 261446562}
-  checkCameraPosition: 0
 --- !u!1 &286696136
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,8 +1143,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hazardManager: {fileID: 261446562}
-  checkCameraPosition: 0
-  target: {fileID: 495437627}
 --- !u!65 &1276983877
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4976,7 +4973,7 @@ MonoBehaviour:
   firstPersonCam: {fileID: 8620854079099973878}
   thirdPersonCam: {fileID: 8620854080377399630}
   camMaxVerticalFreeLookAngle: 90
-  interpolationTime: 0.3
+  interpolationTime: 0.5
   interpolationOffset: 10
   droneVelocity: 12
   flightCeiling: 150
