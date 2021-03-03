@@ -16,7 +16,7 @@ public class Scaffold : HazardMechanics
 
     private void Update()
     {
-        RunHazard(Mechanics(), target);                                       
+        RunHazard(Mechanics(), target, index);                                       
     }
 
     public float Mechanics()

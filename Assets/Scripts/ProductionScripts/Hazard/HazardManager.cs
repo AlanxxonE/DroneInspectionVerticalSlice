@@ -17,7 +17,6 @@ public class HazardManager : MonoBehaviour
     [Header("General References")]
     [Tooltip("Reference to the hazard slider parent object")]
     public GameObject hazardSliderRef;
-    //[HideInInspector]
     public List<Transform> hazardTransforms;
     [HideInInspector] public Slider hazardSlider;
     [HideInInspector] public MonoBehaviour currentHazardScript = null;
@@ -77,7 +76,7 @@ public class HazardManager : MonoBehaviour
     /// <param name="satisfaction"></param> satisfaction score gained or lost by winning/losing a minigame
     /// <param name="score"></param>  score achieved at the end of the game
     /// <param name="isFixed"></param>  boolean to determine if a hazard was fixed successfully or not
-    public void FinishHazard(int satisfaction,int score, bool isFixed, Transform target)
+    public void FinishHazard(int satisfaction,int score, bool isFixed, Transform target, int index)
     {
         if (gameManager.droneController.droneCamera.FocusOnHazard(target, true))
         {
@@ -91,6 +90,7 @@ public class HazardManager : MonoBehaviour
             {
                 Score.SetFixedBooleans(hazardName, isFixed, false);
                 currentHazardScript.tag = "Fixed";
+                gameManager.droneController.compass.hazardMarkers[index].GetComponent<RawImage>().enabled = false;
             }
 
             currentHazardScript.enabled = false;

@@ -10,6 +10,7 @@ public class HazardMechanics : MonoBehaviour
     //General variables
     protected Transform target;  //Transform of the target game object, as it's protected it will be unique for any class that derives from hazard mechanics
     protected bool checkCameraPosition = false;   //Boolean used to determine if the CheckCameraPosition() method should run
+    protected int index;
 
     /// <summary>
     /// Sets current script inactive and sets it's unique target transform
@@ -20,6 +21,7 @@ public class HazardMechanics : MonoBehaviour
         GetComponent<MonoBehaviour>().enabled = false;
         target = transform.Find(nameOfTargetGameObject);
         hazardManager.hazardTransforms.Add(transform);
+        index = hazardManager.hazardTransforms.LastIndexOf(transform);        
     }
 
     /// <summary>
@@ -30,7 +32,7 @@ public class HazardMechanics : MonoBehaviour
         checkCameraPosition = true;
     }
 
-    protected void RunHazard(float sliderProgress, Transform target)
+    protected void RunHazard(float sliderProgress, Transform target, int index)
     {
         if (checkCameraPosition)
         {
@@ -45,12 +47,11 @@ public class HazardMechanics : MonoBehaviour
         {
             if (hazardManager.hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
             {
-                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).satisfaction, Score.GetScore(hazardManager.hazardName).score, true, target);
-                hazardManager.hazardTransforms.Remove(transform);
+                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).satisfaction, Score.GetScore(hazardManager.hazardName).score, true, target, index);
             }
             else if (hazardManager.hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
             {
-                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).dissatisfaction, 0, false, target);
+                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).dissatisfaction, 0, false, target, index);
             }
 
             else if(hazardManager.hazardSlider.value < 100 && hazardManager.hazardSlider.value > 0)

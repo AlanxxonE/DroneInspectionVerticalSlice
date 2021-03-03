@@ -10,11 +10,15 @@ public class Compass : MonoBehaviour
 
     //General variables
     private RawImage compassCoords;
-    private List<Transform> hazardTransforms;
+    public List<Transform> hazardTransforms;
     public GameObject hazardMarkerPrefab;
-    [HideInInspector]public List<GameObject> hazardMarkers;
+    public List<GameObject> hazardMarkers;
     private float compassUnit;
-    public bool markersInstantiated;
+    private bool markersInstantiated;
+    [Tooltip("Sets the minimum and maximum scale of the compass marker")]
+    public Vector2 hazardMarkerScale;
+    [Tooltip("Sets the range for the minimum and maximum compass marker scale value in metres")]
+    public Vector2 hazardMarkerScaleRange;
 
     private void Awake()
     {
@@ -30,20 +34,45 @@ public class Compass : MonoBehaviour
         if (markersInstantiated)
         {
             foreach (GameObject marker in hazardMarkers)
-            {
-                marker.GetComponent<RawImage>().rectTransform.anchoredPosition = GetHazardMarkerPositionOnCompass(marker);
+            {               
+                marker.GetComponent<RawImage>().rectTransform.anchoredPosition = GetHazardMarkerPositionOnCompass(hazardTransforms[hazardMarkers.IndexOf(marker)]);
+                float scale = GetHazardMarkerScale(hazardTransforms[hazardMarkers.IndexOf(marker)]);
+                marker.GetComponent<RawImage>().rectTransform.localScale = new Vector3(scale, scale, scale);                
             }
         }                  
     }
 
-    private Vector2 GetHazardMarkerPositionOnCompass(GameObject marker)
+    private Vector2 GetHazardMarkerPositionOnCompass(Transform marker)
     {
-        Vector2 drone2hazardVec = new Vector2(marker.transform.position.x - droneController.transform.position.x, marker.transform.position.z - droneController.transform.position.z);
-        float theta = Mathf.Tan(drone2hazardVec.x / drone2hazardVec.y);
-        float alpha = droneController.transform.rotation.eulerAngles.y;
-        float gamma = Mathf.Round(theta + alpha);
-        Debug.Log(gamma);
-        return new Vector2(compassUnit * gamma, 0f);
+        Vector3 targetVector = marker.position - droneController.transform.position;
+        Vector3 forwardVector = droneController.transform.forward;
+
+        targetVector.y = 0; forwardVector.y = 0;
+
+        float angle = Vector3.Angle(targetVector, forwardVector);
+        angle *= Mathf.Sign(Vector3.Cross(forwardVector, targetVector).y);       
+        return new Vector2(compassUnit * angle, 0f);
+    }
+
+    private float GetHazardMarkerScale(Transform marker)
+    {
+        float distance = Vector3.Distance(marker.position, droneController.transform.position);
+        if(distance > hazardMarkerScaleRange.y)
+        {
+            return hazardMarkerScale.x; 
+        }
+
+        else if(distance < hazardMarkerScaleRange.x)
+        {
+            return hazardMarkerScale.y;
+        }
+
+        else
+        {
+            float temp = (distance - hazardMarkerScaleRange.x )/ hazardMarkerScaleRange.y;
+            float returnValue = hazardMarkerScale.y -(temp * (hazardMarkerScale.y - hazardMarkerScale.x));
+            return returnValue;
+        }
     }
 
     IEnumerator InstantiateHazardMarkers(float waitTime)

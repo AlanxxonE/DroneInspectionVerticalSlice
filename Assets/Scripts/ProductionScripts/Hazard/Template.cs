@@ -22,7 +22,7 @@ public class Template : HazardMechanics     //Needs to inherit from HazardMechan
     ///////Don't remove///////
     private void Update()
     {
-        RunHazard(Mechanics(), target);   //Calls the RunHazard() method in hazard mechanics which handles all the mechanics
+        RunHazard(Mechanics(), target, index);   //Calls the RunHazard() method in hazard mechanics which handles all the mechanics
     }
 
     //Add mechanics here

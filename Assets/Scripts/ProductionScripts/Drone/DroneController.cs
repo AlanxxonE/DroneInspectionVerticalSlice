@@ -11,6 +11,7 @@ public class DroneController : MonoBehaviour
     public DroneRayCast droneRayCast;
     public DroneCamera droneCamera;
     public GameManager gameManager;
+    public Compass compass;
 
     //General Variables
     [Header("General Variables")]    
