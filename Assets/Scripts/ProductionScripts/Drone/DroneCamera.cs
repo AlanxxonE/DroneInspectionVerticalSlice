@@ -100,15 +100,15 @@ public class DroneCamera : MonoBehaviour
         {
             startPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
             endPosition = transform.position + cameraPosition; ///This line may need fixed further, I can do it (Aaron) just too tired now 
-            
-            if(Vector3.Distance(droneController.thirdPersonCam.transform.position, endPosition) == 0.00f)
+            droneController.thirdPersonCam.transform.LookAt(transform.position + (transform.forward * droneController.interpolationOffset));
+            if (Vector3.Distance(droneController.thirdPersonCam.transform.position, endPosition) == 0.00f)
             {
                 droneController.thirdPersonCam.transform.localRotation = cameraRotation;
                 droneController.thirdPersonCam.transform.localPosition = cameraPosition;                
                 return true;
             }
         }
-
+      
         droneController.thirdPersonCam.transform.position = new Vector3(Mathf.Lerp(startPosition.x, endPosition.x, interpolationTime), Mathf.Lerp(startPosition.y, endPosition.y, interpolationTime), Mathf.Lerp(startPosition.z, endPosition.z, interpolationTime));
         interpolationTime += droneController.interpolationTime * Time.deltaTime;       
 
