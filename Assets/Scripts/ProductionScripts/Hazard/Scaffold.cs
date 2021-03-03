@@ -6,7 +6,7 @@ public class Scaffold : HazardMechanics
 {
     private void Awake()
     {
-        OnWake("Target");
+        OnWake("InteractibleCube");
     }
 
     private void OnEnable()

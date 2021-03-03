@@ -8,7 +8,7 @@ public class HazardMechanics : MonoBehaviour
     [HideInInspector]public HazardManager hazardManager;
 
     //General variables
-    protected Transform target;    //Transform of the target game object, as it's protected it will be unique for any class that derives from hazard mechanics
+    protected Transform target;  //Transform of the target game object, as it's protected it will be unique for any class that derives from hazard mechanics
     protected bool checkCameraPosition = false;   //Boolean used to determine if the CheckCameraPosition() method should run
 
     /// <summary>
@@ -19,6 +19,7 @@ public class HazardMechanics : MonoBehaviour
     {
         GetComponent<MonoBehaviour>().enabled = false;
         target = transform.Find(nameOfTargetGameObject);
+        hazardManager.hazardTransforms.Add(transform);
     }
 
     /// <summary>
@@ -45,6 +46,7 @@ public class HazardMechanics : MonoBehaviour
             if (hazardManager.hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
             {
                 hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).satisfaction, Score.GetScore(hazardManager.hazardName).score, true, target);
+                hazardManager.hazardTransforms.Remove(transform);
             }
             else if (hazardManager.hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
             {

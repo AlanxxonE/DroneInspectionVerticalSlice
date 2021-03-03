@@ -5,7 +5,7 @@ using UnityEngine;
 public class DroneCamera : MonoBehaviour
 {
     /// <summary>
-    /// Claa that handles the drone's cameras
+    /// Class that handles the drone's cameras
     /// </summary>
     
     //Class Reference

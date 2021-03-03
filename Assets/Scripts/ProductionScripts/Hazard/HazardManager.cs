@@ -17,6 +17,8 @@ public class HazardManager : MonoBehaviour
     [Header("General References")]
     [Tooltip("Reference to the hazard slider parent object")]
     public GameObject hazardSliderRef;
+    //[HideInInspector]
+    public List<Transform> hazardTransforms;
     [HideInInspector] public Slider hazardSlider;
     [HideInInspector] public MonoBehaviour currentHazardScript = null;
     [HideInInspector] public string hazardName;
@@ -98,4 +100,9 @@ public class HazardManager : MonoBehaviour
             gameManager.droneController.droneCamera.SwitchPerspective(true); 
         }
     }   
+
+    public List<Transform> GetHazardTransforms()
+    {
+        return hazardTransforms;
+    }
 }
