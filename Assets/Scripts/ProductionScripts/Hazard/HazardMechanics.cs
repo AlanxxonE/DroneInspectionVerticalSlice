@@ -5,7 +5,7 @@ using UnityEngine;
 public class HazardMechanics : MonoBehaviour
 {
     //Class references
-    public HazardManager hazardManager;
+    [HideInInspector]public HazardManager hazardManager;
 
     //General variables
     protected Transform target;  //Transform of the target game object, as it's protected it will be unique for any class that derives from hazard mechanics
