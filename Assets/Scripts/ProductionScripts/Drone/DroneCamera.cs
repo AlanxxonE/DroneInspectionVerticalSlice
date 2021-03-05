@@ -79,7 +79,7 @@ public class DroneCamera : MonoBehaviour
         droneController.firstPersonCam.GetComponent<AudioListener>().enabled = isFirstPerson;
         droneController.thirdPersonCam.SetActive(!isFirstPerson);
         droneController.thirdPersonCam.GetComponent<AudioListener>().enabled = !isFirstPerson;
-        droneController.droneUI.EnableUI(firstPerson);
+        droneController.gameManager.UIManager.droneUI.EnableUI(firstPerson);
     }
 
     public bool FocusOnHazard(Transform target, bool resetCameraPosition)
@@ -115,10 +115,3 @@ public class DroneCamera : MonoBehaviour
         return false;
     }
 }
-
-//test
-//float theta = this.transform.rotation.y;
-//Vector3 dronePos = this.transform.position;
-
-//float endPosX = Mathf.Cos(theta) * (cameraPosition.x - dronePos.x) - Mathf.Sin(theta) * (cameraPosition.z - dronePos.z) + dronePos.x;
-//float endPosZ = Mathf.Sin(theta) * (cameraPosition.x - dronePos.x) + Mathf.Cos(theta) * (cameraPosition.z - dronePos.z) + dronePos.z;

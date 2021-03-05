@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public HazardManager hazardManager;
     public LevelManager levelManager;
     public DialogueManager dialogueManager;
+    public UIManager UIManager;
 
     //General References
     [Header("General References")]

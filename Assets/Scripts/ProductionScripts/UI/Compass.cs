@@ -5,20 +5,18 @@ using UnityEngine.UI;
 
 public class Compass : MonoBehaviour
 {
-    //Class Reference 
-    public DroneController droneController;
+    //Class reference 
+    [Tooltip("Reference to the UIManager class")]
+    public UIManager UIManager;
 
-    //General variables
+    //References
     private RawImage compassCoords;
-    public List<Transform> hazardTransforms;
-    public GameObject hazardMarkerPrefab;
-    public List<GameObject> hazardMarkers;
+    private List<Transform> hazardTransforms;
+    [HideInInspector]public List<GameObject> hazardMarkers;
+
+    //Variables
     private float compassUnit;
     private bool markersInstantiated;
-    [Tooltip("Sets the minimum and maximum scale of the compass marker")]
-    public Vector2 hazardMarkerScale;
-    [Tooltip("Sets the range for the minimum and maximum compass marker scale value in metres")]
-    public Vector2 hazardMarkerScaleRange;
 
     private void Awake()
     {
@@ -29,8 +27,8 @@ public class Compass : MonoBehaviour
 
     private void Update()
     {
-        compassCoords.uvRect = new Rect(droneController.transform.localEulerAngles.y / 360f, 0f, 1f, 1f);
-        hazardTransforms = droneController.gameManager.hazardManager.GetHazardTransforms();
+        compassCoords.uvRect = new Rect(UIManager.gameManager.droneController.transform.localEulerAngles.y / 360f, 0f, 1f, 1f);
+        hazardTransforms = UIManager.gameManager.droneController.gameManager.hazardManager.GetHazardTransforms();
         if (markersInstantiated)
         {
             foreach (GameObject marker in hazardMarkers)
@@ -44,8 +42,8 @@ public class Compass : MonoBehaviour
 
     private Vector2 GetHazardMarkerPositionOnCompass(Transform marker)
     {
-        Vector3 targetVector = marker.position - droneController.transform.position;
-        Vector3 forwardVector = droneController.transform.forward;
+        Vector3 targetVector = marker.position - UIManager.gameManager.droneController.transform.position;
+        Vector3 forwardVector = UIManager.gameManager.droneController.transform.forward;
 
         targetVector.y = 0; forwardVector.y = 0;
 
@@ -56,21 +54,21 @@ public class Compass : MonoBehaviour
 
     private float GetHazardMarkerScale(Transform marker)
     {
-        float distance = Vector3.Distance(marker.position, droneController.transform.position);
-        if(distance > hazardMarkerScaleRange.y)
+        float distance = Vector3.Distance(marker.position, UIManager.gameManager.droneController.transform.position);
+        if(distance > UIManager.hazardMarkerScaleRange.y)
         {
-            return hazardMarkerScale.x; 
+            return UIManager.hazardMarkerScale.x; 
         }
 
-        else if(distance < hazardMarkerScaleRange.x)
+        else if(distance < UIManager.hazardMarkerScaleRange.x)
         {
-            return hazardMarkerScale.y;
+            return UIManager.hazardMarkerScale.y;
         }
 
         else
         {
-            float temp = (distance - hazardMarkerScaleRange.x )/ hazardMarkerScaleRange.y;
-            float returnValue = hazardMarkerScale.y -(temp * (hazardMarkerScale.y - hazardMarkerScale.x));
+            float temp = (distance - UIManager.hazardMarkerScaleRange.x )/ UIManager.hazardMarkerScaleRange.y;
+            float returnValue = UIManager.hazardMarkerScale.y -(temp * (UIManager.hazardMarkerScale.y - UIManager.hazardMarkerScale.x));
             return returnValue;
         }
     }
@@ -80,7 +78,7 @@ public class Compass : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         for(int i = 0; i < hazardTransforms.Count; i++)
         {          
-            GameObject marker = Instantiate(hazardMarkerPrefab, transform);
+            GameObject marker = Instantiate(UIManager.hazardMarkerPrefab, transform);
             hazardMarkers.Add(marker);            
         }
         markersInstantiated = true;

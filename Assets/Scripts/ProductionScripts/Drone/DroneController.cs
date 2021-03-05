@@ -6,12 +6,10 @@ public class DroneController : MonoBehaviour
 {
     //Class References   
     [Header("Class References")]
-    public DroneUI droneUI;
     public DroneMovement droneMovement;
     public DroneRayCast droneRayCast;
     public DroneCamera droneCamera;
     public GameManager gameManager;
-    public Compass compass;
 
     //General Variables
     [Header("General Variables")]    
@@ -54,18 +52,4 @@ public class DroneController : MonoBehaviour
     public float maxTiltAngle;
     [Tooltip("Sets the force for the Push Back when Colliding with something")]
     public float pushBackForce;
-
-    //UI Variables
-    [Header("UI Variables")]
-    [Range(0f, 1f)]
-    [Tooltip("Sets percentage of the maximum range of the drone at which the drone signal begins to fade and the static effect begins to increase")]
-    public float signalLossPoint;
-    [Range(0f, 1f)]
-    [Tooltip("Sets the rate of satisfaction loss at rate of 0-1 ticks per second. Total ticks = 100.")]
-    public float satisfactionDropRate;
-    [Range(0f, 100f)]
-    [Tooltip("Sets the initial value of worker satisfaction. Range from 0 - 100.")]
-    public float satisfactionValue = 50f;
-    [Tooltip("Sets the gradient for the satisfaction slider")]
-    public Gradient satisfactionGradient;
 }

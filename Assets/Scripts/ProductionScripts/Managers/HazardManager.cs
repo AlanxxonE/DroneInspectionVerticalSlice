@@ -81,7 +81,7 @@ public class HazardManager : MonoBehaviour
         if (gameManager.droneController.droneCamera.FocusOnHazard(target, true))
         {
             gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
-            gameManager.droneController.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose            
+            gameManager.UIManager.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose            
 
             hazardSlider.value = hazardSliderInitialValue;
             hazardSliderRef.SetActive(false);
@@ -90,7 +90,7 @@ public class HazardManager : MonoBehaviour
             {
                 Score.SetFixedBooleans(hazardName, isFixed, false);
                 currentHazardScript.tag = "Fixed";
-                gameManager.droneController.compass.hazardMarkers[index].GetComponent<RawImage>().enabled = false;
+                gameManager.UIManager.compass.hazardMarkers[index].GetComponent<RawImage>().enabled = false;
             }
 
             currentHazardScript.enabled = false;

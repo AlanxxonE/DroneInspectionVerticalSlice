@@ -23,7 +23,7 @@ public class DroneRayCast : MonoBehaviour
     {
         RaycastDistanceCheck();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color == Color.green && droneController.firstPersonCam.activeSelf == true)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color == Color.green && droneController.firstPersonCam.activeSelf == true)
         {
             ShootRaycast();
         }
@@ -43,19 +43,19 @@ public class DroneRayCast : MonoBehaviour
             //If the hazard is within the optimal distance from the drone
             if (check.distance > droneController.gameManager.hazardManager.GetOptimalRange(hazardName).x && check.distance < droneController.gameManager.hazardManager.GetOptimalRange(hazardName).y)
             {
-                droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.green;  //Sets the artificial horizon UI elements to green
+                droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color = Color.green;  //Sets the artificial horizon UI elements to green
             }
             //If the hazard is ouwith the optimal distance from the drone
             else if (check.distance < droneController.gameManager.hazardManager.maxDetectionDistance)
             {
-                droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.red;   //Sets the artificial horizon UI elements to red
+                droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color = Color.red;   //Sets the artificial horizon UI elements to red
             }
         }
 
         //If the raycast hits nothing 
         else if (check.collider == null || check.collider.CompareTag("Fixed"))
         {
-            droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.black;  //Sets the artificial horizon UI elements to grey
+            droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color = Color.black;  //Sets the artificial horizon UI elements to grey
         }
     }
 
