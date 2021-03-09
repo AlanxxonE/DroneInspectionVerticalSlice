@@ -42,7 +42,9 @@ public class GameManager : MonoBehaviour
                 default:
                     break;
             }
-        }       
+        }
+
+        RenderSettings.skybox.SetFloat("_Rotation", Time.time * 2);
     }
 
     /// <summary>

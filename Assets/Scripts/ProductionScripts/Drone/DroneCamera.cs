@@ -100,7 +100,7 @@ public class DroneCamera : MonoBehaviour
         {
             startPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
             endPosition = transform.position + cameraPosition; ///This line may need fixed further, I can do it (Aaron) just too tired now 
-            droneController.thirdPersonCam.transform.LookAt(transform.position + (transform.forward * droneController.interpolationOffset));
+            droneController.thirdPersonCam.transform.LookAt(/*transform.position + (transform.forward * droneController.interpolationOffset)*/ target.position);
             if (Vector3.Distance(droneController.thirdPersonCam.transform.position, endPosition) == 0.00f)
             {
                 droneController.thirdPersonCam.transform.localRotation = cameraRotation;
