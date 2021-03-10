@@ -82,13 +82,13 @@ public class DroneCamera : MonoBehaviour
         droneController.gameManager.UIManager.droneUI.EnableUI(firstPerson);
     }
 
-    public bool FocusOnHazard(Transform target, bool resetCameraPosition)
+    public bool FocusOnHazard(Transform cameraFocalPoint, bool resetCameraPosition)
     {
         if(!resetCameraPosition)
         {
             startPosition = this.transform.position + cameraPosition; 
-            endPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
-            droneController.thirdPersonCam.transform.LookAt(target.position);
+            endPosition = cameraFocalPoint.position - (droneController.interpolationOffset * cameraFocalPoint.GetComponentInParent<Transform>().forward);
+            droneController.thirdPersonCam.transform.LookAt(cameraFocalPoint.position);
 
             if (droneController.thirdPersonCam.transform.position == endPosition )
             {               
@@ -98,9 +98,9 @@ public class DroneCamera : MonoBehaviour
 
         else if (resetCameraPosition)
         {
-            startPosition = target.position - (droneController.interpolationOffset * target.GetComponentInParent<Transform>().forward);
+            startPosition = cameraFocalPoint.position - (droneController.interpolationOffset * cameraFocalPoint.GetComponentInParent<Transform>().forward);
             endPosition = transform.position + cameraPosition; ///This line may need fixed further, I can do it (Aaron) just too tired now 
-            droneController.thirdPersonCam.transform.LookAt(/*transform.position + (transform.forward * droneController.interpolationOffset)*/ target.position);
+            droneController.thirdPersonCam.transform.LookAt(/*transform.position + (transform.forward * droneController.interpolationOffset)*/ cameraFocalPoint.position);
             if (Vector3.Distance(droneController.thirdPersonCam.transform.position, endPosition) == 0.00f)
             {
                 droneController.thirdPersonCam.transform.localRotation = cameraRotation;

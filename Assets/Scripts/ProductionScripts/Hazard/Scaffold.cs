@@ -15,19 +15,20 @@ public class Scaffold : HazardMechanics
     }
 
     private void Update()
-    {
-        RunHazard(Mechanics(), target, index);                                       
+    {        
+        RunHazard(Mechanics(), cameraFocalPoint, hazardIndex);                                       
     }
 
-    public float Mechanics()
+    private float Mechanics()
     {
-        if (CheckCursorState() == "Clicked")
-        {
-            float interactedProgress = 100;
-            return interactedProgress;
-        }
+        float progress = -1 * Time.deltaTime; ///Change for the actual mechanics  
 
-        float progress = -1 * Time.deltaTime; ///Change for the actual mechanics          
+        if (CheckCursorState())
+        {
+            
+            progress = 100;
+            return progress;
+        }               
         return progress;
     }
 }

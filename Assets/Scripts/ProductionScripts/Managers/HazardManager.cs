@@ -78,10 +78,10 @@ public class HazardManager : MonoBehaviour
     /// <param name="satisfaction"></param> satisfaction score gained or lost by winning/losing a minigame
     /// <param name="score"></param>  score achieved at the end of the game
     /// <param name="isFixed"></param>  boolean to determine if a hazard was fixed successfully or not
-    public void FinishHazard(int satisfaction,int score, bool isFixed, Transform target, int index)
+    public void FinishHazard(int satisfaction,int score, bool isFixed, Transform cameraFocalPoint, int index)
     {
         Cursor.lockState = CursorLockMode.Locked;
-        if (gameManager.droneController.droneCamera.FocusOnHazard(target, true))
+        if (gameManager.droneController.droneCamera.FocusOnHazard(cameraFocalPoint, true))
         {
             gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
             gameManager.UIManager.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose            
@@ -94,6 +94,7 @@ public class HazardManager : MonoBehaviour
                 Score.SetFixedBooleans(hazardName, isFixed, false);
                 currentHazardScript.tag = "Fixed";
                 gameManager.UIManager.compass.hazardMarkers[index].GetComponent<RawImage>().enabled = false;
+                Destroy(cameraFocalPoint.gameObject);
             }
 
             currentHazardScript.enabled = false;
