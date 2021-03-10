@@ -16,10 +16,19 @@ public class HazardMechanics : MonoBehaviour
     /// Sets current script inactive and sets it's unique target transform
     /// </summary>
     /// <param name="nameOfTargetGameObject"></param>
-    protected void OnWake(string nameOfTargetGameObject)
+    protected void OnWake()
     {
         GetComponent<MonoBehaviour>().enabled = false;
-        target = transform.Find(nameOfTargetGameObject);
+
+        Transform t = transform;
+        foreach(Transform temp in t)
+        {
+            if (temp.tag == "Target")
+            {
+                target = temp;
+            }
+        }
+
         hazardManager.hazardTransforms.Add(transform);
         index = hazardManager.hazardTransforms.LastIndexOf(transform);        
     }
@@ -59,6 +68,37 @@ public class HazardMechanics : MonoBehaviour
                 hazardManager.hazardSlider.value += sliderProgress - (hazardManager.hazardProgressDropRate * Time.deltaTime);  //Sets the rate at which the hazard timer counts down ////Don't move this
             }            
         }        
+    }
+
+    protected string CheckCursorState()
+    {
+        Ray ray;
+        RaycastHit hit;
+
+        ray = hazardManager.gameManager.droneController.thirdPersonCam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray , out hit))
+        {
+            switch (hit.collider.tag)
+            {
+                case "Target":
+                    target.GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        target.tag = "Fixed";
+                        target.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                        Cursor.lockState = CursorLockMode.Locked;
+                        return "Clicked";
+                    }
+                    break;
+
+                default:
+                    target.GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                    break;
+            }
+        }
+        return "Null";
     }
 
     private bool CheckCameraPosition(Transform target)

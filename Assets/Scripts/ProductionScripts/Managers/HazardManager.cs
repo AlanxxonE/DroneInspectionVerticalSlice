@@ -12,7 +12,7 @@ public class HazardManager : MonoBehaviour
     //Class References 
     [Header("Class References")]
     public GameManager gameManager;
-
+    public Texture2D cursor;
     //General References
     [Header("General References")]
     [Tooltip("Reference to the hazard slider parent object")]
@@ -60,6 +60,8 @@ public class HazardManager : MonoBehaviour
 
     public void InitialiseHazard(MonoBehaviour currenHazardScript)
     {
+        Cursor.SetCursor(cursor,new Vector2(0,0), CursorMode.Auto);
+        Cursor.lockState = CursorLockMode.None;
         gameManager.droneController.droneCamera.interpolationTime = 0;
         gameManager.droneController.droneCamera.SwitchPerspective(false);
 
@@ -78,6 +80,7 @@ public class HazardManager : MonoBehaviour
     /// <param name="isFixed"></param>  boolean to determine if a hazard was fixed successfully or not
     public void FinishHazard(int satisfaction,int score, bool isFixed, Transform target, int index)
     {
+        Cursor.lockState = CursorLockMode.Locked;
         if (gameManager.droneController.droneCamera.FocusOnHazard(target, true))
         {
             gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
@@ -97,7 +100,7 @@ public class HazardManager : MonoBehaviour
             currentHazardScript = null;
             hazardName = null;
 
-            gameManager.droneController.droneCamera.SwitchPerspective(true); 
+            gameManager.droneController.droneCamera.SwitchPerspective(true);
         }
     }   
 

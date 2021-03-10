@@ -43,7 +43,7 @@ public class DroneMovement : MonoBehaviour
             }
             else
             {
-                Cursor.lockState = CursorLockMode.None; //Unlocks the cursor
+                //Cursor.lockState = CursorLockMode.None; //Unlocks the cursor
                 droneController.canMove = 0;  //prevents the drone moving
             }
 

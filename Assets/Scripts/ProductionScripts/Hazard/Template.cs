@@ -10,7 +10,7 @@ public class Template : HazardMechanics     //Needs to inherit from HazardMechan
     ///////Don't remove///////
     private void Awake()
     {
-        OnWake("InsertNameOfTargetGameObjectHereAsString");  //Calls the OnWake() method
+        OnWake();  //Calls the OnWake() method
     }
 
     ///////Don't remove///////

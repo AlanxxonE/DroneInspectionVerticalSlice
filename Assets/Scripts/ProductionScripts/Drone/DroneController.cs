@@ -24,7 +24,7 @@ public class DroneController : MonoBehaviour
     public GameObject thirdPersonCam;
     [Tooltip("Sets the vertical angle limit of the first person camera")]
     public float camMaxVerticalFreeLookAngle = 90f;
-    [Tooltip("Sets the time taken for the camera to interpolate to a hazard target position when being interacted with")]
+    [Tooltip("Sets the time taken in seconds for the camera to interpolate to a hazard target position when being interacted with")]
     public float interpolationTime;
     [Tooltip("Sets the z-axis offset for the camera to reach after interpolation")]
     public float interpolationOffset;

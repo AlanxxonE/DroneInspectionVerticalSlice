@@ -12,7 +12,7 @@ public class DroneCamera : MonoBehaviour
     private DroneController droneController;
 
     //General Variables
-    private bool firstPerson = false;  //Boolean to determine if in third person   
+    [HideInInspector]public bool firstPerson = false;  //Boolean to determine if in third person   
     private float camTurnSpeed;   //Variable to set the turn speed of teh camera
     private float camXAxisRotation;  //Reference to the x-axis rotation of the camera
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
@@ -110,7 +110,7 @@ public class DroneCamera : MonoBehaviour
         }
       
         droneController.thirdPersonCam.transform.position = new Vector3(Mathf.Lerp(startPosition.x, endPosition.x, interpolationTime), Mathf.Lerp(startPosition.y, endPosition.y, interpolationTime), Mathf.Lerp(startPosition.z, endPosition.z, interpolationTime));
-        interpolationTime += droneController.interpolationTime * Time.deltaTime;       
+        interpolationTime +=  Time.deltaTime / droneController.interpolationTime ;       
 
         return false;
     }

@@ -10,6 +10,7 @@ TagManager:
   - CrossRoad
   - ScaffoldHazard
   - Fixed
+  - Target
   layers:
   - Default
   - TransparentFX

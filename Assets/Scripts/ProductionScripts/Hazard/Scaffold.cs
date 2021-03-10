@@ -6,7 +6,7 @@ public class Scaffold : HazardMechanics
 {
     private void Awake()
     {
-        OnWake("InteractibleCube");
+        OnWake();
     }
 
     private void OnEnable()
@@ -21,7 +21,7 @@ public class Scaffold : HazardMechanics
 
     public float Mechanics()
     {
-        if(GetComponentInChildren<HazardInteraction>().isClicked)
+        if (CheckCursorState() == "Clicked")
         {
             float interactedProgress = 100;
             return interactedProgress;
