@@ -11,14 +11,26 @@ public class DialogueManager : MonoBehaviour
     int currentAmount = 0;
     bool isRunning = false;
 
+    int sentenceNumber = 0;
 
-
-    string[] paragraphs = { "a", "Welcome to the construstion site worker!", "Today we are going to fix the pipe", "d" };
+    string[] paragraphs = { 
+        "Welcome to the construstion site worker!", 
+        "Okey, first thing, try to get the feel of the Drone's controls",
+        "Use the Mouse to look around",
+        "Move around using the W,A,S,D keys", 
+        "Now make sure the propellers are working as well",
+        "Use Space key to Ascend, Shift key to Descend",
+        "Lets get close to those Escavators",
+        "Try using the C key so you can look better at things",
+        "This way you can analyze and inspect hazards",
+        "A worker reported something seemed off near the main big building!",
+        "Check the scaffolds and see if you notice something out of place"};
 
     void Awake()
     {
         dialogue = dialogueSystem.GetComponentInChildren<Text>();
         //dialogueSystem.SetActive(false);
+        StartCoroutine(StartIduction(sentenceNumber));
     }
 
     public void DisplayParagraph(int paraNum, int amountOfLetters)
@@ -66,6 +78,22 @@ public class DialogueManager : MonoBehaviour
         if (currentAmount != 0)
         {
             isRunning = true;
+        }
+    }
+
+    IEnumerator StartIduction(int sentNum)
+    {
+        DisplayParagraph(sentenceNumber,1);
+        yield return new WaitForSeconds(10f);
+
+        if (sentenceNumber < paragraphs.Length - 1)
+        {
+            sentenceNumber++;
+            StartCoroutine(StartIduction(sentenceNumber));
+        }
+        else
+        {
+            dialogue.transform.parent.transform.parent.gameObject.SetActive(false);
         }
     }
 }

@@ -36,16 +36,12 @@ public class DroneCamera : MonoBehaviour
         {
             firstPerson = !firstPerson;  //If the camera toggle is pressed it swaps the camera state between third or first person
             SwitchPerspective(firstPerson);
-            droneController.gameManager.dialogueManager.StopSentence();
-            droneController.gameManager.dialogueManager.DisplayParagraph(1,1);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
             firstPerson = true;
             SwitchPerspective(firstPerson);
-            droneController.gameManager.dialogueManager.StopSentence();
-            droneController.gameManager.dialogueManager.DisplayParagraph(2, 1);
         }
 
         else if (Input.GetMouseButtonUp(1)) //If mouse 2 is no longer pressed
