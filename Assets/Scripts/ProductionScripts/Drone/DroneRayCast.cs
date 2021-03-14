@@ -6,8 +6,12 @@ using UnityEngine.EventSystems;
 
 public class DroneRayCast : MonoBehaviour
 {
-    //Clasas Reference
-    private DroneController droneController;
+    /// <summary>
+    /// Class to manage the raycast used to detect hazards
+    /// </summary>
+    
+    //Class Reference
+    private DroneController droneController; //Reference to the drone controller script 
 
     //Hazard Interaction Variables
     private RaycastHit check;        //Holds reference for the object a raycast hit 
@@ -16,7 +20,7 @@ public class DroneRayCast : MonoBehaviour
 
     private void Awake()
     {
-        droneController = this.GetComponent<DroneController>();
+        droneController = this.GetComponent<DroneController>();     
     }
 
     private void Update()
@@ -25,7 +29,7 @@ public class DroneRayCast : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color == Color.green && droneController.firstPersonCam.activeSelf == true)
         {
-            ShootRaycast();
+            ShootRaycast();  //Called if player presses mouse 1 while in first person view and can interact with a hazard
         }
     }
 
@@ -66,11 +70,11 @@ public class DroneRayCast : MonoBehaviour
     {
         Physics.Raycast(transform.position, transform.forward, out hit, 100f);  //Shoots out a raycast
 
-        //If the raycast hits a hazard that is still in danger
+        //If the raycast hits a hazard 
         if (hit.collider != null && hit.collider.CompareTag("Hazard"))
         {            
             stopMovement = true;   //Stops the drone     
-            droneController.gameManager.hazardManager.InitialiseHazard(hit.collider.GetComponent<MonoBehaviour>());            
+            droneController.gameManager.hazardManager.InitialiseHazard(hit.collider.GetComponent<MonoBehaviour>()); //Calls the InitialiseHazard() method in hazard manager           
         }
     }
 }

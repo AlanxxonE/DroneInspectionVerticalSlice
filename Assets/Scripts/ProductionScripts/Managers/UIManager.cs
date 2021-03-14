@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    /// <summary>
+    /// UI Manager class. Holds variables and references to/for UI classes
+    /// </summary>
+    
     //Class References
     [Header("Class References")]
     [Tooltip("Reference to game manager script")]

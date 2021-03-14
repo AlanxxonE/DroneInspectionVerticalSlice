@@ -6,27 +6,30 @@ public class Scaffold : HazardMechanics
 {
     private void Awake()
     {
-        OnWake();
+        OnWake(); //Calls the OnWake() method
     }
 
     private void OnEnable()
     {
-        InitiateVariables();
+        InitiateVariables(); //Initiates variables
     }
 
     private void Update()
     {        
-        RunHazard(Mechanics(), cameraFocalPoint, hazardIndex);                                       
+        RunHazard(Mechanics(), cameraFocalPoint, hazardIndex);                                
     }
 
+    /// <summary>
+    /// Mechanics of this hazard
+    /// </summary>
+    /// <returns></returns>
     private float Mechanics()
     {
-        float progress = -1 * Time.deltaTime; ///Change for the actual mechanics  
+        float progress = -1 * Time.deltaTime;  //Loses some progress over time until hazard is complete
 
-        if (CheckCursorState())
-        {
-            
-            progress = 100;
+        if (CheckCursorState()) //If check cursor state returns true, i.e. each target has been interacted with
+        {            
+            progress = 100; //Adds 100 to progress (Completing minigame in RunHazard())
             return progress;
         }               
         return progress;

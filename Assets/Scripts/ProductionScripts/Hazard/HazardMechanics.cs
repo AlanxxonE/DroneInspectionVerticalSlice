@@ -4,59 +4,69 @@ using UnityEngine;
 
 public class HazardMechanics : MonoBehaviour
 {
+    /// <summary>
+    /// Class to hold variables and methods that all hazard classes inherit from
+    /// </summary>
+    
     //Class references
-    [HideInInspector]public HazardManager hazardManager;
+    public HazardManager hazardManager; //Reference to the hazard manager class
 
     //General variables
     protected List<Transform> targetTransforms = new List<Transform>();  //Transform of the target game object, as it's protected it will be unique for any class that derives from hazard mechanics
-    protected List<bool> targetFixed = new List<bool>();
-    protected Transform cameraFocalPoint;
-    protected int hazardIndex;
-    protected int targetIndex = 0;
+    protected List<bool> targetFixed = new List<bool>(); //List t o determine if specific hazard elements are fixed
+    protected Transform cameraFocalPoint;  //Position the camera focuses on
+    protected int hazardIndex;  //Index for the list of hazard transforms
+    protected int targetIndex = 0; //Target index to distinguish between targets on a hazard
     protected bool checkCameraPosition = false;   //Boolean used to determine if the CheckCameraPosition() method should run
 
     /// <summary>
-    /// Sets current script inactive and sets it's unique target transform
+    /// Method to handle on wake functions of each hazard class
     /// </summary>
-    /// <param name="nameOfTargetGameObject"></param>
     protected void OnWake()
     {
-        GetComponent<MonoBehaviour>().enabled = false;
+        GetComponent<MonoBehaviour>().enabled = false; //Disables class
 
         foreach(Transform child in transform)
         {
             if (child.CompareTag("Target"))
             {
-                targetTransforms.Add(child.transform);
-                targetFixed.Add(false);
+                targetTransforms.Add(child.transform);  //Adds transforms of each child target of each hazard to it's own list
+                targetFixed.Add(false); //Sets the fixed state of each of these to false
             }
         }
 
-        hazardManager.hazardTransforms.Add(transform);
-        hazardIndex = hazardManager.hazardTransforms.LastIndexOf(transform);        
+        hazardManager.hazardTransforms.Add(transform);  //Adds the transform of this hazard to the list of hazard transforms in hazard manager
+        hazardIndex = hazardManager.hazardTransforms.LastIndexOf(transform); //Holds the index of this hazard as it's added to the list of hazard transforms in hazard manager      
     }
 
     /// <summary>
-    /// Initiates unique variables for the script the calls this method
+    /// Initiates unique variables for the script that calls this method
     /// </summary>
     protected void InitiateVariables()
     {
-        checkCameraPosition = true;
-        ReturnAverageOfTransforms(targetTransforms);
+        checkCameraPosition = true;  
+        ReturnAverageOfTransforms(targetTransforms);  
     }
 
+    /// <summary>
+    /// Manages the hazard mechanics as it runs. Takes in a float for porgress, the point the camera should focus on when a hazard is interacted with and the index for this 
+    /// hazard in the list of hazard transforms in hazard manager 
+    /// </summary>
+    /// <param name="sliderProgress"></param>
+    /// <param name="cameraFocalPoint"></param>
+    /// <param name="index"></param>
     protected void RunHazard(float sliderProgress, Transform cameraFocalPoint, int index)
     {
-        if (checkCameraPosition)
+        if (checkCameraPosition) //If camera is not in position, i.e. a hazard has just been interacted with or just finished the minigame and the camera must move
         {
-            if (CheckCameraPosition(cameraFocalPoint))
+            if (CheckCameraPosition(cameraFocalPoint)) //Calls the check camera position method, if it returns true....
             {
-                checkCameraPosition = false;
-                hazardManager.gameManager.droneController.droneCamera.interpolationTime = 0;
+                checkCameraPosition = false; //Stops calling this method
+                hazardManager.gameManager.droneController.droneCamera.interpolationTime = 0; //Resets interpolation time timer
             }
         }
 
-        else
+        else //If camera is in position, minigame will start
         {
             if (hazardManager.hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
             {
@@ -74,67 +84,77 @@ public class HazardMechanics : MonoBehaviour
         }        
     }
 
+    /// <summary>
+    /// Method to check current status of the cursor and return true if each hazard target has been interacted with correctly
+    /// </summary>
+    /// <returns></returns>
     protected bool CheckCursorState()
     {
-        Ray ray;
-        RaycastHit hit;
-        ray = hazardManager.gameManager.droneController.thirdPersonCam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        Ray ray;   //Holds reference to the raycast
+        RaycastHit hit; //Holds reference to what the raycast hits
+        ray = hazardManager.gameManager.droneController.thirdPersonCam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);  //Shoots raycast from TPP camera to mouse position
 
-        bool checkIfComplete = true;
+        bool checkIfComplete = true;  //Bool to determine if hazard minigame is complete, i.e. has each target been interacted with correctly. Sets true each time method is run
 
-        if (Physics.Raycast(ray , out hit))
+        if (Physics.Raycast(ray, out hit)) // If raycast hits something
         {
-            switch (hit.collider.tag)
+            switch (hit.collider.tag) //Compares tag of what raycast hit
             {
-                case "Target":
-                    targetIndex = targetTransforms.IndexOf(hit.collider.transform);
-                    targetTransforms[targetIndex].GetComponent<Renderer>().material.EnableKeyword("_EMISSION");
+                case "Target":  
+                    targetIndex = targetTransforms.IndexOf(hit.collider.transform);  //Gets index of which target is being interacted with
+                    targetTransforms[targetIndex].GetComponent<Renderer>().material.EnableKeyword("_EMISSION"); //Sets the glow effect of that target
                     
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0)) //If mouse 1 is clicked
                     {
-                        targetTransforms[targetIndex].tag = "Fixed";
-                        targetFixed[targetIndex] = true;
-                        targetTransforms[targetIndex].GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                        targetTransforms[targetIndex].tag = "Fixed"; //Changes tag of target to fixed
+                        targetFixed[targetIndex] = true; //Sets the boolean for that particular target in the targetFixed boolean list equal to true
+                        targetTransforms[targetIndex].GetComponent<Renderer>().material.DisableKeyword("_EMISSION"); //Stops the glow effect of that target
                     }
                     break;
 
                 default:
-                    targetTransforms[targetIndex].GetComponent<Renderer>().material.DisableKeyword("_EMISSION");
+                    targetTransforms[targetIndex].GetComponent<Renderer>().material.DisableKeyword("_EMISSION"); //Stops the glow effect of the last target interacted with if raycast is no longer hitting a target
                     break;
             }                  
         }
        
-        foreach (bool check in targetFixed)
+        foreach (bool check in targetFixed) //Loops through targetFixed boolean list to check if each target has been fixed
         {
-            if (check == false)
+            if (check == false)  //If even one is not fixed 
             {
-                checkIfComplete = false;
+                checkIfComplete = false; //Sets checkIfComplete boolean to false
             }
         }
 
-        if (checkIfComplete == true)
+        if (checkIfComplete == true)  //If each element of targetFixed is true
         {
-            return true;
+            return true; //Returns true, i.e. minigame is complete
         }
         return false;
     }
 
+    /// <summary>
+    /// Method to return true/false dependent on the camera's position. Takes in a transform for the focal point of the camera for that particular hazard
+    /// </summary>
+    /// <param name="cameraFocalPoint"></param>
+    /// <returns></returns>
     private bool CheckCameraPosition(Transform cameraFocalPoint)
-    {        
-        if(checkCameraPosition) ///maybe take out
+    {                
+        if (hazardManager.gameManager.droneController.droneCamera.FocusOnHazard(cameraFocalPoint, false))
         {
-            if (hazardManager.gameManager.droneController.droneCamera.FocusOnHazard(cameraFocalPoint, false))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true; //If focus on hazard returns true, this returns true
         }
-        return false;
+        else
+        {
+            return false;
+        }
     }
 
+    /// <summary>
+    /// Method that takes in a list of transforms and returns the average of each as one new transform by creating a new temporary game object that will be deleted.
+    /// New transform used as camera focal point.
+    /// </summary>
+    /// <param name="targetTransforms"></param>
     private void ReturnAverageOfTransforms(List<Transform> targetTransforms)
     {
         float count = targetTransforms.Count;       

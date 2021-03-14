@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class DroneUI : MonoBehaviour
 {
+    /// <summary>
+    /// Responsible for handling the drone UI elements
+    /// </summary>
+    
     //Class reference 
     [Tooltip("Reference to the UIManager class")]
     public UIManager UIManager;
@@ -31,6 +35,10 @@ public class DroneUI : MonoBehaviour
         Range();
     }
 
+    /// <summary>
+    /// Method to enable/disable UI elements
+    /// </summary>
+    /// <param name="enable"></param>
     public void EnableUI(bool enable)
     {
         UIManager.artificialHorizonCircle.SetActive(enable);

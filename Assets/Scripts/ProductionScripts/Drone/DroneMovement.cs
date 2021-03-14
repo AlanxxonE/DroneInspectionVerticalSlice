@@ -115,7 +115,7 @@ public class DroneMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Method to handle drone collisiosn
+    /// Method to handle drone collision
     /// </summary>
     /// <param name="obstacle"></param>
     private void OnCollisionEnter(Collision obstacle)

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class DroneController : MonoBehaviour
 {
+    /// <summary>
+    /// Class that holds references and variables to manage different aspects of the drone's mechanics
+    /// </summary>
+   
     //Class References   
     [Header("Class References")]
     public DroneMovement droneMovement;

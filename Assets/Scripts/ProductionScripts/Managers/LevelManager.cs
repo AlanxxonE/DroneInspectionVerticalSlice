@@ -5,8 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {    
-
-    // Start is called before the first frame update
+    /// <summary>
+    /// Level manager is responsible for selecting the correct scene
+    /// </summary>
+    
     void Start()
     {
         Cursor.visible = true;   //Sets cursor visible

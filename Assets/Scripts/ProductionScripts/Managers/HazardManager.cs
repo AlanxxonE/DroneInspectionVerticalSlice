@@ -6,21 +6,22 @@ using UnityEngine.UI;
 public class HazardManager : MonoBehaviour
 {
     /// <summary>
-    /// Class used to manage the initial interaction with hazards and the win/lose conditions and score associated with each subsequent hazard
+    /// Class used to manage various aspects of hazards such as optimal distance, initialisation and the finishing of hazards as well as holding hazard variables.
     /// </summary>
 
     //Class References 
     [Header("Class References")]
-    public GameManager gameManager;
-    public Texture2D cursor;
+    public GameManager gameManager; //Reference to game manager
+    
     //General References
     [Header("General References")]
     [Tooltip("Reference to the hazard slider parent object")]
-    public GameObject hazardSliderRef;
-    public List<Transform> hazardTransforms;
-    [HideInInspector] public Slider hazardSlider;
-    [HideInInspector] public MonoBehaviour currentHazardScript = null;
-    [HideInInspector] public string hazardName;
+    public GameObject hazardSliderRef; //Reference to the hazard slider game object
+    [HideInInspector] public Slider hazardSlider; //Reference to the slider itself of the hazard slider game object
+    public List<Transform> hazardTransforms; //Lis tof transforms of each hazard in the game    
+    [HideInInspector] public MonoBehaviour currentHazardScript = null; //Reference to current hazard being interacted with
+    [HideInInspector] public string hazardName; //Name of hazard being interacted with
+    public Texture2D cursor; //Reference to cursor
 
     //Hazard Mechanics Variables
     [Header("Hazard Mechanics Variables")]
@@ -45,6 +46,7 @@ public class HazardManager : MonoBehaviour
         hazardSliderRef.SetActive(false);
     }
     
+    //Returns a vector 2 representing the minimum and maximum range that a hazard can be interacted with from. Take in a string to determine the hazard to return.
     public Vector2 GetOptimalRange(string hazardName)
     {
         switch (hazardName)
@@ -58,18 +60,22 @@ public class HazardManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method that initialises a hazard after it's interacted with. Takes in a monobehaviour as input when called.
+    /// </summary>
+    /// <param name="currenHazardScript"></param>
     public void InitialiseHazard(MonoBehaviour currenHazardScript)
     {
-        Cursor.SetCursor(cursor,new Vector2(0,0), CursorMode.Auto);
-        Cursor.lockState = CursorLockMode.None;
-        gameManager.droneController.droneCamera.interpolationTime = 0;
-        gameManager.droneController.droneCamera.SwitchPerspective(false);
+        Cursor.SetCursor(cursor,new Vector2(0,0), CursorMode.Auto); //Sets new cursor 
+        Cursor.lockState = CursorLockMode.None;  //Unlocks cursor
+        gameManager.droneController.droneCamera.interpolationTime = 0;  //Resets interpolation time timer
+        gameManager.droneController.droneCamera.SwitchPerspective(false); //Switches to TPP camera
 
-        currentHazardScript = currenHazardScript;
-        currentHazardScript.enabled = true;
-        hazardName = currenHazardScript.GetType().Name;
+        currentHazardScript = currenHazardScript;  //Sets the hazard script ref
+        currentHazardScript.enabled = true;  //Enables the monobehaviour
+        hazardName = currenHazardScript.GetType().Name; //Gets/Sets the name of the class
 
-        hazardSliderRef.SetActive(true);        
+        hazardSliderRef.SetActive(true);  //Sets the hazard progress slider active
     }
 
     /// <summary>
@@ -80,33 +86,37 @@ public class HazardManager : MonoBehaviour
     /// <param name="isFixed"></param>  boolean to determine if a hazard was fixed successfully or not
     public void FinishHazard(int satisfaction,int score, bool isFixed, Transform cameraFocalPoint, int index)
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked;  //Locks the cursor
         if (gameManager.droneController.droneCamera.FocusOnHazard(cameraFocalPoint, true))
         {
             gameManager.droneController.droneRayCast.stopMovement = false;   //Allows the drone to move again
             gameManager.UIManager.satisfactionValue += satisfaction; //Adds/subtracts score from the satisfaction meter depending on a win/lose            
 
-            hazardSlider.value = hazardSliderInitialValue;
-            hazardSliderRef.SetActive(false);
+            hazardSlider.value = hazardSliderInitialValue;    //Resets hazard slider
+            hazardSliderRef.SetActive(false);  //Sets hazard progress slider inactive
 
-            if (isFixed)
+            if (isFixed)  //If the hazard is fixed, i.e. minigame was completed
             {
-                Score.SetFixedBooleans(hazardName, isFixed, false);
-                currentHazardScript.tag = "Fixed";
-                gameManager.UIManager.compass.hazardMarkers[index].GetComponent<RawImage>().enabled = false;
-                Destroy(cameraFocalPoint.gameObject);
+                Score.SetFixedBooleans(hazardName, isFixed, false);  //Sets the boolean for the hazard being fixed to true
+                currentHazardScript.tag = "Fixed";  //Changes tag of the hazard
+                gameManager.UIManager.compass.hazardMarkers[index].GetComponent<RawImage>().enabled = false;  //Disbales the compass marker for this hazard
+                Destroy(cameraFocalPoint.gameObject);   //Destroy the temporary gameobject created as a transform for the camera to focuse on during the hazard interaction
             }
 
-            currentHazardScript.enabled = false;
-            currentHazardScript = null;
-            hazardName = null;
+            currentHazardScript.enabled = false;  //Disables this hazard class
+            currentHazardScript = null;  //Resets the referenece
+            hazardName = null; //Resets the hazard name
 
-            gameManager.droneController.droneCamera.SwitchPerspective(true);
+            gameManager.droneController.droneCamera.SwitchPerspective(true);  //Switches to FPP camera
         }
     }   
 
+    /// <summary>
+    /// Method used to return the list of hazard transform
+    /// </summary>
+    /// <returns></returns>
     public List<Transform> GetHazardTransforms()
     {
-        return hazardTransforms;
+        return hazardTransforms; 
     }
 }
