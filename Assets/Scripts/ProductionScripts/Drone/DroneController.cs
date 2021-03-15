@@ -18,6 +18,7 @@ public class DroneController : MonoBehaviour
     //General Variables
     [Header("General Variables")]    
     public int droneLives = 3; //How many times the drone can collide before being destroyed 
+    public List<ParticleSystem> effectList = new List<ParticleSystem>(); //List of all the effects that will affect the drone 
     [HideInInspector] public bool isPaused;
 
     //Camera Variables

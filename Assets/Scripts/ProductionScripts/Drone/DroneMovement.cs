@@ -28,7 +28,14 @@ public class DroneMovement : MonoBehaviour
         droneController = this.GetComponent<DroneController>();
         parentRB = GetComponent<Rigidbody>(); //gets the drone's rigidbody
         startPosition = parentRB.transform.position;  //Sets the start position
-        theta = droneController.maxTiltAngle / droneController.droneVelocity;   //Sets the theta maths function        
+        theta = droneController.maxTiltAngle / droneController.droneVelocity;   //Sets the theta maths function
+
+        for (int numEffects = 0; numEffects < droneController.effectList.Count; numEffects++)
+        {
+            ParticleSystem.EmissionModule effectModule = droneController.effectList[numEffects].emission;
+            effectModule.enabled = false;
+        }
+
         Cursor.lockState = CursorLockMode.Locked; //Locks the mouse cursor        
     }
 
@@ -120,6 +127,12 @@ public class DroneMovement : MonoBehaviour
     /// <param name="obstacle"></param>
     private void OnCollisionEnter(Collision obstacle)
     {
+        if (droneHits < droneController.effectList.Count)
+        {
+            ParticleSystem.EmissionModule effectModule = droneController.effectList[droneHits].emission;
+            effectModule.enabled = true;
+        }
+
         droneHits++;       //keeps track of number of collisions 
         if (droneHits == droneController.droneLives) //If the drone collides 3 times
         {

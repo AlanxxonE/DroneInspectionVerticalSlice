@@ -16,15 +16,15 @@ public class DialogueManager : MonoBehaviour
     string[] paragraphs = { 
         "Welcome to the construstion site worker!", 
         "Okey, first thing, try to get the feel of the Drone's controls",
-        "Use the Mouse to look around",
+        "Use the MOUSE to look around",
         "Move around using the W,A,S,D keys", 
         "Now make sure the propellers are working as well",
-        "Use Space key to Ascend, Shift key to Descend",
+        "Use SPACE key to Ascend, SHIFT key to Descend",
         "Lets get close to those Escavators",
         "Try using the C key so you can look better at things",
         "This way you can analyze and inspect hazards",
         "A worker reported something seemed off near the main big building!",
-        "Check the scaffolds and see if you notice something out of place"};
+        "Check the scaffolds using the LEFT MOUSE BUTTON and see if you notice something out of place"};
 
     void Awake()
     {
