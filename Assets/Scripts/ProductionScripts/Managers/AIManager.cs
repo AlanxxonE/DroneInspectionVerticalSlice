@@ -16,14 +16,20 @@ public class AIManager : MonoBehaviour
         for (int numOfTargets = 1; numOfTargets <= targets; numOfTargets++)
         {
             targetLocations.Add(GetComponentsInChildren<Transform>()[numOfTargets].transform);
-            CloneWorker(numOfTargets);
+        }
+
+        for (int numOfPeople = 0; numOfPeople < targets; numOfPeople++)
+        {
+            CloneWorker(numOfPeople);
         }
     }
 
-    private void CloneWorker(int index)
+    private void CloneWorker(int indexOfTarget)
     {
         GameObject cloneWalker = Instantiate(workerPrefab);
+        cloneWalker.gameObject.name = "Worker" + indexOfTarget;
         cloneWalker.transform.parent = this.transform;
-        cloneWalker.transform.position = targetLocations[index - 1].position;
+        cloneWalker.transform.position = targetLocations[indexOfTarget].position;
+        cloneWalker.GetComponent<WorkerAI>().currentTarget = targetLocations[indexOfTarget];
     }
 }

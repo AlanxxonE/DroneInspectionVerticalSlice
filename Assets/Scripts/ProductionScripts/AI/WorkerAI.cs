@@ -6,11 +6,12 @@ using UnityEngine.AI;
 public class WorkerAI : MonoBehaviour
 {
 	private AIManager AIManagerRef;
+	private List<Transform> possibleTargets;
 
 	private NavMeshAgent worker; //Nav Mesh Agent reference
 
 	private Transform lastTarget;
-	private Transform currentTarget;
+	public Transform currentTarget;
 
 	private bool timeToMove = false;
 
@@ -18,8 +19,8 @@ public class WorkerAI : MonoBehaviour
     {
 		AIManagerRef = GetComponentInParent<AIManager>();
 		worker = GetComponent<NavMeshAgent>();
-		currentTarget = AIManagerRef.targetLocations[0];
-		StartCoroutine(TimeToWait());
+		possibleTargets = AIManagerRef.targetLocations;
+		//StartCoroutine(TimeToWait());
 	}
 
     private void Update()
@@ -33,7 +34,7 @@ public class WorkerAI : MonoBehaviour
 
 		if(!timeToMove)
         {
-			Debug.Log("settarget");
+			Debug.Log("settarget" + " " + this.gameObject.name);
 			SetTarget();
 			timeToMove = true;
 		}
@@ -43,14 +44,21 @@ public class WorkerAI : MonoBehaviour
     {
 		lastTarget = currentTarget;
 
-		int randomLocation = Random.Range(0, AIManagerRef.targetLocations.Count + 1); //generates a random reference to a member of the target locations list
+		//possibleTargets = AIManagerRef.targetLocations;
+		//Debug.Log(possibleTargets.Count);
+		possibleTargets.Remove(lastTarget);
+		//Debug.Log(possibleTargets.Count);
 
-        while (AIManagerRef.targetLocations[randomLocation] == lastTarget)
-        {
-            randomLocation = Random.Range(0, AIManagerRef.targetLocations.Count);
-        }
+		int randomLocation = Random.Range(0, possibleTargets.Count); //generates a random reference to a member of the target locations list
 
-        currentTarget = AIManagerRef.targetLocations[randomLocation];
+		//while (possibleTargets[randomLocation] == lastTarget)
+  //      {
+  //          randomLocation = Random.Range(0, possibleTargets.Count);
+  //      }
+
+        currentTarget = possibleTargets[randomLocation];
+
+		possibleTargets.Add(lastTarget);
 
 		StartCoroutine(TimeToWait());
 	}
