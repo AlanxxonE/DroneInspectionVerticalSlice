@@ -7,11 +7,14 @@ public class WorkerAI : MonoBehaviour
 {
 	private AIManager AIManagerRef;
 	private List<Transform> possibleTargets;
+	private Animator animatorRef;
 
-	private NavMeshAgent worker; //Nav Mesh Agent reference
+	[HideInInspector] public NavMeshAgent worker; //Nav Mesh Agent reference
+
+	[HideInInspector] public float originalSpeed;
 
 	private Transform lastTarget;
-	public Transform currentTarget;
+	[HideInInspector] public Transform currentTarget;
 
 	private bool timeToMove = false;
 
@@ -19,14 +22,13 @@ public class WorkerAI : MonoBehaviour
     {
 		AIManagerRef = GetComponentInParent<AIManager>();
 		worker = GetComponent<NavMeshAgent>();
+		animatorRef = GetComponent<Animator>();
 		possibleTargets = AIManagerRef.targetLocations;
-		//StartCoroutine(TimeToWait());
+		originalSpeed = worker.speed;
 	}
 
     private void Update()
 	{
-		//int randomNo = Random.Range(0, 1); //Instantiate random number generator
-
 		if (Vector3.Distance(this.transform.position, currentTarget.transform.position) < 1 && timeToMove)
 		{
 			timeToMove = false;
@@ -34,7 +36,6 @@ public class WorkerAI : MonoBehaviour
 
 		if(!timeToMove)
         {
-			Debug.Log("settarget" + " " + this.gameObject.name);
 			SetTarget();
 			timeToMove = true;
 		}
@@ -44,17 +45,9 @@ public class WorkerAI : MonoBehaviour
     {
 		lastTarget = currentTarget;
 
-		//possibleTargets = AIManagerRef.targetLocations;
-		//Debug.Log(possibleTargets.Count);
 		possibleTargets.Remove(lastTarget);
-		//Debug.Log(possibleTargets.Count);
 
 		int randomLocation = Random.Range(0, possibleTargets.Count); //generates a random reference to a member of the target locations list
-
-		//while (possibleTargets[randomLocation] == lastTarget)
-  //      {
-  //          randomLocation = Random.Range(0, possibleTargets.Count);
-  //      }
 
         currentTarget = possibleTargets[randomLocation];
 
@@ -65,10 +58,13 @@ public class WorkerAI : MonoBehaviour
 
 	IEnumerator TimeToWait()
     {
-		
+		animatorRef.SetBool("Walking", false);
+
 		int randomTime = Random.Range(5, 10);
 
 		yield return new WaitForSeconds(randomTime);
+
+		animatorRef.SetBool("Walking", true);
 
 		worker.SetDestination(currentTarget.transform.position); //Creates path to target for agent to follow
 	}

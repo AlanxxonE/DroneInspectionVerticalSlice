@@ -11,6 +11,7 @@ TagManager:
   - ScaffoldHazard
   - Fixed
   - Target
+  - Worker
   layers:
   - Default
   - TransparentFX

@@ -159,5 +159,38 @@ public class DroneMovement : MonoBehaviour
 
         Vector3 bounceAngle = (normalAngleAtCollision + Vector3.Scale(angleAtCollision, directionFix)) * 360;    //Bounce angle  is equal to the normal angle at collision plus the angle the drone is flying at rotated around the normal  
         parentRB.AddForce(bounceAngle * droneController.pushBackForce);       //Adds force in teh driection of the bounce angle
+
+        if(obstacle.gameObject.tag == "Worker")
+        {
+            droneController.gameManager.UIManager.satisfactionValue -= 10;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Worker")
+        {
+            other.GetComponent<Animator>().SetBool("DroneNear", true);
+            other.GetComponent<WorkerAI>().worker.speed = 0;
+            droneController.gameManager.UIManager.satisfactionDropRate *= 1.2f;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "Worker")
+        {
+            other.transform.LookAt(this.transform);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Worker")
+        {
+            other.GetComponent<Animator>().SetBool("DroneNear", false);
+            other.GetComponent<WorkerAI>().worker.speed = other.GetComponent<WorkerAI>().originalSpeed;
+            droneController.gameManager.UIManager.satisfactionDropRate /= 1.2f;
+        }
     }
 }

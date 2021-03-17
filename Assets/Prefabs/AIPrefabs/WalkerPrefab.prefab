@@ -907,9 +907,11 @@ GameObject:
   - component: {fileID: 3041322355863232621}
   - component: {fileID: 3041322355863232620}
   - component: {fileID: 3041322355863232595}
+  - component: {fileID: 1829169447884739696}
+  - component: {fileID: 5268020918833391590}
   m_Layer: 0
   m_Name: WalkerPrefab
-  m_TagString: Untagged
+  m_TagString: Worker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -923,7 +925,7 @@ Transform:
   m_GameObject: {fileID: 2807320642365139938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 86.2, y: 0, z: -83.9}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_Children:
   - {fileID: 5497012728887117435}
   - {fileID: 7056605292367548876}
@@ -959,7 +961,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 2.2
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -983,7 +985,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fd9adb86bcef1d4eb4fc8ca50ad5114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AIManagerRef: {fileID: 0}
+  worker: {fileID: 0}
+  originalSpeed: 0
+  currentTarget: {fileID: 0}
+--- !u!135 &1829169447884739696
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2807320642365139938}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 7
+  m_Center: {x: 0, y: 1, z: 2}
+--- !u!136 &5268020918833391590
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2807320642365139938}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2894636890539939061
 GameObject:
   m_ObjectHideFlags: 0
