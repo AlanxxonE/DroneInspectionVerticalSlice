@@ -1656,7 +1656,7 @@ Transform:
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &47618439
 PrefabInstance:
@@ -3971,6 +3971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentRB: {fileID: 0}
   startPosition: {x: 0, y: 0, z: 0}
+  anchorPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &113262899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4003,6 +4004,7 @@ MonoBehaviour:
   turnSpeed: 2
   smoothTime: 0.2
   canMove: 1
+  droneAnchorPosition: {fileID: 1978387574}
   tiltingChild: {fileID: 1873071710}
   maxTiltAngle: 15
   pushBackForce: 2
@@ -4039,7 +4041,7 @@ Transform:
   - {fileID: 817207347}
   - {fileID: 866874256}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &115209427 stripped
 Transform:
@@ -11944,7 +11946,7 @@ Transform:
   - {fileID: 119285707}
   - {fileID: 726384181}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &352622190
 GameObject:
@@ -13523,7 +13525,7 @@ Transform:
   - {fileID: 151540324}
   - {fileID: 660305627}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &387488366
 PrefabInstance:
@@ -17990,7 +17992,7 @@ Transform:
   - {fileID: 1186157511}
   - {fileID: 385311054}
   m_Father: {fileID: 0}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &519871000
 PrefabInstance:
@@ -19464,7 +19466,7 @@ Transform:
   - {fileID: 1376054964}
   - {fileID: 129016156}
   m_Father: {fileID: 0}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &560914620
 PrefabInstance:
@@ -21382,7 +21384,7 @@ Transform:
   - {fileID: 126616181}
   - {fileID: 241114754}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &627845366
 PrefabInstance:
@@ -25409,7 +25411,7 @@ Transform:
   - {fileID: 760265208}
   - {fileID: 314102644}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &732557145 stripped
 Transform:
@@ -34564,6 +34566,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueSystem: {fileID: 2093806456}
   tutMarker: {fileID: 0}
+  gameManager: {fileID: 0}
+  tutHazard: {fileID: 0}
   droneCollider: {fileID: 1873071712}
 --- !u!114 &834578984
 MonoBehaviour:
@@ -34851,7 +34855,7 @@ Transform:
   - {fileID: 25063368}
   - {fileID: 1062463612}
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &844365784 stripped
 Transform:
@@ -45166,7 +45170,7 @@ Transform:
   m_Children:
   - {fileID: 2007221542}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1000157753
 MonoBehaviour:
@@ -47145,7 +47149,7 @@ Transform:
   m_LocalScale: {x: 21, y: 1, z: 21}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1057334227 stripped
 Transform:
@@ -47787,7 +47791,7 @@ Transform:
   - {fileID: 125407522}
   - {fileID: 1931759943}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1076571069
 PrefabInstance:
@@ -55768,7 +55772,7 @@ Transform:
   - {fileID: 1984461911}
   - {fileID: 314663409}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1273382469
 GameObject:
@@ -58367,7 +58371,7 @@ Transform:
   - {fileID: 575616089}
   - {fileID: 314081266}
   m_Father: {fileID: 0}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1338828926 stripped
 Transform:
@@ -73035,7 +73039,7 @@ Transform:
   - {fileID: 560922072}
   - {fileID: 2031754221}
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1776368175 stripped
 Transform:
@@ -75959,7 +75963,7 @@ Transform:
   - {fileID: 746297965}
   - {fileID: 555232830}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1861808230
 PrefabInstance:
@@ -79222,7 +79226,7 @@ Transform:
   - {fileID: 1336222428}
   - {fileID: 1037274792}
   m_Father: {fileID: 0}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1969839530
 PrefabInstance:
@@ -79569,6 +79573,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 995d512e727fdff4d95e526edb8a29e4, type: 3}
   m_PrefabInstance: {fileID: 188254360}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1978387573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1978387574}
+  m_Layer: 0
+  m_Name: DroneAnchorPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1978387574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978387573}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1978618651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 995d512e727fdff4d95e526edb8a29e4, type: 3}
