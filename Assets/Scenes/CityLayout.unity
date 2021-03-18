@@ -3921,6 +3921,7 @@ GameObject:
   - component: {fileID: 113262898}
   - component: {fileID: 113262897}
   - component: {fileID: 113262896}
+  - component: {fileID: 113262902}
   m_Layer: 0
   m_Name: Drone
   m_TagString: Untagged
@@ -4043,6 +4044,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &113262902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 113262895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2056ec36dde6e4c4c9b967933228f53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ring: {fileID: 834578987}
 --- !u!4 &115209427 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 981848b6477a23f4e8c429a0ccefeee5, type: 3}
@@ -12354,6 +12368,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 981848b6477a23f4e8c429a0ccefeee5, type: 3}
   m_PrefabInstance: {fileID: 1914458558}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &365371738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df342dff31ff91f479b036ccfb2cc1c1, type: 3}
+  m_PrefabInstance: {fileID: 804005365}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &365371739
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365371738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &365376661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15183,7 +15215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -22611,7 +22643,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -28494,6 +28526,14 @@ PrefabInstance:
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: df342dff31ff91f479b036ccfb2cc1c1, type: 3}
+      propertyPath: m_TagString
+      value: Ring
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: df342dff31ff91f479b036ccfb2cc1c1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1119835008791672815, guid: df342dff31ff91f479b036ccfb2cc1c1, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
@@ -28529,7 +28569,7 @@ PrefabInstance:
     - target: {fileID: 7777537041700105438, guid: df342dff31ff91f479b036ccfb2cc1c1, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e9c0b16147d7bb54195c1da1e7fd680b, type: 2}
+      objectReference: {fileID: 2100000, guid: 507147b3f05cc154b85d55ef4f745284, type: 2}
     - target: {fileID: 8326064256309393738, guid: df342dff31ff91f479b036ccfb2cc1c1, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
@@ -34462,6 +34502,7 @@ GameObject:
   - component: {fileID: 834578985}
   - component: {fileID: 834578983}
   - component: {fileID: 834578982}
+  - component: {fileID: 834578987}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -34565,9 +34606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueSystem: {fileID: 2093806456}
-  tutMarker: {fileID: 0}
-  gameManager: {fileID: 0}
-  tutHazard: {fileID: 0}
+  tutMarker: {fileID: 834578987}
+  gameManager: {fileID: 834578981}
+  tutHazard: {fileID: 2007221544}
   droneCollider: {fileID: 1873071712}
 --- !u!114 &834578984
 MonoBehaviour:
@@ -34619,6 +34660,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &834578987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 834578980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e19d39dec8b1e745b09f1e918f0d994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rings:
+  - {fileID: 365371738}
 --- !u!1001 &835237574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51593,7 +51648,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -55660,7 +55715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -80871,7 +80926,7 @@ BoxCollider:
   m_GameObject: {fileID: 2007221541}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}

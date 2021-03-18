@@ -12,6 +12,7 @@ TagManager:
   - Fixed
   - Target
   - Worker
+  - Ring
   layers:
   - Default
   - TransparentFX
