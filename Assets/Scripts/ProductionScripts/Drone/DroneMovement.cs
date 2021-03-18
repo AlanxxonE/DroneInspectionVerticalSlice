@@ -14,7 +14,8 @@ public class DroneMovement : MonoBehaviour
     private int droneHits = 0; //Keeps track of drone collision count    
 
     //Movement Variables
-    [HideInInspector] public Vector3 startPosition;   //Reference to the position teh dropne starts at   
+    [HideInInspector] public Vector3 startPosition;   //Reference to the position the drone starts at
+    [HideInInspector] public Vector3 anchorPosition;  //The position that is the centre of the sphere the drone can fly in
     private Vector3 desiredVelocity;  //Velocity the drone is aiming for
     private Vector3 referenceVelocity; //Reference to the default velocity of the drone          
     private Vector3 currentVelocity;  //Reference to current velocity of the drone
@@ -28,6 +29,7 @@ public class DroneMovement : MonoBehaviour
         droneController = this.GetComponent<DroneController>();
         parentRB = GetComponent<Rigidbody>(); //gets the drone's rigidbody
         startPosition = parentRB.transform.position;  //Sets the start position
+        anchorPosition = droneController.droneAnchorPosition.position;
         theta = droneController.maxTiltAngle / droneController.droneVelocity;   //Sets the theta maths function
 
         for (int numEffects = 0; numEffects < droneController.effectList.Count; numEffects++)

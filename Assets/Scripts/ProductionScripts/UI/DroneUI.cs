@@ -117,7 +117,7 @@ public class DroneUI : MonoBehaviour
     /// </summary>
     private void Range()
     {
-        range = Vector3.Distance(UIManager.gameManager.droneController.transform.position, UIManager.gameManager.droneController.droneMovement.startPosition);   //Gets the distance the drone has flown from it's origin
+        range = Vector3.Distance(UIManager.gameManager.droneController.transform.position, UIManager.gameManager.droneController.droneMovement.anchorPosition);   //Gets the distance the drone has flown from it's origin
         UIManager.rangeRef.GetComponentInChildren<Text>().text = Mathf.RoundToInt(100 - ((range / UIManager.gameManager.droneController.maxRange) * 100)) + "%";   //Sets the range text equal to the percentage of the maximum range the drone has flown
 
         float staticEffectIntensity = Mathf.Pow(((range - (UIManager.gameManager.droneController.maxRange * UIManager.signalLossPoint)) / (UIManager.gameManager.droneController.maxRange * (1 - (UIManager.signalLossPoint / 1)))), 1.5f);  //Sets an exponentialy increasing intensity for the static effect after the drone has flown past the point where it begins to lose signal

@@ -48,6 +48,8 @@ public class DroneController : MonoBehaviour
     [Tooltip("Time taken to accelerate to new velocity, smaller is faster")]
     public float smoothTime;  
     [HideInInspector] public float canMove = 1; //Float to allow/disallow movement
+    [Tooltip("Position that the drone can move from")]
+    public Transform droneAnchorPosition;
 
     //Tilt Variables
     [Header("Tilt Variables")]
