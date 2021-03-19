@@ -3568,8 +3568,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &638971330884254182
-MeshCollider:
+--- !u!65 &638971330884254182
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -3578,10 +3578,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 172888458873553249, guid: dcab1d1ebfd2a8b42b0797c4b04e2370, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 361.9, y: 200.00012, z: 357.1}
+  m_Center: {x: -19.62356, y: 85.93945, z: -0.5385439}
 --- !u!1 &661520884968870471
 GameObject:
   m_ObjectHideFlags: 0
@@ -5255,8 +5254,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &1757194685971626014
-MeshCollider:
+--- !u!65 &1757194685971626014
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5265,10 +5264,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5840284170326959453, guid: dcab1d1ebfd2a8b42b0797c4b04e2370, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 521.8, y: 206.3, z: 510.9}
+  m_Center: {x: -1.0927211, y: 85.04038, z: -0.0013026672}
 --- !u!1 &1819617715284181045
 GameObject:
   m_ObjectHideFlags: 0
@@ -8276,8 +8274,8 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!64 &6267041396571254952
-MeshCollider:
+--- !u!65 &6267041396571254952
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -8286,10 +8284,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3758573805739257388, guid: dcab1d1ebfd2a8b42b0797c4b04e2370, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 626.1186, y: 423.02252, z: 237.9}
+  m_Center: {x: 16.781706, y: -11.776756, z: -0.000060034887}
 --- !u!4 &6286159888224877362
 Transform:
   m_ObjectHideFlags: 0
