@@ -16800,7 +16800,7 @@ GameObject:
   - component: {fileID: 291876675}
   m_Layer: 5
   m_Name: DialogueSystem
-  m_TagString: DialogueSystem
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32860,7 +32860,7 @@ GameObject:
   - component: {fileID: 599361822}
   m_Layer: 5
   m_Name: DialogueText
-  m_TagString: Untagged
+  m_TagString: DialogueSystem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42492,6 +42492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 848148289}
+  dialogue: {fileID: 599361822}
 --- !u!114 &848148292
 MonoBehaviour:
   m_ObjectHideFlags: 0

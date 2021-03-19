@@ -8,7 +8,7 @@ public class DialogueManager : MonoBehaviour
     GameObject dialogueSystem;
     public GameManager gameManager;
     
-    Text dialogue;
+    public Text dialogue;
     int currentAmount = 0;
     int sentenceNumber = 0;
 
@@ -18,8 +18,8 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        dialogueSystem = GameObject.FindGameObjectWithTag("DialogueSystem");
-        dialogue = dialogueSystem.GetComponentInChildren<Text>();
+        //dialogueSystem = GameObject.FindGameObjectWithTag("DialogueSystem");
+        //dialogue = dialogueSystem.GetComponentInChildren<Text>();
     }
 
     public void DisplayParagraph(int paraNum, int amountOfLetters)
