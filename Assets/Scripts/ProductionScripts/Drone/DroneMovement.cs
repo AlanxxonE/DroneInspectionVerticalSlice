@@ -197,7 +197,7 @@ public class DroneMovement : MonoBehaviour
 
         if (other.tag == "Ring")
         {
-            droneController.gameManager.dialogueManager.UpdateRingCount();
+            droneController.gameManager.tutorialManager.UpdateRingCount();
         }
     }
 }

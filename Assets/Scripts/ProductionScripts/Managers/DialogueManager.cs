@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     public GameObject dialogueSystem;
+    GameObject dialogueSystem;
     public GameManager gameManager;
     public Collider tutHazard;
     
@@ -35,6 +36,9 @@ public class DialogueManager : MonoBehaviour
         "If a hazard is in your view but your range is incorrect, the viewfinder will appear red, once in the\n correct position the viewfinder will turn green.",
         "Anyway, see that bolt there? Doesn’t look quite screwed in all the way, that could leave the whole\n thing unstable, get someone over here to fix it. Click the LMB when the viewfinder is green",
         "Make sure you’re screwing that in the right way, get it nice and tight before this thing falls apart"};
+    bool moveOnCheck = false;
+    bool sentenceFinished;
+    string[] paragraphs;
 
     void Awake()
     {
@@ -42,6 +46,7 @@ public class DialogueManager : MonoBehaviour
         {
             ring.SetActive(false);
         }
+        dialogueSystem = GameObject.FindGameObjectWithTag("DialogueSystem");
         dialogue = dialogueSystem.GetComponentInChildren<Text>();
         //dialogueSystem.SetActive(false);
         StartCoroutine(StartIduction());
@@ -109,9 +114,11 @@ public class DialogueManager : MonoBehaviour
                 if (tutCounter > 2) { StopSentence(); }
                 break;
         }
+        
     }
 
     public void DisplayParagraph(int paraNum, int amountOfLetters, bool selfRun)
+    public void DisplayParagraph(int paraNum, int amountOfLetters)
     {
         isRunning = true;
 
@@ -124,6 +131,8 @@ public class DialogueManager : MonoBehaviour
         {
             currentAmount = 0;
         }
+        currentAmount = amountOfLetters;
+        dialogue.text = " ";
 
         int lettersToDisplay = 0;
         
@@ -138,6 +147,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         if (dialogue.text.Length <= paragraphs[paraNum].Length && !stop) //&& !isRunning)
+        if (dialogue.text.Length <= paragraphs[paraNum].Length)
         {
             currentAmount++;
             StartCoroutine(LetterDelay(paraNum, currentAmount));
@@ -157,11 +167,14 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
             DisplayParagraph(paraNum, amountOfLetters, true);
         }
+        yield return new WaitForSeconds(0.02f);
+        DisplayParagraph(paraNum, amountOfLetters);
     }
 
     public void StopSentence()
     {
         if (dialogue.text.Length > paragraphs[sentenceNumber].Length)
+        if (IsSentenceFinished())
         {
             if(sentenceNumber == 2)
             {
@@ -174,9 +187,11 @@ public class DialogueManager : MonoBehaviour
     }
 
     IEnumerator StartIduction()
+    IEnumerator StartDialogue()
     {
         moveOnCheck = false;
         DisplayParagraph(sentenceNumber,1, false);
+        DisplayParagraph(sentenceNumber,1);
 
         while(!moveOnCheck)
         {
@@ -187,6 +202,7 @@ public class DialogueManager : MonoBehaviour
         {
             sentenceNumber++;
             StartCoroutine(StartIduction());
+            StartCoroutine(StartDialogue());
         }
         else
         {
@@ -195,20 +211,42 @@ public class DialogueManager : MonoBehaviour
     }
 
     public void UpdateRingCount()
+    public void UpdateParagraphs(string[] newParagraphs)
+    {
+        paragraphs = System.Array.Empty<string>();
+        paragraphs = newParagraphs;
+    }
+
+    public void RunDialogue()
     {
         ringCount++;
         rings[ringCount - 1].SetActive(false);
         if (ringCount < rings.Length)
+        StartCoroutine(StartDialogue());
+    }
+
+    public int GetSentenceNumber()
+    {
+        return sentenceNumber;
+    }
+
+    public bool IsSentenceFinished()
+    {
+        if (dialogue.text.Length > paragraphs[sentenceNumber].Length)
         {
             rings[ringCount].SetActive(true);
             if (ringCount < rings.Length - 1)
             {
                 rings[ringCount + 1].SetActive(true);
             }
+            sentenceFinished = true;
         }
         else
         {
             ringsDone = true;
+            sentenceFinished = false;
         }
+
+        return sentenceFinished;
     }
 }
