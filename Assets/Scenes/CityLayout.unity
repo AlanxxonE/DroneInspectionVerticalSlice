@@ -4113,7 +4113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2056ec36dde6e4c4c9b967933228f53e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ring: {fileID: 834578987}
+  ring: {fileID: 0}
 --- !u!4 &115209427 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 981848b6477a23f4e8c429a0ccefeee5, type: 3}
@@ -12652,11 +12652,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 981848b6477a23f4e8c429a0ccefeee5, type: 3}
   m_PrefabInstance: {fileID: 1914458558}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &365371738 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: df342dff31ff91f479b036ccfb2cc1c1, type: 3}
-  m_PrefabInstance: {fileID: 804005365}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &365376661
 PrefabInstance:
@@ -35079,7 +35074,6 @@ GameObject:
   - component: {fileID: 834578985}
   - component: {fileID: 834578983}
   - component: {fileID: 834578982}
-  - component: {fileID: 834578987}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -35183,10 +35177,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueSystem: {fileID: 2093806456}
-  tutMarker: {fileID: 834578987}
   gameManager: {fileID: 834578981}
   tutHazard: {fileID: 2007221544}
-  droneCollider: {fileID: 1873071712}
+  rings: []
 --- !u!114 &834578984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35237,20 +35230,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &834578987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 834578980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e19d39dec8b1e745b09f1e918f0d994, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rings:
-  - {fileID: 365371738}
 --- !u!1001 &835237574
 PrefabInstance:
   m_ObjectHideFlags: 0

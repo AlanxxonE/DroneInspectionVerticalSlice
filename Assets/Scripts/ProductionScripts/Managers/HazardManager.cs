@@ -18,7 +18,7 @@ public class HazardManager : MonoBehaviour
     [Tooltip("Reference to the hazard slider parent object")]
     public GameObject hazardSliderRef; //Reference to the hazard slider game object
     [HideInInspector] public Slider hazardSlider; //Reference to the slider itself of the hazard slider game object
-    public List<Transform> hazardTransforms; //Lis tof transforms of each hazard in the game    
+    public List<Transform> hazardTransforms; //List of transforms of each hazard in the game    
     [HideInInspector] public MonoBehaviour currentHazardScript = null; //Reference to current hazard being interacted with
     [HideInInspector] public string hazardName; //Name of hazard being interacted with
     public Texture2D cursor; //Reference to cursor

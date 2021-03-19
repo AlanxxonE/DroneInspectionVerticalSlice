@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: faec32a071a6e3249ae98aab57f78886, type: 2}
 --- !u!1 &242328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8530411888567447649, guid: 6c255eff7588acf47a20def3a619c181, type: 3}
@@ -42465,7 +42465,6 @@ MonoBehaviour:
   dialogueSystem: {fileID: 291876674}
   gameManager: {fileID: 848148289}
   tutHazard: {fileID: 532848878}
-  droneCollider: {fileID: 180919848}
   rings:
   - {fileID: 533969140}
   - {fileID: 615797054}

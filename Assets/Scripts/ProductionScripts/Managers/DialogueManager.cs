@@ -8,7 +8,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject dialogueSystem;
     public GameManager gameManager;
     public Collider tutHazard;
-    public Collider droneCollider;
+    
     Text dialogue;
     int currentAmount = 0;
     float tutCounter = 0f;
