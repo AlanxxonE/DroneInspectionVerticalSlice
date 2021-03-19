@@ -9,12 +9,11 @@ public class TutorialManager : MonoBehaviour
     public GameObject[] rings;
 
     float tutCounter = 0f;
-    int sentenceNumber = 0;
     int ringCount = -1;
     bool ringsDone = false;
     bool ringsStart = true;
 
-     public string[] tutorialParagraphs = {
+    string[] tutorialParagraphs = {
         "Welcome to the construstion site! First thing, try to get the feel of the Drone's controls. Use the \n MOUSE to look around",
         "Your drone is built with an indicator for the signal. Be careful not to go out of range or you'll lose\n control. Now try moving, use the W,A,S,D keys to move the drone",
         "Your altitude meter here gives you an idea of how far off the ground you are. Use SPACE key to\n Ascend, SHIFT key to Descend",
@@ -26,11 +25,7 @@ public class TutorialManager : MonoBehaviour
         "If a hazard is in your view but your range is incorrect, the viewfinder will appear red, once in the\n correct position the viewfinder will turn green.",
         "Anyway, see that bolt there? Doesn’t look quite screwed in all the way, that could leave the whole\n thing unstable, get someone over here to fix it. Click the LMB when the viewfinder is green",
         "Make sure you’re screwing that in the right way, get it nice and tight before this thing falls apart"};
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
     private void Awake()
     {
         foreach (GameObject ring in rings)
@@ -38,12 +33,10 @@ public class TutorialManager : MonoBehaviour
             ring.SetActive(false);
         }
 
-        //gameManager.dialogueManager.paragraphs = tutorialParagraphs;
         gameManager.dialogueManager.UpdateParagraphs(tutorialParagraphs);
         gameManager.dialogueManager.RunDialogue();
     }
 
-    // Update is called once per frame
     void Update()
     {
         switch (gameManager.dialogueManager.GetSentenceNumber())
