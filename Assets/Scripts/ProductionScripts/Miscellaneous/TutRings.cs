@@ -8,6 +8,14 @@ public class TutRings : MonoBehaviour
     int ringCount = 0;
     bool ringsDone = false;
 
+    private void Start()
+    {
+        rings = GameObject.FindGameObjectsWithTag("Ring");
+        foreach(GameObject ring in rings)
+        {
+            ring.SetActive(false);
+        }
+    }
     void Awake()
     {
         rings[0].SetActive(true);

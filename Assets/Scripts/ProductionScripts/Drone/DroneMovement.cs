@@ -194,5 +194,10 @@ public class DroneMovement : MonoBehaviour
             other.GetComponent<WorkerAI>().worker.speed = other.GetComponent<WorkerAI>().originalSpeed;
             droneController.gameManager.UIManager.satisfactionDropRate /= 1.2f;
         }
+
+        if (other.tag == "Ring")
+        {
+            droneController.gameManager.dialogueManager.UpdateRingCount();
+        }
     }
 }
