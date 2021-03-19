@@ -44,6 +44,7 @@ public class HazardMechanics : MonoBehaviour
     /// </summary>
     protected void InitiateVariables()
     {
+        GetComponent<Collider>().enabled = false;
         checkCameraPosition = true;  
         ReturnAverageOfTransforms(targetTransforms);  
     }
@@ -71,10 +72,12 @@ public class HazardMechanics : MonoBehaviour
             if (hazardManager.hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
             {
                 hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).satisfaction, Score.GetScore(hazardManager.hazardName).score, true, cameraFocalPoint, index);
+                GetComponent<Collider>().enabled = true;
             }
             else if (hazardManager.hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
             {
                 hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).dissatisfaction, 0, false, cameraFocalPoint, index);
+                GetComponent<Collider>().enabled = true;
             }
 
             else if(hazardManager.hazardSlider.value < 100 && hazardManager.hazardSlider.value > 0)
