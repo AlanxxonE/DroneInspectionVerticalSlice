@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public GameManager gameManager;
+    private GameManager gameManager;
     
-    public Text dialogue;
+    private Text dialogue;
     int currentAmount = 0;
     int sentenceNumber = 0;
 

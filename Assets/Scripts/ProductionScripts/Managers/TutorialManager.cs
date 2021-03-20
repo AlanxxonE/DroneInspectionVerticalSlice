@@ -18,7 +18,7 @@ public class TutorialManager : MonoBehaviour
         "Your drone is built with an indicator for the signal. Be careful not to go out of range or you'll lose\n control. Now try moving, use the W,A,S,D keys to move the drone.",
         "Your altitude meter here gives you an idea of how far off the ground you are. Use SPACE key to\n Ascend, SHIFT key to Descend.",
         "Alright, now that you've got a feel for it we'll need to configure your compass. Fly through the\n rings this will also give you a chance to get more familiar with the site.",
-        "One of the guys working pointed out an issue at one of the scaffolds. The point on your compass will\n lead you there.",
+        "One of the guys working pointed out an issue at one of the scaffolds. The point on your \n compass will lead you there.",
         "Hazards present different levels of danger within the site and therefore should potentially be\n treated with different priority.",
         "These danger levels are displayed on the drone’s compass as green amber or red. Take a closer\n look at the scaffold. Use C to switch to first person.",
         "Alright, like most cameras that drone needs to be in a good position for proper focus, get\n yourself in a good position, not too close, not too far, and you should be able to see it clearly.",
@@ -92,7 +92,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             //fix hazard
             case 10:
-                if (gameManager.hazardManager.hazardSliderRef.activeSelf == false) { gameManager.dialogueManager.StopSentence(); gameManager.levelManager.SceneSelectMethod(3); }
+                if (Score.isScaffoldFixed == true) { gameManager.dialogueManager.StopSentence(); gameManager.levelManager.SceneSelectMethod(3); }
                 break;
             default:
                 if (gameManager.dialogueManager.IsSentenceFinished())
