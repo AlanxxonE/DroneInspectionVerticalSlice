@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    GameObject dialogueSystem;
     public GameManager gameManager;
     
     public Text dialogue;
@@ -18,8 +17,8 @@ public class DialogueManager : MonoBehaviour
 
     void Awake()
     {
-        //dialogueSystem = GameObject.FindGameObjectWithTag("DialogueSystem");
-        //dialogue = dialogueSystem.GetComponentInChildren<Text>();
+        gameManager = GetComponent<GameManager>();
+        dialogue = GameObject.FindGameObjectWithTag("DialogueSystem").GetComponent<Text>();
     }
 
     public void DisplayParagraph(int paraNum, int amountOfLetters)

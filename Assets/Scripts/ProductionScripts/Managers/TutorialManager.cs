@@ -14,17 +14,17 @@ public class TutorialManager : MonoBehaviour
     bool ringsStart = true;
 
     string[] tutorialParagraphs = {
-        "Welcome to the construstion site! First thing, try to get the feel of the Drone's controls. Use the \n MOUSE to look around",
-        "Your drone is built with an indicator for the signal. Be careful not to go out of range or you'll lose\n control. Now try moving, use the W,A,S,D keys to move the drone",
-        "Your altitude meter here gives you an idea of how far off the ground you are. Use SPACE key to\n Ascend, SHIFT key to Descend",
-        "Alright, now that you've got a feel for it we'll need to configure your compass. Fly through the\n rings this will also give you a chance to get more familiar with the site",
+        "Welcome to the construstion site! First thing, try to get the feel of the Drone's controls. Use the \n MOUSE to look around.",
+        "Your drone is built with an indicator for the signal. Be careful not to go out of range or you'll lose\n control. Now try moving, use the W,A,S,D keys to move the drone.",
+        "Your altitude meter here gives you an idea of how far off the ground you are. Use SPACE key to\n Ascend, SHIFT key to Descend.",
+        "Alright, now that you've got a feel for it we'll need to configure your compass. Fly through the\n rings this will also give you a chance to get more familiar with the site.",
         "One of the guys working pointed out an issue at one of the scaffolds. The point on your compass will\n lead you there.",
-        "Hazards present different levels of danger within the site and therefore should potentially be\n treated with different priority",
-        "These danger levels are displayed on the drone’s compass as green amber or red. Take a closer look\n at the scaffold. Use C to switch to first person",
-        "Alright, like most cameras that drone needs to been in a good position for proper focus, get yourself\n in a good position, not too close, not too far, and you should be able to see it clearly.",
+        "Hazards present different levels of danger within the site and therefore should potentially be\n treated with different priority.",
+        "These danger levels are displayed on the drone’s compass as green amber or red. Take a closer\n look at the scaffold. Use C to switch to first person.",
+        "Alright, like most cameras that drone needs to be in a good position for proper focus, get\n yourself in a good position, not too close, not too far, and you should be able to see it clearly.",
         "If a hazard is in your view but your range is incorrect, the viewfinder will appear red, once in the\n correct position the viewfinder will turn green.",
-        "Anyway, see that bolt there? Doesn’t look quite screwed in all the way, that could leave the whole\n thing unstable, get someone over here to fix it. Click the LMB when the viewfinder is green",
-        "Make sure you’re screwing that in the right way, get it nice and tight before this thing falls apart"};
+        "Anyway, is something wrong there? Doesn’t look quite stable, that could make the whole\n thing fall apart, get someone over here to fix it. Click the LMB when the viewfinder is green.",
+        "Make sure you point out all that feels unsafe, you will know when the job is done."};
     
     private void Awake()
     {
@@ -92,14 +92,14 @@ public class TutorialManager : MonoBehaviour
                 break;
             //fix hazard
             case 10:
-                if (gameManager.hazardManager.hazardSliderRef.activeSelf == false) { gameManager.dialogueManager.StopSentence(); }
+                if (gameManager.hazardManager.hazardSliderRef.activeSelf == false) { gameManager.dialogueManager.StopSentence(); gameManager.levelManager.SceneSelectMethod(3); }
                 break;
             default:
                 if (gameManager.dialogueManager.IsSentenceFinished())
                 {
                     tutCounter += Time.deltaTime;
                 }
-                if (tutCounter > 2) { gameManager.dialogueManager.StopSentence(); }
+                if (tutCounter > 5) { gameManager.dialogueManager.StopSentence(); }
                 break;
         }
 
@@ -119,10 +119,10 @@ public class TutorialManager : MonoBehaviour
         if (ringCount < rings.Length)
         {
             rings[ringCount].SetActive(true);
-            if (ringCount < rings.Length - 1)
-            {
-                rings[ringCount + 1].SetActive(true);
-            }
+            //if (ringCount < rings.Length - 1)
+            //{
+            //    rings[ringCount + 1].SetActive(true);
+            //}
         }
         else
         {
