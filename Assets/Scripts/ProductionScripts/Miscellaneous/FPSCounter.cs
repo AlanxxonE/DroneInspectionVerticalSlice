@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DevTools : MonoBehaviour
-{
-    
-    public Text fpsCounterText;    
+public class FPSCounter : MonoBehaviour
+{    
 	private float fpsCount;
 
 	IEnumerator Start()
@@ -18,7 +16,8 @@ public class DevTools : MonoBehaviour
 				yield return new WaitForSeconds(0.1f);
 				fpsCount = Mathf.RoundToInt(1 / Time.deltaTime);
 			}
-			fpsCounterText.text = "FPS: " + fpsCount;
+			
+			GetComponent<Text>().text = "FPS: " + fpsCount;
 			yield return new WaitForSeconds(0.5f);
 		}
 	}
