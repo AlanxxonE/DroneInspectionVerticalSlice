@@ -21,7 +21,7 @@ public class HazardManager : MonoBehaviour
     public List<Transform> hazardTransforms; //List of transforms of each hazard in the game    
     [HideInInspector] public MonoBehaviour currentHazardScript = null; //Reference to current hazard being interacted with
     [HideInInspector] public string hazardName; //Name of hazard being interacted with
-    public Texture2D cursor; //Reference to cursor
+   // public Texture2D cursor; //Reference to cursor
 
     //Hazard Mechanics Variables
     [Header("Hazard Mechanics Variables")]
@@ -66,7 +66,6 @@ public class HazardManager : MonoBehaviour
     /// <param name="currenHazardScript"></param>
     public void InitialiseHazard(MonoBehaviour currenHazardScript)
     {
-        Cursor.SetCursor(cursor,new Vector2(0,0), CursorMode.Auto); //Sets new cursor 
         Cursor.lockState = CursorLockMode.None;  //Unlocks cursor
         gameManager.droneController.droneCamera.interpolationTime = 0;  //Resets interpolation time timer
         gameManager.droneController.droneCamera.SwitchPerspective(false); //Switches to TPP camera
