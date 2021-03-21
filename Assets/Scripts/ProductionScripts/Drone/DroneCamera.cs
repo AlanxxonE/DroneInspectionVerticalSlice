@@ -96,12 +96,12 @@ public class DroneCamera : MonoBehaviour
     /// <param name="cameraFocalPoint"></param>
     /// <param name="resetCameraPosition"></param>
     /// <returns></returns>
-    public bool FocusOnHazard(Transform cameraFocalPoint, bool resetCameraPosition)
+    public bool FocusOnHazard(Transform cameraFocalPoint, Transform hazardTransform, bool resetCameraPosition)
     {
         if(!resetCameraPosition) //If camera is not being reset, i.e. is focusing on the hazard point
         {
             startPosition = this.transform.position + cameraPosition; //Start position is set to camera's original position relative to the drone
-            endPosition = cameraFocalPoint.position - (droneController.interpolationOffset * cameraFocalPoint.GetComponentInParent<Transform>().forward); //End pos of camera minus an offset in the relative z-axis
+            endPosition = cameraFocalPoint.position - (droneController.interpolationOffset * hazardTransform.forward); //End pos of camera minus an offset in the relative z-axis
             droneController.thirdPersonCam.transform.LookAt(cameraFocalPoint.position); //Points camera at the hazard pos
 
             if (droneController.thirdPersonCam.transform.position == endPosition )
@@ -112,7 +112,7 @@ public class DroneCamera : MonoBehaviour
 
         else if (resetCameraPosition) //If camera is being reset to it's original position relative to the drone
         {
-            startPosition = cameraFocalPoint.position - (droneController.interpolationOffset * cameraFocalPoint.GetComponentInParent<Transform>().forward); //Sets the start point equal to the previous end position
+            startPosition = cameraFocalPoint.position - (droneController.interpolationOffset * hazardTransform.forward); //Sets the start point equal to the previous end position
             endPosition = transform.position + cameraPosition; //Sets the end pos equal to the camera's original position relative to the drone
             droneController.thirdPersonCam.transform.LookAt(cameraFocalPoint.position); //Camera looks at hazard point
 

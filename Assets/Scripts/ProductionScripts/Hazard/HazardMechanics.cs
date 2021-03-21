@@ -15,6 +15,7 @@ public class HazardMechanics : MonoBehaviour
     protected List<Transform> targetTransforms = new List<Transform>();  //Transform of the target game object, as it's protected it will be unique for any class that derives from hazard mechanics
     protected List<bool> targetFixed = new List<bool>(); //List t o determine if specific hazard elements are fixed
     protected Transform cameraFocalPoint;  //Position the camera focuses on
+    protected Transform hazardTransform;
     protected int hazardIndex;  //Index for the list of hazard transforms
     protected int targetIndex = 0; //Target index to distinguish between targets on a hazard
     protected bool checkCameraPosition = false;   //Boolean used to determine if the CheckCameraPosition() method should run
@@ -25,6 +26,7 @@ public class HazardMechanics : MonoBehaviour
     protected void OnWake()
     {
         GetComponent<MonoBehaviour>().enabled = false; //Disables class
+        hazardTransform = GetComponent<Transform>();
 
         foreach(Transform child in transform)
         {
@@ -71,12 +73,12 @@ public class HazardMechanics : MonoBehaviour
         {
             if (hazardManager.hazardSlider.value >= 100)  //Calls the finish hazard method in the hazard manager script if the minigame is won and passes through these variables
             {
-                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).satisfaction, Score.GetScore(hazardManager.hazardName).score, true, cameraFocalPoint, index);
+                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).satisfaction, Score.GetScore(hazardManager.hazardName).score, true, cameraFocalPoint, hazardTransform, index);
                 GetComponent<Collider>().enabled = true;
             }
             else if (hazardManager.hazardSlider.value <= 0)  //Calls the finish hazard method in the hazard manager script if the minigame is lost and passes through these variables
             {
-                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).dissatisfaction, 0, false, cameraFocalPoint, index);
+                hazardManager.FinishHazard(Score.GetScore(hazardManager.hazardName).dissatisfaction, 0, false, cameraFocalPoint, hazardTransform, index);
                 GetComponent<Collider>().enabled = true;
             }
 
@@ -143,7 +145,7 @@ public class HazardMechanics : MonoBehaviour
     /// <returns></returns>
     private bool CheckCameraPosition(Transform cameraFocalPoint)
     {                
-        if (hazardManager.gameManager.droneController.droneCamera.FocusOnHazard(cameraFocalPoint, false))
+        if (hazardManager.gameManager.droneController.droneCamera.FocusOnHazard(cameraFocalPoint, hazardTransform, false))
         {
             return true; //If focus on hazard returns true, this returns true
         }
