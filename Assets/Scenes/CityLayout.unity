@@ -37293,7 +37293,6 @@ MonoBehaviour:
   hazardTransforms: []
   currentHazardScript: {fileID: 0}
   hazardName: 
-  cursor: {fileID: 2800000, guid: 267e521b5c0b09542b0e2014bc9af4d9, type: 3}
   hazardProgressDropRate: 2
   hazardSliderInitialValue: 50
   maxDetectionDistance: 60
