@@ -121,12 +121,11 @@ public class DroneUI : MonoBehaviour
         UIManager.rangeRef.GetComponentInChildren<Text>().text = Mathf.RoundToInt(100 - ((range / UIManager.gameManager.droneController.maxRange) * 100)) + "%";   //Sets the range text equal to the percentage of the maximum range the drone has flown
 
         float staticEffectIntensity = Mathf.Pow(((range - (UIManager.gameManager.droneController.maxRange * UIManager.signalLossPoint)) / (UIManager.gameManager.droneController.maxRange * (1 - (UIManager.signalLossPoint / 1)))), 1.5f);  //Sets an exponentialy increasing intensity for the static effect after the drone has flown past the point where it begins to lose signal 
+        UIManager.gameManager.audioManager.soundList[3].volume = staticEffectIntensity;
 
         if (range > UIManager.gameManager.droneController.maxRange * UIManager.signalLossPoint)  //If the drone has flown past the point where it begins to lose signal
         {
-            UIManager.gameManager.audioManager.soundList[3].Play();
-
-            //UIManager.gameManager.audioManager.soundList[3].volume *= staticEffectIntensity;         
+            UIManager.gameManager.audioManager.soundList[3].UnPause();                   
 
             UIManager.staticEffect.GetComponent<Image>().color = new Color(255, 255, 255, staticEffectIntensity); //Applies a static effect over the screen
 
@@ -138,7 +137,7 @@ public class DroneUI : MonoBehaviour
         }
         else   //Else removes the static effect
         {
-            UIManager.gameManager.audioManager.soundList[3].Stop();
+            UIManager.gameManager.audioManager.soundList[3].Pause();
             UIManager.staticEffect.GetComponent<Image>().color = new Color(255, 255, 255, 0f);
         }
 
