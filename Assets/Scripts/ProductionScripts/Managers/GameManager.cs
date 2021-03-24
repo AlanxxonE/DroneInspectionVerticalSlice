@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
     public DroneController droneController; 
     public HazardManager hazardManager;
     public LevelManager levelManager;
+    public DialogueManager dialogueManager;
+    public UIManager UIManager;
+    public TutorialManager tutorialManager;
+    public AudioManager audioManager;
 
     //General References
     [Header("General References")]
@@ -40,7 +44,9 @@ public class GameManager : MonoBehaviour
                 default:
                     break;
             }
-        }       
+        }
+
+        RenderSettings.skybox.SetFloat("_Rotation", Time.time * 2);
     }
 
     /// <summary>

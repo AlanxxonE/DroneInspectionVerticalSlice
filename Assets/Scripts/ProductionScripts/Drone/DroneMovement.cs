@@ -14,7 +14,8 @@ public class DroneMovement : MonoBehaviour
     private int droneHits = 0; //Keeps track of drone collision count    
 
     //Movement Variables
-    [HideInInspector] public Vector3 startPosition;   //Reference to the position teh dropne starts at   
+    [HideInInspector] public Vector3 startPosition;   //Reference to the position the drone starts at
+    [HideInInspector] public Vector3 anchorPosition;  //The position that is the centre of the sphere the drone can fly in
     private Vector3 desiredVelocity;  //Velocity the drone is aiming for
     private Vector3 referenceVelocity; //Reference to the default velocity of the drone          
     private Vector3 currentVelocity;  //Reference to current velocity of the drone
@@ -28,7 +29,15 @@ public class DroneMovement : MonoBehaviour
         droneController = this.GetComponent<DroneController>();
         parentRB = GetComponent<Rigidbody>(); //gets the drone's rigidbody
         startPosition = parentRB.transform.position;  //Sets the start position
-        theta = droneController.maxTiltAngle / droneController.droneVelocity;   //Sets the theta maths function        
+        anchorPosition = droneController.droneAnchorPosition.position;
+        theta = droneController.maxTiltAngle / droneController.droneVelocity;   //Sets the theta maths function
+
+        for (int numEffects = 0; numEffects < droneController.effectList.Count; numEffects++)
+        {
+            ParticleSystem.EmissionModule effectModule = droneController.effectList[numEffects].emission;
+            effectModule.enabled = false;
+        }
+
         Cursor.lockState = CursorLockMode.Locked; //Locks the mouse cursor        
     }
 
@@ -43,7 +52,7 @@ public class DroneMovement : MonoBehaviour
             }
             else
             {
-                Cursor.lockState = CursorLockMode.None; //Unlocks the cursor
+                //Cursor.lockState = CursorLockMode.None; //Unlocks the cursor
                 droneController.canMove = 0;  //prevents the drone moving
             }
 
@@ -115,14 +124,23 @@ public class DroneMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// Method to handle drone collisiosn
+    /// Method to handle drone collision
     /// </summary>
     /// <param name="obstacle"></param>
     private void OnCollisionEnter(Collision obstacle)
     {
+        droneController.gameManager.audioManager.soundList[4].Play();
+
+        if (droneHits < droneController.effectList.Count)
+        {
+            ParticleSystem.EmissionModule effectModule = droneController.effectList[droneHits].emission;
+            effectModule.enabled = true;
+        }
+
         droneHits++;       //keeps track of number of collisions 
         if (droneHits == droneController.droneLives) //If the drone collides 3 times
         {
+            Score.endMessage = "YOU CRASHED TOO MANY TIMES AND GOT FIRED!";
             droneController.gameManager.levelManager.SceneSelectMethod(3);  //Loads score scene
         }
 
@@ -146,5 +164,51 @@ public class DroneMovement : MonoBehaviour
 
         Vector3 bounceAngle = (normalAngleAtCollision + Vector3.Scale(angleAtCollision, directionFix)) * 360;    //Bounce angle  is equal to the normal angle at collision plus the angle the drone is flying at rotated around the normal  
         parentRB.AddForce(bounceAngle * droneController.pushBackForce);       //Adds force in teh driection of the bounce angle
+
+        if(obstacle.gameObject.tag == "Worker")
+        {
+            droneController.gameManager.UIManager.satisfactionValue -= 10;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Worker")
+        {
+            other.GetComponent<Animator>().SetBool("DroneNear", true);
+            if (other.GetComponent<WorkerAI>() != null)
+            {
+                other.GetComponent<WorkerAI>().worker.speed = 0;
+            }
+            droneController.gameManager.UIManager.satisfactionDropRate *= 1.2f;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.tag == "Worker")
+        {
+            other.transform.LookAt(this.transform);
+            other.transform.eulerAngles = new Vector3(0, other.transform.eulerAngles.y, 0);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Worker")
+        {
+            other.GetComponent<Animator>().SetBool("DroneNear", false);
+            if (other.GetComponent<WorkerAI>() != null)
+            {
+                other.GetComponent<WorkerAI>().worker.speed = other.GetComponent<WorkerAI>().originalSpeed;
+            }
+            droneController.gameManager.UIManager.satisfactionDropRate /= 1.2f;
+        }
+
+        if (other.tag == "Ring")
+        {
+            droneController.gameManager.audioManager.soundList[2].Play();
+            droneController.gameManager.tutorialManager.UpdateRingCount();
+        }
     }
 }

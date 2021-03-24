@@ -4,43 +4,35 @@ using UnityEngine;
 
 public class Scaffold : HazardMechanics
 {
-    public Transform target;
-    private bool keepCheckingCameras = true;
-
     private void Awake()
     {
-        this.GetComponent<MonoBehaviour>().enabled = false;        
+        OnWake(); //Calls the OnWake() method
+        hazardManager.gameManager.tutorialManager.scaffoldIndex = hazardIndex;
+    }
+
+    private void OnEnable()
+    {
+        InitiateVariables(); //Initiates variables
     }
 
     private void Update()
-    {
-        if(keepCheckingCameras)
-        {
-            CheckCameras();
-        }        
-        else
-        {
-            RunHazard(Mechanics(), target);            
-        }        
+    {        
+        RunHazard(Mechanics(), cameraFocalPoint, hazardIndex);                                
     }
 
-    private void CheckCameras()
-    {
-        if (CheckCameraPosition(target, keepCheckingCameras))
-        {
-            keepCheckingCameras = false;
-            hazardManager.gameManager.droneController.droneCamera.interpolationTime = 0;
-
-        }
-        else if (!CheckCameraPosition(target, keepCheckingCameras))
-        {
-            CheckCameraPosition(target, keepCheckingCameras);
-        }
-    }
-
+    /// <summary>
+    /// Mechanics of this hazard
+    /// </summary>
+    /// <returns></returns>
     private float Mechanics()
     {
-        float progress = 10 * Time.deltaTime; ///Change for the actual mechanics          
+        float progress = -1 * Time.deltaTime;  //Loses some progress over time until hazard is complete
+
+        if (CheckCursorState()) //If check cursor state returns true, i.e. each target has been interacted with
+        {            
+            progress = 100; //Adds 100 to progress (Completing minigame in RunHazard())
+            return progress;
+        }               
         return progress;
     }
 }

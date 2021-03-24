@@ -6,8 +6,12 @@ using UnityEngine.EventSystems;
 
 public class DroneRayCast : MonoBehaviour
 {
-    //Clasas Reference
-    private DroneController droneController;
+    /// <summary>
+    /// Class to manage the raycast used to detect hazards
+    /// </summary>
+    
+    //Class Reference
+    private DroneController droneController; //Reference to the drone controller script 
 
     //Hazard Interaction Variables
     private RaycastHit check;        //Holds reference for the object a raycast hit 
@@ -16,16 +20,16 @@ public class DroneRayCast : MonoBehaviour
 
     private void Awake()
     {
-        droneController = this.GetComponent<DroneController>();
+        droneController = this.GetComponent<DroneController>();     
     }
 
     private void Update()
     {
         RaycastDistanceCheck();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color == Color.green && droneController.firstPersonCam.activeSelf == true)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color == Color.green && droneController.firstPersonCam.activeSelf == true && !Input.GetMouseButton(1))
         {
-            ShootRaycast();
+            ShootRaycast();  //Called if player presses mouse 1 while in first person view and can interact with a hazard
         }
     }
 
@@ -34,7 +38,7 @@ public class DroneRayCast : MonoBehaviour
     /// </summary>
     public void RaycastDistanceCheck()
     {
-        Physics.Raycast(transform.position, transform.forward, out check, droneController.gameManager.hazardManager.maxDetectionDistance); //Sends out a raycast 100m in front of the drone each frame
+        Physics.Raycast(droneController.firstPersonCam.transform.position, droneController.firstPersonCam.transform.forward, out check, droneController.gameManager.hazardManager.maxDetectionDistance); //Sends out a raycast 100m in front of the drone each frame
 
         //If the raycast hits a hazard
         if (check.collider != null && check.collider.CompareTag("Hazard"))
@@ -43,19 +47,19 @@ public class DroneRayCast : MonoBehaviour
             //If the hazard is within the optimal distance from the drone
             if (check.distance > droneController.gameManager.hazardManager.GetOptimalRange(hazardName).x && check.distance < droneController.gameManager.hazardManager.GetOptimalRange(hazardName).y)
             {
-                droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.green;  //Sets the artificial horizon UI elements to green
+                droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color = Color.green;  //Sets the artificial horizon UI elements to green
             }
             //If the hazard is ouwith the optimal distance from the drone
             else if (check.distance < droneController.gameManager.hazardManager.maxDetectionDistance)
             {
-                droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.red;   //Sets the artificial horizon UI elements to red
+                droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color = Color.red;   //Sets the artificial horizon UI elements to red
             }
         }
 
         //If the raycast hits nothing 
         else if (check.collider == null || check.collider.CompareTag("Fixed"))
         {
-            droneController.droneUI.artificialHorizonCircle.GetComponent<Image>().color = Color.black;  //Sets the artificial horizon UI elements to grey
+            droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color = Color.black;  //Sets the artificial horizon UI elements to grey
         }
     }
 
@@ -64,13 +68,13 @@ public class DroneRayCast : MonoBehaviour
     /// </summary>
     public void ShootRaycast()
     {
-        Physics.Raycast(transform.position, transform.forward, out hit, 100f);  //Shoots out a raycast
+        Physics.Raycast(droneController.firstPersonCam.transform.position, droneController.firstPersonCam.transform.forward, out hit, 100f);  //Shoots out a raycast
 
-        //If the raycast hits a hazard that is still in danger
+        //If the raycast hits a hazard 
         if (hit.collider != null && hit.collider.CompareTag("Hazard"))
         {            
             stopMovement = true;   //Stops the drone     
-            droneController.gameManager.hazardManager.InitialiseHazard(hit.collider.GetComponent<MonoBehaviour>());            
+            droneController.gameManager.hazardManager.InitialiseHazard(hit.collider.GetComponent<MonoBehaviour>()); //Calls the InitialiseHazard() method in hazard manager           
         }
     }
 }

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class DroneController : MonoBehaviour
 {
+    /// <summary>
+    /// Class that holds references and variables to manage different aspects of the drone's mechanics
+    /// </summary>
+   
     //Class References   
     [Header("Class References")]
-    public DroneUI droneUI;
     public DroneMovement droneMovement;
     public DroneRayCast droneRayCast;
     public DroneCamera droneCamera;
@@ -15,6 +18,7 @@ public class DroneController : MonoBehaviour
     //General Variables
     [Header("General Variables")]    
     public int droneLives = 3; //How many times the drone can collide before being destroyed 
+    public List<ParticleSystem> effectList = new List<ParticleSystem>(); //List of all the effects that will affect the drone 
     [HideInInspector] public bool isPaused;
 
     //Camera Variables
@@ -25,7 +29,7 @@ public class DroneController : MonoBehaviour
     public GameObject thirdPersonCam;
     [Tooltip("Sets the vertical angle limit of the first person camera")]
     public float camMaxVerticalFreeLookAngle = 90f;
-    [Tooltip("Sets the time taken for the camera to interpolate to a hazard target position when being interacted with")]
+    [Tooltip("Sets the time taken in seconds for the camera to interpolate to a hazard target position when being interacted with")]
     public float interpolationTime;
     [Tooltip("Sets the z-axis offset for the camera to reach after interpolation")]
     public float interpolationOffset;
@@ -44,6 +48,8 @@ public class DroneController : MonoBehaviour
     [Tooltip("Time taken to accelerate to new velocity, smaller is faster")]
     public float smoothTime;  
     [HideInInspector] public float canMove = 1; //Float to allow/disallow movement
+    [Tooltip("Position that the drone can move from")]
+    public Transform droneAnchorPosition;
 
     //Tilt Variables
     [Header("Tilt Variables")]
@@ -53,18 +59,4 @@ public class DroneController : MonoBehaviour
     public float maxTiltAngle;
     [Tooltip("Sets the force for the Push Back when Colliding with something")]
     public float pushBackForce;
-
-    //UI Variables
-    [Header("UI Variables")]
-    [Range(0f, 1f)]
-    [Tooltip("Sets percentage of the maximum range of the drone at which the drone signal begins to fade and the static effect begins to increase")]
-    public float signalLossPoint;
-    [Range(0f, 1f)]
-    [Tooltip("Sets the rate of satisfaction loss at rate of 0-1 ticks per second. Total ticks = 100.")]
-    public float satisfactionDropRate;
-    [Range(0f, 100f)]
-    [Tooltip("Sets the initial value of worker satisfaction. Range from 0 - 100.")]
-    public float satisfactionValue = 50f;
-    [Tooltip("Sets the gradient for the satisfaction slider")]
-    public Gradient satisfactionGradient;
 }

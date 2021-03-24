@@ -10,6 +10,10 @@ TagManager:
   - CrossRoad
   - ScaffoldHazard
   - Fixed
+  - Target
+  - Worker
+  - Ring
+  - DialogueSystem
   layers:
   - Default
   - TransparentFX
@@ -21,7 +25,7 @@ TagManager:
   - 
   - UISignal
   - Drone
-  - 
+  - PostProcessing
   - 
   - 
   - 
