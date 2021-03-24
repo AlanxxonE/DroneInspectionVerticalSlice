@@ -27,7 +27,7 @@ public class DroneRayCast : MonoBehaviour
     {
         RaycastDistanceCheck();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color == Color.green && droneController.firstPersonCam.activeSelf == true)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && stopMovement == false && droneController.gameManager.UIManager.artificialHorizonCircle.GetComponent<Image>().color == Color.green && droneController.firstPersonCam.activeSelf == true && !Input.GetMouseButton(1))
         {
             ShootRaycast();  //Called if player presses mouse 1 while in first person view and can interact with a hazard
         }
@@ -38,7 +38,7 @@ public class DroneRayCast : MonoBehaviour
     /// </summary>
     public void RaycastDistanceCheck()
     {
-        Physics.Raycast(transform.position, transform.forward, out check, droneController.gameManager.hazardManager.maxDetectionDistance); //Sends out a raycast 100m in front of the drone each frame
+        Physics.Raycast(droneController.firstPersonCam.transform.position, droneController.firstPersonCam.transform.forward, out check, droneController.gameManager.hazardManager.maxDetectionDistance); //Sends out a raycast 100m in front of the drone each frame
 
         //If the raycast hits a hazard
         if (check.collider != null && check.collider.CompareTag("Hazard"))
@@ -68,7 +68,7 @@ public class DroneRayCast : MonoBehaviour
     /// </summary>
     public void ShootRaycast()
     {
-        Physics.Raycast(transform.position, transform.forward, out hit, 100f);  //Shoots out a raycast
+        Physics.Raycast(droneController.firstPersonCam.transform.position, droneController.firstPersonCam.transform.forward, out hit, 100f);  //Shoots out a raycast
 
         //If the raycast hits a hazard 
         if (hit.collider != null && hit.collider.CompareTag("Hazard"))
