@@ -135,8 +135,11 @@ public class TutorialManager : MonoBehaviour
                         markers.GetComponent<RawImage>().enabled = true;
                     }
 
-                    gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<Collider>().enabled = false;
-                    gameManager.UIManager.compass.hazardMarkers[scaffoldIndex].GetComponent<RawImage>().enabled = false;
+                    if(Score.isScaffoldFixed)
+                    {
+                        gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<Collider>().enabled = false;
+                        gameManager.UIManager.compass.hazardMarkers[scaffoldIndex].GetComponent<RawImage>().enabled = false;
+                    }                  
                     break;
 
                 default:
