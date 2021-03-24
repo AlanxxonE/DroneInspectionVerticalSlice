@@ -31,6 +31,7 @@ public class TutorialManager : MonoBehaviour
         "If a hazard is in your view but your range is incorrect, the viewfinder will appear red, once in the\n correct position the viewfinder will turn green.",
         "Anyway, is something wrong there? Doesn’t look quite stable, that could make the whole\n thing fall apart, get someone over here to fix it. Click the LMB when the viewfinder is green.",
         "Make sure you point out all that feels unsafe, you will know when the job is done.",
+        "Perfect that's the scaffold finished, you're all warmed up now!",
         "Ok, you're here to find hazards on the construction site to make sure everyone will be safe... Get to it!"};
         
     
@@ -125,7 +126,7 @@ public class TutorialManager : MonoBehaviour
                     }
                     break;
 
-                case 11:
+                case 12:
                     foreach (Transform t in gameManager.hazardManager.hazardTransforms)
                     {
                         t.GetComponent<Collider>().enabled = true;
@@ -140,7 +141,9 @@ public class TutorialManager : MonoBehaviour
                         gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<Collider>().enabled = false;
                         gameManager.UIManager.compass.hazardMarkers[scaffoldIndex].GetComponent<RawImage>().enabled = false;
                     }
+
                     tutCounter += Time.deltaTime;
+
                     if(tutCounter > 5)
                     {
                         gameManager.dialogueManager.StopSentence();
@@ -153,7 +156,7 @@ public class TutorialManager : MonoBehaviour
                     {
                         tutCounter += Time.deltaTime;
                     }
-                    if (tutCounter > 5)
+                    if (tutCounter > 2)
                     {
                         gameManager.dialogueManager.StopSentence();
                     }
@@ -183,8 +186,7 @@ public class TutorialManager : MonoBehaviour
 
         if (!isTutorialEnabled)
         {
-            print("blah");
-            gameManager.dialogueManager.sentenceNumber = 11;
+            gameManager.dialogueManager.sentenceNumber = 12;
         }
 
         runDialogue = true;
