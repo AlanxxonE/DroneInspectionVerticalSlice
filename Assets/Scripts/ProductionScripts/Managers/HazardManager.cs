@@ -21,7 +21,6 @@ public class HazardManager : MonoBehaviour
     public List<Transform> hazardTransforms; //List of transforms of each hazard in the game    
     [HideInInspector] public MonoBehaviour currentHazardScript = null; //Reference to current hazard being interacted with
     [HideInInspector] public string hazardName; //Name of hazard being interacted with
-   // public Texture2D cursor; //Reference to cursor
 
     //Hazard Mechanics Variables
     [Header("Hazard Mechanics Variables")]
@@ -100,12 +99,17 @@ public class HazardManager : MonoBehaviour
                 currentHazardScript.tag = "Fixed";  //Changes tag of the hazard
                 gameManager.UIManager.compass.hazardMarkers[index].GetComponent<RawImage>().enabled = false;  //Disbales the compass marker for this hazard
                 Destroy(cameraFocalPoint.gameObject);   //Destroy the temporary gameobject created as a transform for the camera to focuse on during the hazard interaction
+
+                if(Score.AreAllHazardsFixed())
+                {
+                    gameManager.levelManager.SceneSelectMethod(3);
+                }
             }
 
             currentHazardScript.enabled = false;  //Disables this hazard class
             currentHazardScript = null;  //Resets the referenece
             hazardName = null; //Resets the hazard name
-
+            
             gameManager.droneController.droneCamera.SwitchPerspective(true);  //Switches to FPP camera
         }
     }   

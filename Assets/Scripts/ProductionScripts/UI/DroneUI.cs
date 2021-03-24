@@ -106,7 +106,7 @@ public class DroneUI : MonoBehaviour
         }
 
         //If satisfaction of 100 is achieved the score scene is loaded
-        if (UIManager.satisfactionValue >= 100 || UIManager.satisfactionValue <= 0)
+        if (UIManager.satisfactionValue <= 0)
         {
             UIManager.gameManager.levelManager.SceneSelectMethod(3);
         }

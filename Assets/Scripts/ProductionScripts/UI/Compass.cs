@@ -16,7 +16,7 @@ public class Compass : MonoBehaviour
     //References
     private RawImage compassCoords;  //Image ref for the compass coordinates, i.e. North, West, East and South
     private List<Transform> hazardTransforms; //List of transforms for each hazard
-    [HideInInspector]public List<GameObject> hazardMarkers; //List of markers used overlayed on the compass indicating position of hazards
+    public List<GameObject> hazardMarkers; //List of markers used overlayed on the compass indicating position of hazards
 
     //Variables
     private float compassUnit; //Unit used to determine how much the compass should rotate by

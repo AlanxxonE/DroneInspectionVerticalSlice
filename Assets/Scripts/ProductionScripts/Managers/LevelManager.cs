@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
-{    
+{
     /// <summary>
     /// Level manager is responsible for selecting the correct scene
     /// </summary>
-    
+    public static bool tutorialEnabled = true;
+
     void Start()
     {
         Cursor.visible = true;   //Sets cursor visible
@@ -16,6 +17,7 @@ public class LevelManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex == 0)  //If main level
         {
+            tutorialEnabled = true;
             Score.SetFixedBooleans(null,false,true);            
         }
     }
@@ -28,6 +30,11 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(i, LoadSceneMode.Single);  //Loads scene from build index 
         Time.timeScale = 1;  //Sets time scale equal to 1 when a level is loaded 
+    }
+
+    public void TutorialEnabled()
+    {
+        tutorialEnabled = !tutorialEnabled;
     }
 
     /// <summary>

@@ -31858,6 +31858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 775dfd1f3deaf9844bc516c5c4705980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sentenceNumber: 0
 --- !u!114 &834578984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31920,7 +31921,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 834578981}
-  tutHazard: {fileID: 693554366}
   rings:
   - {fileID: 669903950}
   - {fileID: 623898863}
@@ -31929,6 +31929,8 @@ MonoBehaviour:
   - {fileID: 2040266975}
   - {fileID: 1996757153}
   - {fileID: 210146345}
+  scaffoldIndex: 0
+  tutorialEnabled: 0
 --- !u!1001 &835237574
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58383,7 +58385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1566540830
 RectTransform:
   m_ObjectHideFlags: 0

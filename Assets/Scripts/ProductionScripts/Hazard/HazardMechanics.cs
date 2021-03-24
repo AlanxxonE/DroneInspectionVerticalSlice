@@ -13,7 +13,7 @@ public class HazardMechanics : MonoBehaviour
 
     //General variables
     protected List<Transform> targetTransforms = new List<Transform>();  //Transform of the target game object, as it's protected it will be unique for any class that derives from hazard mechanics
-    protected List<bool> targetFixed = new List<bool>(); //List t o determine if specific hazard elements are fixed
+    protected List<bool> targetFixed = new List<bool>(); //List to determine if specific hazard elements are fixed
     protected Transform cameraFocalPoint;  //Position the camera focuses on
     protected Transform hazardTransform;
     protected int hazardIndex;  //Index for the list of hazard transforms

@@ -7,6 +7,7 @@ public class Scaffold : HazardMechanics
     private void Awake()
     {
         OnWake(); //Calls the OnWake() method
+        hazardManager.gameManager.tutorialManager.scaffoldIndex = hazardIndex;
     }
 
     private void OnEnable()

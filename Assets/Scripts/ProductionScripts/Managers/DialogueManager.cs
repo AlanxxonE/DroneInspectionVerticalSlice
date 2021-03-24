@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
     
     private Text dialogue;
     int currentAmount = 0;
-    int sentenceNumber = 8;
+    public int sentenceNumber = 0;
 
     bool moveOnCheck = false;
     bool sentenceFinished;

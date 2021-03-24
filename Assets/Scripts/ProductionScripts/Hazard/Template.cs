@@ -37,7 +37,7 @@ public class Template : HazardMechanics     //Needs to inherit from HazardMechan
 /*Things to add to other scripts after creating class:
 
 Score script: 
-1. Add is('this hazard')Fixed boolean to script variables and to the IF and SWITCH statements of the SetFixedBoolean() method. Note, add in the same format as the others.
+1. Add is('this hazard')Fixed boolean to script variables, to the IF and SWITCH statements of the SetFixedBoolean() method and to the IF statement of AreAllHazardsFixed() method. Note, add in the same format as the others.
 2. Add 'hazardName' to the GetScore() method's switch statement and it's subsequent values. Note, 'hazardName' must be the same as this class' name.
 
 HazardManager script:

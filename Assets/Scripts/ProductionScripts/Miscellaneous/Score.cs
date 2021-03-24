@@ -47,4 +47,14 @@ public static class Score
             }
         }
     }
+
+    public static bool AreAllHazardsFixed()
+    {
+        if(isScaffoldFixed && isCraneFixed)
+        {
+            return true;
+        }
+
+        return false;
+    }
 }
