@@ -129,6 +129,8 @@ public class DroneMovement : MonoBehaviour
     /// <param name="obstacle"></param>
     private void OnCollisionEnter(Collision obstacle)
     {
+        droneController.gameManager.audioManager.soundList[4].Play();
+
         if (droneHits < droneController.effectList.Count)
         {
             ParticleSystem.EmissionModule effectModule = droneController.effectList[droneHits].emission;
@@ -204,6 +206,7 @@ public class DroneMovement : MonoBehaviour
 
         if (other.tag == "Ring")
         {
+            droneController.gameManager.audioManager.soundList[2].Play();
             droneController.gameManager.tutorialManager.UpdateRingCount();
         }
     }
