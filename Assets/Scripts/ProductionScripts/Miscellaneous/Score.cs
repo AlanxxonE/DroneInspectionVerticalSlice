@@ -10,6 +10,8 @@ public static class Score
     
     public static bool isScaffoldFixed, isCraneFixed; //Booleans for wether a hazard is fixed or not
 
+    public static string endMessage;
+
     //Returns score values for specific hazards. Takes in the hazard name as input
     public static (int satisfaction, int dissatisfaction, int score) GetScore(string hazardName)
     {
@@ -50,8 +52,9 @@ public static class Score
 
     public static bool AreAllHazardsFixed()
     {
-        if(isScaffoldFixed && isCraneFixed)
+        if(isScaffoldFixed)
         {
+            endMessage = "WELL DONE SPOTTING THOSE HAZARDS!";
             return true;
         }
 

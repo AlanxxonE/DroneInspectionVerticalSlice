@@ -140,6 +140,7 @@ public class DroneMovement : MonoBehaviour
         droneHits++;       //keeps track of number of collisions 
         if (droneHits == droneController.droneLives) //If the drone collides 3 times
         {
+            Score.endMessage = "YOU CRASHED TOO MANY TIMES AND GOT FIRED!";
             droneController.gameManager.levelManager.SceneSelectMethod(3);  //Loads score scene
         }
 

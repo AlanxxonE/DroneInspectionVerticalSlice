@@ -108,6 +108,7 @@ public class DroneUI : MonoBehaviour
         //If satisfaction of 100 is achieved the score scene is loaded
         if (UIManager.satisfactionValue <= 0)
         {
+            Score.endMessage = "YOU RAN OUT OF TIME, HERE'S YOUR P45";
             UIManager.gameManager.levelManager.SceneSelectMethod(3);
         }
     }
