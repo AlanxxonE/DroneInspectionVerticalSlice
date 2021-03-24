@@ -139,8 +139,14 @@ public class TutorialManager : MonoBehaviour
                     {
                         gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<Collider>().enabled = false;
                         gameManager.UIManager.compass.hazardMarkers[scaffoldIndex].GetComponent<RawImage>().enabled = false;
-                    }                  
+                    }
+                    tutCounter += Time.deltaTime;
+                    if(tutCounter > 5)
+                    {
+                        gameManager.dialogueManager.StopSentence();
+                    }
                     break;
+                   
 
                 default:
                     if (gameManager.dialogueManager.IsSentenceFinished())
