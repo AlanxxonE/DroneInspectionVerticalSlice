@@ -105,7 +105,13 @@ public class HazardMechanics : MonoBehaviour
         {
             switch (hit.collider.tag) //Compares tag of what raycast hit
             {
-                case "Target":  
+                case "Target":
+
+                    foreach (Transform t in targetTransforms)
+                    {
+                        t.GetComponent<Renderer>().material.DisableKeyword("_EMISSION"); //Stops the glow effect of the last target interacted with if raycast is no longer hitting a target
+                    }
+
                     targetIndex = targetTransforms.IndexOf(hit.collider.transform);  //Gets index of which target is being interacted with
                     targetTransforms[targetIndex].GetComponent<Renderer>().material.EnableKeyword("_EMISSION"); //Sets the glow effect of that target
                     
@@ -118,7 +124,13 @@ public class HazardMechanics : MonoBehaviour
                     break;
 
                 default:
-                    targetTransforms[targetIndex].GetComponent<Renderer>().material.DisableKeyword("_EMISSION"); //Stops the glow effect of the last target interacted with if raycast is no longer hitting a target
+                    foreach (Transform t in targetTransforms)
+                    {
+                        t.GetComponent<Renderer>().material.DisableKeyword("_EMISSION"); //Stops the glow effect of the last target interacted with if raycast is no longer hitting a target
+                    }
+
+                    //targetTransforms[targetIndex].GetComponent<Renderer>().material.DisableKeyword("_EMISSION"); //Stops the glow effect of the last target interacted with if raycast is no longer hitting a target
+
                     break;
             }                  
         }

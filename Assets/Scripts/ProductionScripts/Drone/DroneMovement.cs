@@ -173,7 +173,10 @@ public class DroneMovement : MonoBehaviour
         if(other.gameObject.tag == "Worker")
         {
             other.GetComponent<Animator>().SetBool("DroneNear", true);
-            other.GetComponent<WorkerAI>().worker.speed = 0;
+            if (other.GetComponent<WorkerAI>() != null)
+            {
+                other.GetComponent<WorkerAI>().worker.speed = 0;
+            }
             droneController.gameManager.UIManager.satisfactionDropRate *= 1.2f;
         }
     }
@@ -183,6 +186,7 @@ public class DroneMovement : MonoBehaviour
         if(other.gameObject.tag == "Worker")
         {
             other.transform.LookAt(this.transform);
+            other.transform.eulerAngles = new Vector3(0, other.transform.eulerAngles.y, 0);
         }
     }
 
@@ -191,7 +195,10 @@ public class DroneMovement : MonoBehaviour
         if (other.gameObject.tag == "Worker")
         {
             other.GetComponent<Animator>().SetBool("DroneNear", false);
-            other.GetComponent<WorkerAI>().worker.speed = other.GetComponent<WorkerAI>().originalSpeed;
+            if (other.GetComponent<WorkerAI>() != null)
+            {
+                other.GetComponent<WorkerAI>().worker.speed = other.GetComponent<WorkerAI>().originalSpeed;
+            }
             droneController.gameManager.UIManager.satisfactionDropRate /= 1.2f;
         }
 

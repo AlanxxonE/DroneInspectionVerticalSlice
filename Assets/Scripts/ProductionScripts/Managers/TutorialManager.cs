@@ -86,12 +86,16 @@ public class TutorialManager : MonoBehaviour
                 break;
             //examine hazard
             case 9:
-                tutHazard.enabled = true;
+                if (tutHazard.GetComponent<MonoBehaviour>().enabled == false)
+                {
+                    tutHazard.enabled = true;
+                }
 
                 if (tutHazard.GetComponent<MonoBehaviour>().enabled == true) { gameManager.dialogueManager.StopSentence(); }
                 break;
             //fix hazard
             case 10:
+
                 if (Score.isScaffoldFixed == true) { gameManager.dialogueManager.StopSentence(); gameManager.levelManager.SceneSelectMethod(3); }
                 break;
             default:

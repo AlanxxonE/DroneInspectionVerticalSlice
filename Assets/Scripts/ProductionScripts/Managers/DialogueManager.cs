@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
     
     private Text dialogue;
     int currentAmount = 0;
-    int sentenceNumber = 0;
+    int sentenceNumber = 8;
 
     bool moveOnCheck = false;
     bool sentenceFinished;
@@ -47,7 +47,7 @@ public class DialogueManager : MonoBehaviour
 
     IEnumerator LetterDelay(int paraNum, int amountOfLetters)
     {
-        yield return new WaitForSeconds(0.02f);
+        yield return new WaitForFixedUpdate();
         DisplayParagraph(paraNum, amountOfLetters);
     }
 
