@@ -13,6 +13,7 @@ public class DroneCamera : MonoBehaviour
 
     //General Variables
     [HideInInspector]public bool firstPerson = false;  //Boolean to determine if in third person   
+    private bool lastCameraPerspective;
     private float camTurnSpeed;   //Variable to set the turn speed of teh camera
     private float camXAxisRotation;  //Reference to the x-axis rotation of the camera
     private float camYAxisRotation;  //Reference to the y-axis rotation of the camera
@@ -40,6 +41,7 @@ public class DroneCamera : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1)) 
         {
+            lastCameraPerspective = firstPerson;
             firstPerson = true;
             SwitchPerspective(firstPerson);  //Calls the switch perspective method
         }
@@ -50,6 +52,8 @@ public class DroneCamera : MonoBehaviour
             droneController.firstPersonCam.transform.localEulerAngles = Vector3.zero;  //Resets the angle of the first person camera
             camXAxisRotation = 0;  //Resets the x-axis rotation of the camera
             camYAxisRotation = 0;  //Resets the Y-axis rotation of the camera
+            firstPerson = lastCameraPerspective;
+            SwitchPerspective(firstPerson);
         }
 
         if (Input.GetMouseButton(1)) //If mouse 2 is pressed
