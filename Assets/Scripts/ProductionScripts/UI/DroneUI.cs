@@ -16,13 +16,13 @@ public class DroneUI : MonoBehaviour
     //UI Variables
     private float altitude;   //Altitude variable
     private float range;   //Range variable    
-    private Slider satisfactionSliderRef;   //Reference to the slider of the satisfaction bar
+    private Text timerRef; //Reference to the text element of the time remaining UI element
     private Vector3 horPosVar;   //Vector 3 to alter the position of the horizontal line of the artificial horizon of the drone UI    
 
     private void Awake()
     {      
-        satisfactionSliderRef = UIManager.satisfactionRef.GetComponentInChildren<Slider>();   //Gets the satisfaction slider
-        satisfactionSliderRef.value = UIManager.satisfactionValue;   //Sets the value of the satisfaction slider
+        timerRef = UIManager.timerRef.GetComponent<Text>();   //Gets the satisfaction slider
+        timerRef.text = "TIME REMAINING: " + Mathf.RoundToInt(UIManager.timeRemaining) + "s";
         UIManager.altitudeRef.GetComponentInChildren<Slider>().maxValue = UIManager.gameManager.droneController.flightCeiling;  //Sets the max value of the altitude slider equal to that of the max height the drone can fly at
         UIManager.rangeRef.GetComponentInChildren<Slider>().maxValue = 1;  //Sets the maximum value of the range metre
         horPosVar = UIManager.artificialHorizonLine.GetComponentInParent<Transform>().position;  //Sets the vector 3 of the horizontal line
@@ -31,7 +31,7 @@ public class DroneUI : MonoBehaviour
     {
         ArtificialHorizon();
         Altitude();        
-        Satisfaction();
+        TimeRemaining();
         Range();
     }
 
@@ -70,43 +70,13 @@ public class DroneUI : MonoBehaviour
     /// <summary>
     /// Method to handle the satisfaction UI 
     /// </summary>
-    private void Satisfaction()
+    private void TimeRemaining()
     {
-        UIManager.satisfactionValue -= UIManager.satisfactionDropRate * Time.deltaTime; //Removes satisfaction over time
-        satisfactionSliderRef.value = UIManager.satisfactionValue;  //Sets the new satisfaction value to the UI slider
+        UIManager.timeRemaining -= Time.deltaTime * UIManager.timeRemainingDropRate;
+        timerRef.text = "TIME REMAINING: " + Mathf.RoundToInt(UIManager.timeRemaining) + "s";
 
-        UIManager.satisfactionRef.GetComponentInChildren<Image>().color = UIManager.satisfactionGradient.Evaluate(satisfactionSliderRef.normalizedValue);  //Sets the colour of the satisfaction slider based on it's value
-        int x; //Integer index to determine which worker face image should be displayed based on the satisfaction level
-
-        //Sets the index for which image should be selected
-        if(UIManager.satisfactionValue < 20)
-        {
-            x = 2;
-        }
-        else if (UIManager.satisfactionValue < 55)
-        {
-            x = 1;
-        }
-        else
-        {
-            x = 0;
-        }
-        
-        //Enables or disables worker face images based on  the satisfaction
-        for ( int i = 0; i < UIManager.workersFacesImageList.Count; i++)
-        {
-            if (x == i)
-            {
-                UIManager.workersFacesImageList[i].enabled = true;
-            }
-            else
-            {
-                UIManager.workersFacesImageList[i].enabled = false;
-            }
-        }
-
-        //If satisfaction of 100 is achieved the score scene is loaded
-        if (UIManager.satisfactionValue <= 0)
+        //If timer reaches zero the game ends
+        if (UIManager.timeRemaining <= 0)
         {
             Score.endMessage = "YOU RAN OUT OF TIME, HERE'S YOUR P45";
             UIManager.gameManager.levelManager.SceneSelectMethod(3);

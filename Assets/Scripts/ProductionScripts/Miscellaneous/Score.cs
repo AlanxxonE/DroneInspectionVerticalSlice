@@ -13,7 +13,7 @@ public static class Score
     public static string endMessage;
 
     //Returns score values for specific hazards. Takes in the hazard name as input
-    public static (int satisfaction, int dissatisfaction, int score) GetScore(string hazardName)
+    public static (int timeGained, int timeLost, int score) GetScore(string hazardName)
     {
         switch (hazardName)
         {

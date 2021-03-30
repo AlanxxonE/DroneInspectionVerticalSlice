@@ -24,8 +24,8 @@ public class UIManager : MonoBehaviour
     public GameObject altitudeRef;        
     [Tooltip("Reference to range metre of the drone UI  ")]
     public GameObject rangeRef;      
-    [Tooltip("Reference to satisfaction slider of the drone UI ")]
-    public GameObject satisfactionRef;  
+    [Tooltip("Reference to timer of the drone UI ")]
+    public GameObject timerRef;  
     [Tooltip("Reference to circle of the artificial horizon of the drone UI  ")]
     public GameObject artificialHorizonCircle;  
     [Tooltip("Reference to horizontal line of the artificial horizon of the drone UI  ")]
@@ -42,14 +42,12 @@ public class UIManager : MonoBehaviour
     [Range(0f, 1f)]
     [Tooltip("Sets percentage of the maximum range of the drone at which the drone signal begins to fade and the static effect begins to increase")]
     public float signalLossPoint;
-    [Range(0f, 1f)]
-    [Tooltip("Sets the rate of satisfaction loss at rate of 0-1 ticks per second. Total ticks = 100.")]
-    public float satisfactionDropRate;
-    [Range(0f, 100f)]
-    [Tooltip("Sets the initial value of worker satisfaction. Range from 0 - 100.")]
-    public float satisfactionValue;
-    [Tooltip("Sets the gradient for the satisfaction slider")]
-    public Gradient satisfactionGradient;
+    [Range(0f, 2f)]
+    [Tooltip("Sets the rate at which the timer counts down in seconds per second")]
+    public float timeRemainingDropRate;
+    [Range(0f, 300f)]
+    [Tooltip("Sets the initial value of time remaining in seconds")]
+    public float timeRemaining;
 
     //Compass variables
     [Header("Compass variables")]
