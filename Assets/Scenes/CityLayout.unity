@@ -23078,7 +23078,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 693554364}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 27.19, y: 4.47, z: 14.09}
+  m_LocalPosition: {x: 27.19, y: 20, z: 14.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1541658093}
@@ -32565,9 +32565,13 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  hazardMarkerPrefab: {fileID: 4536781982727319927, guid: 0afdba01f9d8daf49b1ea354ddf97fa4, type: 3}
+  hazardMarkerPrefab: {fileID: 5021722751382523405, guid: e2ab255b643f7e2469ef3a45a24ffd0c, type: 3}
+  hazardMarkerUpArrow: {fileID: 2290902447369091251, guid: 6fee871531f2cc04dbed699f77ae0962, type: 3}
+  hazardMarkerDownArrow: {fileID: 2239969894106040108, guid: 48a0bb3dd3164e141931f8d50b06e5cc, type: 3}
   hazardMarkerScale: {x: 0.5, y: 2.5}
   hazardMarkerScaleRange: {x: 0, y: 50}
+  hazardArrowHeightRange: {x: 5, y: 15}
+  hazardArrowHorizontalOffset: 45
 --- !u!114 &834578983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41833,7 +41837,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000157751}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -46.91, y: -5.4, z: -21.85}
+  m_LocalPosition: {x: -46.91, y: 0, z: -21.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 693554365}
@@ -46602,6 +46606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIManager: {fileID: 834578982}
   hazardMarkers: []
+  hazardArrows: []
 --- !u!114 &1164011988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46622,7 +46627,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 3b92df8781936514dac6ca97fcc30fe3, type: 3}
+  m_Texture: {fileID: 2800000, guid: e23f21a101c28a047bff3b88359ccec7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -55465,8 +55470,8 @@ RectTransform:
   m_Father: {fileID: 1610502502}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 30, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -59716,7 +59721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1566540830
 RectTransform:
   m_ObjectHideFlags: 0
@@ -60951,7 +60956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1610502502
 RectTransform:
   m_ObjectHideFlags: 0
@@ -75049,14 +75054,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.39215687}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d9f5879cfaa21624b8a03581cce8ff62, type: 3}
+  m_Texture: {fileID: 2800000, guid: 5deb103293bd15b409229c2a66fdfc12, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0

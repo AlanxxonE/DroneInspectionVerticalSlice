@@ -53,10 +53,18 @@ public class UIManager : MonoBehaviour
 
     //Compass variables
     [Header("Compass variables")]
-    [Tooltip("Reference top the hazard marker prefab")]
+    [Tooltip("Reference to the hazard marker prefab")]
     public GameObject hazardMarkerPrefab;
+    [Tooltip("Reference to the hazard marker up arrow")]
+    public GameObject hazardMarkerUpArrow;
+    [Tooltip("Reference to the hazard marker down arrow")]
+    public GameObject hazardMarkerDownArrow;
     [Tooltip("Sets the minimum and maximum scale of the compass marker")]
     public Vector2 hazardMarkerScale;
     [Tooltip("Sets the range for the minimum and maximum compass marker scale value in metres")]
     public Vector2 hazardMarkerScaleRange;
+    [Tooltip("Sets the height range for which the arrows display or not")]
+    public Vector2 hazardArrowHeightRange;
+    [Tooltip("Sets the amount the hazard arrow is offset from the marker on the compass")]
+    public float hazardArrowHorizontalOffset;
 }
