@@ -12168,16 +12168,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ae24e7c1abbfd242a0e01e696a6d767, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ae24e7c1abbfd242a0e01e696a6d767, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5ae24e7c1abbfd242a0e01e696a6d767, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5ae24e7c1abbfd242a0e01e696a6d767, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: db5bd4287412cf440b9669466f7fcb13, type: 2}
     - target: {fileID: 919132149155446097, guid: 5ae24e7c1abbfd242a0e01e696a6d767, type: 3}
       propertyPath: m_Name
       value: Building01 (9)
@@ -21614,6 +21618,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d1a04c695f245fa43bd9c20158d4c2d5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d1a04c695f245fa43bd9c20158d4c2d5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d1a04c695f245fa43bd9c20158d4c2d5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d1a04c695f245fa43bd9c20158d4c2d5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47b06f7356011894eb04d29d73366dcf, type: 2}
     - target: {fileID: 919132149155446097, guid: d1a04c695f245fa43bd9c20158d4c2d5, type: 3}
       propertyPath: m_Name
       value: Building03
