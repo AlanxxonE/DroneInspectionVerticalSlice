@@ -16,8 +16,7 @@ public class Compass : MonoBehaviour
     //References
     private RawImage compassCoords;  //Image ref for the compass coordinates, i.e. North, West, East and South
     private List<Transform> hazardTransforms; //List of transforms for each hazard
-    public List<GameObject> hazardMarkers; //List of markers used overlayed on the compass indicating position of hazards
-    public List<GameObject> hazardArrows;  //List of arrows used overlayed on the compass indicating height difference to hazards
+    public List<GameObject> hazardMarkers; //List of markers used overlayed on the compass indicating position of hazards   
 
     //Variables
     private float compassUnit; //Unit used to determine how much the compass should rotate by
@@ -38,36 +37,26 @@ public class Compass : MonoBehaviour
         if (markersInstantiated) //If markers have been instantiated
         {
             foreach (GameObject marker in hazardMarkers)
-            {    
-                
+            {
+                if (GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) < UIManager.hazardArrowHeightRange.x)
+                {                    
+                    marker.GetComponent<RawImage>().texture = UIManager.hazardMarkerUpArrow.GetComponent<RawImage>().texture;
+                }
+
+                else if (GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) > UIManager.hazardArrowHeightRange.y)
+                {                    
+                    marker.GetComponent<RawImage>().texture = UIManager.hazardMarkerDownArrow.GetComponent<RawImage>().texture;
+                }
+
+                else if (GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) > UIManager.hazardArrowHeightRange.x && GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) < UIManager.hazardArrowHeightRange.y)
+                {
+                    marker.GetComponent<RawImage>().texture = UIManager.hazardMarkerPrefab.GetComponent<RawImage>().texture;
+                }
+
                 marker.GetComponent<RawImage>().rectTransform.anchoredPosition = GetHazardMarkerPositionOnCompass(hazardTransforms[hazardMarkers.IndexOf(marker)]); //Gets/Sets position of hazard marker
                 float scale = GetHazardMarkerScale(hazardTransforms[hazardMarkers.IndexOf(marker)]); //Gets new scale for hazard marker
                 marker.GetComponent<RawImage>().rectTransform.localScale = new Vector3(scale, scale, scale);  //Sets new scale for hazard marker              
-            }
-
-            foreach (GameObject arrow in hazardArrows)
-            {
-                if (GetHazardHeightDifference(hazardTransforms[hazardArrows.IndexOf(arrow)]) < UIManager.hazardArrowHeightRange.x)
-                {
-                    arrow.GetComponent<RawImage>().enabled = true;
-                    arrow.GetComponent<RawImage>().texture = UIManager.hazardMarkerUpArrow.GetComponent<RawImage>().texture;
-                }
-
-                else if (GetHazardHeightDifference(hazardTransforms[hazardArrows.IndexOf(arrow)]) > UIManager.hazardArrowHeightRange.y)
-                {
-                    arrow.GetComponent<RawImage>().enabled = true;
-                    arrow.GetComponent<RawImage>().texture = UIManager.hazardMarkerDownArrow.GetComponent<RawImage>().texture;
-                }
-
-                else if (GetHazardHeightDifference(hazardTransforms[hazardArrows.IndexOf(arrow)]) > UIManager.hazardArrowHeightRange.x && GetHazardHeightDifference(hazardTransforms[hazardArrows.IndexOf(arrow)]) < UIManager.hazardArrowHeightRange.y)
-                {
-                    arrow.GetComponent<RawImage>().enabled = false;
-                }
-
-                arrow.GetComponent<RawImage>().rectTransform.anchoredPosition = GetHazardMarkerPositionOnCompass(hazardTransforms[hazardArrows.IndexOf(arrow)]) + new Vector2(UIManager.hazardArrowHorizontalOffset, 0); //Gets/Sets position of hazard marker
-                float scale = GetHazardMarkerScale(hazardTransforms[hazardArrows.IndexOf(arrow)]); //Gets new scale for hazard marker
-                arrow.GetComponent<RawImage>().rectTransform.localScale = new Vector3(scale, scale, scale);  //Sets new scale for hazard marker              
-            }
+            }           
         }                  
     }
 
@@ -97,7 +86,10 @@ public class Compass : MonoBehaviour
     /// <returns></returns>
     private float GetHazardMarkerScale(Transform marker)
     {
-        float distance = Vector3.Distance(marker.position, UIManager.gameManager.droneController.transform.position); //Gets distance between drone/hazard
+        Vector3 hazardPos = new Vector3(marker.position.x, 0 , marker.position.z);
+        Vector3 dronePos = new Vector3(UIManager.gameManager.droneController.transform.position.x, 0, UIManager.gameManager.droneController.transform.position.z);
+
+        float distance = Vector3.Distance(hazardPos, dronePos); //Gets horizontal distance between drone/hazard
 
         if(distance > UIManager.hazardMarkerScaleRange.y) //If distance > max distance
         {
@@ -135,9 +127,7 @@ public class Compass : MonoBehaviour
         for(int i = 0; i < hazardTransforms.Count; i++)
         {          
             GameObject marker = Instantiate(UIManager.hazardMarkerPrefab, transform);
-            GameObject arrow = Instantiate(UIManager.hazardMarkerUpArrow, transform);
-            hazardMarkers.Add(marker);
-            hazardArrows.Add(arrow);
+            hazardMarkers.Add(marker);          
         }
         markersInstantiated = true;
     }
