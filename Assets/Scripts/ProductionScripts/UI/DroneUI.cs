@@ -22,7 +22,7 @@ public class DroneUI : MonoBehaviour
     private void Awake()
     {      
         timerRef = UIManager.timerRef.GetComponent<Text>();   //Gets the satisfaction slider
-        timerRef.text = "TIME REMAINING: " + Mathf.RoundToInt(UIManager.timeRemaining) + "s";
+        timerRef.text = "END OF SHIFT: " + Mathf.RoundToInt(UIManager.timeRemaining) + "s";
         UIManager.altitudeRef.GetComponentInChildren<Slider>().maxValue = UIManager.gameManager.droneController.flightCeiling;  //Sets the max value of the altitude slider equal to that of the max height the drone can fly at
         UIManager.rangeRef.GetComponentInChildren<Slider>().maxValue = 1;  //Sets the maximum value of the range metre
         horPosVar = UIManager.artificialHorizonLine.GetComponentInParent<Transform>().position;  //Sets the vector 3 of the horizontal line
@@ -43,6 +43,7 @@ public class DroneUI : MonoBehaviour
     {
         UIManager.artificialHorizonCircle.SetActive(enable);
         UIManager.artificialHorizonLine.SetActive(enable);
+        UIManager.altitudeRef.SetActive(enable);
     }
 
     /// <summary>

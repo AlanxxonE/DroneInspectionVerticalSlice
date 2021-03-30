@@ -69,7 +69,7 @@ public class TutorialManager : MonoBehaviour
                 //WASD movement
                 case 1:
                     gameManager.droneController.droneVelocity = 12;
-                    gameManager.UIManager.rangeRef.SetActive(true);
+                    //gameManager.UIManager.rangeRef.SetActive(true);
 
                     tutCounter += Mathf.Abs(Input.GetAxis("velX")) * Time.deltaTime;
                     tutCounter += Mathf.Abs(Input.GetAxis("velZ")) * Time.deltaTime;
@@ -79,7 +79,7 @@ public class TutorialManager : MonoBehaviour
 
                 //Vertical movement
                 case 2:
-                    gameManager.UIManager.altitudeRef.SetActive(true);
+                    //gameManager.UIManager.altitudeRef.SetActive(true);
 
                     tutCounter += Mathf.Abs(Input.GetAxis("velY")) * Time.deltaTime;
 
@@ -98,7 +98,7 @@ public class TutorialManager : MonoBehaviour
 
                 //Compass
                 case 4:
-                    gameManager.UIManager.compass.gameObject.SetActive(true);
+                    //gameManager.UIManager.compass.gameObject.SetActive(true);
                     if (Vector3.Distance(gameManager.hazardManager.hazardTransforms[scaffoldIndex].position, gameManager.droneController.gameObject.transform.position) < 20) { gameManager.dialogueManager.StopSentence(); }
                     break;
 
