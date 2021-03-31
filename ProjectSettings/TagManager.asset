@@ -14,6 +14,7 @@ TagManager:
   - Worker
   - Ring
   - DialogueSystem
+  - Repaired
   layers:
   - Default
   - TransparentFX
