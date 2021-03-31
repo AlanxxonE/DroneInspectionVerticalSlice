@@ -52,7 +52,7 @@ public static class Score
 
     public static bool AreAllHazardsFixed()
     {
-        if(isScaffoldFixed)
+        if(isScaffoldFixed && isCraneFixed)
         {
             endMessage = "WELL DONE SPOTTING THOSE HAZARDS!";
             return true;

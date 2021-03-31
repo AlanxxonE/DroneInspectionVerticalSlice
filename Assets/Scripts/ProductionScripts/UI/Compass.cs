@@ -112,7 +112,6 @@ public class Compass : MonoBehaviour
     private float GetHazardHeightDifference(Transform arrow)
     {
         float heightDifference = UIManager.gameManager.droneController.transform.position.y - arrow.position.y;
-        print(heightDifference);
         return heightDifference;
     }
     

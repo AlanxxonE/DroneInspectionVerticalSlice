@@ -100,31 +100,19 @@ public class HazardManager : MonoBehaviour
                 gameManager.UIManager.compass.hazardMarkers[index].GetComponent<RawImage>().enabled = false;  //Disbales the compass marker for this hazard
                 Destroy(cameraFocalPoint.gameObject);   //Destroy the temporary gameobject created as a transform for the camera to focuse on during the hazard interaction
 
-                for(int c = 1; c <= hazardTransform.hierarchyCount; c++)
+                foreach (Transform c in hazardTransform)
                 {
-                    if (hazardTransform.GetComponentsInChildren<GameObject>()[c].CompareTag("Repaired"))
+                    if (c.CompareTag("Repaired"))
                     {
-                        hazardTransform.GetComponentsInChildren<GameObject>()[c].SetActive(true);
+                        c.gameObject.SetActive(true);
                     }
                     else
                     {
-                        hazardTransform.GetComponentsInChildren<GameObject>()[c].SetActive(false);
+                        c.gameObject.SetActive(false);
                     }
                 }
 
-                //foreach(GameObject c in hazardTransform.gameObject.GetComponentsInChildren<GameObject>())
-                //{
-                //    if(c.CompareTag("Repaired"))
-                //    {
-                //        c.SetActive(true);
-                //    }
-                //    else
-                //    {
-                //        c.SetActive(false);
-                //    }
-                //}
-
-                if(Score.AreAllHazardsFixed())
+                if (Score.AreAllHazardsFixed())
                 {
                     gameManager.levelManager.SceneSelectMethod(3);
                 }

@@ -32,6 +32,7 @@ public class TutorialManager : MonoBehaviour
         "Anyway, is something wrong there? Doesn’t look quite stable, that could make the whole\n thing fall apart, get someone over here to fix it. Click the LMB when the viewfinder is green.",
         "Make sure you point out all that feels unsafe, you will know when the job is done.",
         "Perfect that's the scaffold finished, you're all warmed up now!",
+        " ",
         "Ok, you're here to find hazards on the construction site to make sure everyone will be safe... Get to it!"};
         
     
@@ -127,6 +128,7 @@ public class TutorialManager : MonoBehaviour
                     break;
 
                 case 12:
+
                     foreach (Transform t in gameManager.hazardManager.hazardTransforms)
                     {
                         t.GetComponent<Collider>().enabled = true;
@@ -142,14 +144,18 @@ public class TutorialManager : MonoBehaviour
                         gameManager.UIManager.compass.hazardMarkers[scaffoldIndex].GetComponent<RawImage>().enabled = false;
                     }
 
+                    gameManager.dialogueManager.StopSentence();
+                    break;
+
+                case 13:
+
                     tutCounter += Time.deltaTime;
 
-                    if(tutCounter > 5)
+                    if (tutCounter > 5)
                     {
                         gameManager.dialogueManager.StopSentence();
                     }
                     break;
-                   
 
                 default:
                     if (gameManager.dialogueManager.IsSentenceFinished())
