@@ -33,7 +33,7 @@ public class TutorialManager : MonoBehaviour
         "Make sure you point out all that feels unsafe, you will know when the job is done.",
         "Perfect that's the scaffold finished, you're all warmed up now!",
         " ",
-        "Ok, you're here to find hazards on the construction site to make sure everyone will be safe... Get to it!"};
+        "Ok, you're here to find hazards on the construction site to make sure everyone will be safe...\n Get to it!"};
         
     
     private void Awake()
