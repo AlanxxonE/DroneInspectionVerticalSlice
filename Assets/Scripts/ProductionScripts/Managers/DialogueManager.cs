@@ -76,7 +76,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            dialogue.transform.parent.transform.parent.gameObject.SetActive(false);
+            dialogue.transform.parent.gameObject.SetActive(false);
         }
     }
     public void UpdateParagraphs(string[] newParagraphs)
