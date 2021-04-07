@@ -10,14 +10,11 @@
 //    /// Class to hold data on the score of the game and which hazards were fixed
 //    /// </summary>
 
-//    //References
-//    public GameObject scoreTextRef;   //Reference to the score text
-//    public int score;  //Integer to hold the score
-
+//    //References    
 //    public List<Image> isFixedImageList = new List<Image>();  //List of images of which hazards were/weren't fixed
 //    private List<bool> isFixedBoolList = new List<bool>();  //List of booleans of which hazards were fixed
 
-//    public GameObject cardsOverlayRef;  //Reference to the overlay of the hazard cards
+//    public GameObject hazardInfoCard;  //Reference to the overlay of the hazard cards
 
 //    private PointerEventData pointerData = new PointerEventData(EventSystem.current);   //Gets data for what the mouse is hovering over
 //    private List<RaycastResult> pointerHitList = new List<RaycastResult>(); //Holds data for what the mouse is hovering over
@@ -25,14 +22,11 @@
 //    // Start is called before the first frame update
 //    void Start()
 //    {
-//        cardsOverlayRef.SetActive(false);  //Sets card overlays inactive
-
-//        ////score = LevelManager.scoreValue;  //Sets score based on the score value in the level manager
-//        scoreTextRef.GetComponent<Text>().text = "Your score is: " + score.ToString();  //Writes score
+//        hazardInfoCard.SetActive(false);  //Sets card overlays inactive       
 
 //        //Adds the booleans for which hazards are fixed to the isFixedBoolList from the level manager
-//        isFixedBoolList.Add(LevelManager.isScaffoldFixed);
-//        isFixedBoolList.Add(LevelManager.isCraneFixed);
+//        isFixedBoolList.Add(Score.isScaffoldFixed);
+//        isFixedBoolList.Add(Score.isCraneFixed);
 
 //        for (int i = 0; i < isFixedImageList.Count; i++)
 //        {
@@ -63,9 +57,9 @@
 //        //Sets overlay cards inactive if the mouse cursor isn't above a hazard card
 //        if (pointerHitList.Count == 0)
 //        {
-//            if (cardsOverlayRef.activeSelf == true)
+//            if (hazardInfoCard.activeSelf == true)
 //            {
-//                cardsOverlayRef.SetActive(false);
+//                hazardInfoCard.SetActive(false);
 //            }
 //        }
 
@@ -73,7 +67,7 @@
 //        {
 //            for (int i = 0; i < pointerHitList.Count; i++)
 //            {
-//                if (cardsOverlayRef.activeSelf == false)
+//                if (hazardInfoCard.activeSelf == false)
 //                {
 //                    string a = null, b = null, c = null;
 //                    bool cardActive = false;
@@ -97,16 +91,16 @@
 //                            break;
 //                    }
 
-//                    cardsOverlayRef.SetActive(cardActive); //Sets the card active or inactive 
+//                    hazardInfoCard.SetActive(cardActive); //Sets the card active or inactive 
 
 //                    //Sets the text on the hazard overlay cards
-//                    cardsOverlayRef.GetComponentsInChildren<Text>()[0].text = "NAME: " + a + ";";
-//                    cardsOverlayRef.GetComponentsInChildren<Text>()[1].text = "HAZARD: " + b + ";";
-//                    cardsOverlayRef.GetComponentsInChildren<Text>()[2].text = "DANGER: " + c + ";";
+//                    hazardInfoCard.GetComponentsInChildren<Text>()[0].text = "NAME: " + a + ";";
+//                    hazardInfoCard.GetComponentsInChildren<Text>()[1].text = "HAZARD: " + b + ";";
+//                    hazardInfoCard.GetComponentsInChildren<Text>()[2].text = "DANGER: " + c + ";";
 //                }
 //                else
 //                {
-//                    cardsOverlayRef.transform.position = new Vector2(pointerData.position.x, Screen.height / 2); //Sets the position of the overlay card 
+//                    hazardInfoCard.transform.position = new Vector2(pointerData.position.x, Screen.height / 2); //Sets the position of the overlay card 
 //                }
 //            }
 //        }
