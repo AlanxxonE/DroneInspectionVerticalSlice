@@ -38,6 +38,8 @@ public class HazardManager : MonoBehaviour
     public Vector2 scaffoldOptimalRange;
     [Tooltip("Optimal range to interact with crane hazard")]
     public Vector2 craneOptimalRange;
+    [Tooltip("Optimal range to interact with acrow hazard")]
+    public Vector2 acrowOptimalRange;
 
     private void Awake()
     {
@@ -54,6 +56,8 @@ public class HazardManager : MonoBehaviour
                 return scaffoldOptimalRange;
             case "Crane":
                 return craneOptimalRange;
+            case "Acrow":
+                return acrowOptimalRange;
             default:
                 return new Vector2(0, 0);
         }

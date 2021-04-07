@@ -33,6 +33,7 @@ public class ScoreScreen : MonoBehaviour
         //Adds the booleans for which hazards are fixed to the isFixedBoolList from the level manager
         isFixedBoolList.Add(Score.isScaffoldFixed);
         isFixedBoolList.Add(Score.isCraneFixed);
+        isFixedBoolList.Add(Score.isAcrowFixed);
 
         for (int i = 0; i < isFixedImageList.Count; i++)
         {
@@ -89,21 +90,24 @@ public class ScoreScreen : MonoBehaviour
                             a = "Crane"; b = "Torn Wire"; c = "Red"; cardActive = true;
                             break;
 
+                        case "AcrowHazard":
+                            a = "Acrow"; b = "Unstabilised Acrow Prop"; c = "Green"; cardActive = true;
+                            break;
+
                         case "Untagged":
                             cardActive = false;
                             break;
 
                         default:
-                            cardActive = false;
                             break;
                     }
 
                     hazardInfoCard.SetActive(cardActive); //Sets the card active or inactive 
 
                     //Sets the text on the hazard overlay cards
-                    hazardInfoCard.GetComponentsInChildren<Text>()[0].text = "NAME: " + a + ";";
-                    hazardInfoCard.GetComponentsInChildren<Text>()[1].text = "HAZARD: " + b + ";";
-                    hazardInfoCard.GetComponentsInChildren<Text>()[2].text = "DANGER: " + c + ";";
+                    hazardInfoCard.GetComponentsInChildren<Text>()[0].text = "NAME: \n" + a + ".";
+                    hazardInfoCard.GetComponentsInChildren<Text>()[1].text = "HAZARD: \n" + b + ".";
+                    hazardInfoCard.GetComponentsInChildren<Text>()[2].text = "DANGER: \n" + c + ".";
                 }
                 else
                 {

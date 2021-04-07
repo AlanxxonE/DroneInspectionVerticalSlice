@@ -8,7 +8,7 @@ public static class Score
     /// Static class used to hold/manage various score values
     /// </summary>
     
-    public static bool isScaffoldFixed, isCraneFixed; //Booleans for wether a hazard is fixed or not
+    public static bool isScaffoldFixed, isCraneFixed, isAcrowFixed; //Booleans for wether a hazard is fixed or not
 
     public static string endMessage;
 
@@ -21,6 +21,8 @@ public static class Score
                 return (40, -20, 50);
             case "Crane":
                 return (30, -20, 60);
+            case "Acrow":
+                return (20, -20, 100);
             default:
                 return (0, 0, 0);
         }        
@@ -31,7 +33,7 @@ public static class Score
     {               
         if(resetBools)
         {
-            isScaffoldFixed = isCraneFixed = !resetBools;
+            isScaffoldFixed = isCraneFixed = isAcrowFixed = !resetBools;
         }
 
         else
@@ -44,6 +46,9 @@ public static class Score
                 case "Crane":
                     isCraneFixed = isFixed;
                     break;
+                case "Acrow":
+                    isAcrowFixed = isFixed;
+                    break;
                 default:
                     break;
             }
@@ -52,7 +57,7 @@ public static class Score
 
     public static bool AreAllHazardsFixed()
     {
-        if(isScaffoldFixed && isCraneFixed)
+        if(isScaffoldFixed && isCraneFixed && isAcrowFixed)
         {
             endMessage = "WELL DONE SPOTTING THOSE HAZARDS!";
             return true;

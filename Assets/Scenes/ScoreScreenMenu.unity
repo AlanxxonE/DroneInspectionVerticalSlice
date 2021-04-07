@@ -484,7 +484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 71.6, y: 160}
+  m_AnchoredPosition: {x: 0, y: 160}
   m_SizeDelta: {x: 368, y: 563}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &146618026
@@ -1129,6 +1129,7 @@ MonoBehaviour:
   isFixedImageList:
   - {fileID: 1272658289}
   - {fileID: 2035390041}
+  - {fileID: 1576284131}
   hazardInfoCard: {fileID: 146618024}
   endText: {fileID: 1179584198}
 --- !u!1 &299749391
@@ -1307,7 +1308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &342359853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4640,7 +4641,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8d3fb9d35dea0ef418391f608536c5fe, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a3f4a09cfdf8c794c8f8ea83a70ef9ea, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6037,8 +6038,8 @@ GameObject:
   - component: {fileID: 1576284132}
   - component: {fileID: 1576284131}
   m_Layer: 5
-  m_Name: HazardCard3
-  m_TagString: Untagged
+  m_Name: AcrowCard
+  m_TagString: AcrowHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6489,7 +6490,7 @@ GameObject:
   - component: {fileID: 1742920509}
   m_Layer: 5
   m_Name: CraneImage
-  m_TagString: CraneHazard
+  m_TagString: AcrowHazard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6533,7 +6534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: efad9f7d161ada2489ce115c78c155e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2916fff91d697c147a0fdc9816b350cd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7291,7 +7292,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: efad9f7d161ada2489ce115c78c155e3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 264e552e8cec2b348858cb23cf4f6d0e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

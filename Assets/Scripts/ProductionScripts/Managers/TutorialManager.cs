@@ -20,7 +20,7 @@ public class TutorialManager : MonoBehaviour
     private bool runDialogue = false;
 
     string[] tutorialParagraphs = {
-        "Welcome to the construction site! First thing, try to get the feel of the Drone's controls. Use the \n MOUSE to look around.",
+        "Welcome to the construction site! First thing, try to get the feel of the Drone's controls.\n Use the MOUSE to look around.",
         "Your drone is built with an indicator for the signal. Be careful not to go out of range or you'll lose\n control. Now try moving, use the W,A,S,D keys to move the drone.",
         "Your altitude meter here gives you an idea of how far off the ground you are. Use SPACE key to\n Ascend, SHIFT key to Descend.",
         "Alright, now that you've got a feel for it we'll need to configure your compass. Fly through the\n rings this will also give you a chance to get more familiar with the site.",
