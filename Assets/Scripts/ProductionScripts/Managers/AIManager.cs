@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AIManager : MonoBehaviour
 {
-    [HideInInspector] public List<Transform> targetLocations; //Reference to list of target locations
+    public List<Transform> targetLocations; //Reference to list of target locations
 
     public GameObject workerPrefab; 
 
@@ -31,5 +32,7 @@ public class AIManager : MonoBehaviour
         cloneWalker.transform.parent = this.transform;
         cloneWalker.transform.position = targetLocations[indexOfTarget].position;
         cloneWalker.GetComponent<WorkerAI>().currentTarget = targetLocations[indexOfTarget];
+        cloneWalker.GetComponent<NavMeshAgent>().enabled = false;
+        cloneWalker.GetComponent<NavMeshAgent>().enabled = true;
     }
 }
