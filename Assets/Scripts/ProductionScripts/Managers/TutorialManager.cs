@@ -45,7 +45,16 @@ public class TutorialManager : MonoBehaviour
             ring.SetActive(false);
         }
 
-        gameManager.dialogueManager.UpdateParagraphs(tutorialParagraphs);        
+        gameManager.dialogueManager.UpdateParagraphs(tutorialParagraphs);
+        
+        if(tutorialEnabled)
+        {
+            gameManager.UIManager.timeRemaining = gameManager.UIManager.totalTime.y;
+        }
+        else
+        {
+            gameManager.UIManager.timeRemaining = gameManager.UIManager.totalTime.x;
+        }
     }
 
     void Update()

@@ -45,9 +45,10 @@ public class UIManager : MonoBehaviour
     [Range(0f, 2f)]
     [Tooltip("Sets the rate at which the timer counts down in seconds per second")]
     public float timeRemainingDropRate;
-    [Range(0f, 300f)]
-    [Tooltip("Sets the initial value of time remaining in seconds")]
-    public float timeRemaining;
+    [Tooltip("Sets the initial value of time remaining in seconds. First value is if tutorial is disabled, second value is for tutorial enabled")]
+    public Vector2 totalTime;
+    [HideInInspector] public float timeRemaining;
+
 
     //Compass variables
     [Header("Compass variables")]
