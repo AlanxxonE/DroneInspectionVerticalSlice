@@ -33,7 +33,7 @@ Material:
     - _Layout: 0
     - _Mapping: 1
     - _MirrorOnBack: 0
-    - _Rotation: 94.75967
+    - _Rotation: 9.134829
     m_Colors:
     - _Tint: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 0.5}
   m_BuildTextureStacks: []
