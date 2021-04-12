@@ -40,6 +40,8 @@ public class HazardManager : MonoBehaviour
     public Vector2 craneOptimalRange;
     [Tooltip("Optimal range to interact with acrow hazard")]
     public Vector2 acrowOptimalRange;
+    [Tooltip("Optimal range to interact with propane tank hazard")]
+    public Vector2 propaneTankOptimalRange;
 
     private void Awake()
     {
@@ -58,6 +60,8 @@ public class HazardManager : MonoBehaviour
                 return craneOptimalRange;
             case "Acrow":
                 return acrowOptimalRange;
+            case "PropaneTank":
+                return propaneTankOptimalRange;
             default:
                 return new Vector2(0, 0);
         }
