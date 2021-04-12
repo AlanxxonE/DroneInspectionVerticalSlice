@@ -103,13 +103,16 @@ public class DialogueManager : MonoBehaviour
 
     public bool IsSentenceFinished()
     {
-        if (dialogue.text.Length > paragraphs[sentenceNumber].Length)
+        if (!gameManager.tutorialManager.endTutorialParagraph)
         {
-            sentenceFinished = true;
-        }
-        else
-        {
-            sentenceFinished = false;
+            if (dialogue.text.Length > paragraphs[sentenceNumber].Length)
+            {
+                sentenceFinished = true;
+            }
+            else
+            {
+                sentenceFinished = false;
+            }
         }
 
         return sentenceFinished;

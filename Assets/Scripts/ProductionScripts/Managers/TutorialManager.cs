@@ -18,7 +18,7 @@ public class TutorialManager : MonoBehaviour
     public bool tutorialEnabled;
     private bool runTutorialMethod = true;
     private bool runDialogue = false;
-    private bool endTutorialParagraph = false;
+    public bool endTutorialParagraph = false;
 
     string[] tutorialParagraphs = {
         "Welcome to the construction site! First thing, try to get the feel of the Drone's controls.\n Use the MOUSE to look around.",
