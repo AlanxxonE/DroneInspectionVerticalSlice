@@ -39,7 +39,8 @@ public class ScoreScreen : MonoBehaviour
         {
             if (isFixedBoolList[i] == true)
             {
-                isFixedImageList[i].color = Color.green;   //Sets colour of fixed hazards to green 
+                isFixedImageList[i].color = Color.green;   //Sets colour of fixed hazards to green
+                isFixedImageList[i].GetComponentsInChildren<Transform>()[2].gameObject.SetActive(false);
             }
             else if (isFixedBoolList[i] == false)
             {
@@ -64,10 +65,7 @@ public class ScoreScreen : MonoBehaviour
         //Sets overlay cards inactive if the mouse cursor isn't above a hazard card
         if (pointerHitList.Count == 0)
         {
-            if (hazardInfoCard.activeSelf == true)
-            {
-                hazardInfoCard.SetActive(false);
-            }
+            hazardInfoCard.SetActive(false);
         }
 
         else
@@ -83,15 +81,18 @@ public class ScoreScreen : MonoBehaviour
                     switch (pointerHitList[i].gameObject.tag)
                     {
                         case "ScaffoldHazard":
-                            a = "Scaffold"; b = "Unscrewed Bolt"; c = "Amber"; cardActive = true;
+                            if (Score.isScaffoldFixed)
+                            {a = "Scaffold"; b = "Loose Support Beams \nFallen Ladder"; c = "Medium"; cardActive = true;}
                             break;
 
                         case "CraneHazard":
-                            a = "Crane"; b = "Torn Wire"; c = "Red"; cardActive = true;
+                            if (Score.isCraneFixed)
+                            {a = "Crane"; b = "Torn Wire"; c = "High"; cardActive = true; }
                             break;
 
                         case "AcrowHazard":
-                            a = "Acrow"; b = "Unstabilised Acrow Prop"; c = "Green"; cardActive = true;
+                            if (Score.isAcrowFixed)
+                            {a = "Acrow"; b = "Unstabilised Acrow Prop"; c = "Medium"; cardActive = true; }
                             break;
 
                         case "Untagged":
@@ -111,7 +112,7 @@ public class ScoreScreen : MonoBehaviour
                 }
                 else
                 {
-                    hazardInfoCard.transform.position = new Vector2(pointerData.position.x, 750); //Sets the position of the overlay card 
+                    hazardInfoCard.transform.position = new Vector2(pointerData.position.x, 700); //Sets the position of the overlay card 
                 }
             }
         }
