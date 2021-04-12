@@ -36,11 +36,11 @@ public class TutorialManager : MonoBehaviour
         " ",
         "Ok, you're here to find hazards on the construction site to make sure everyone will be safe...\n Get to it!"};
 
-    string[] postTutorialParagraphs = {
-        "Well done, you fixed a hazard.",
-        "That equipment looked unsafe, great job spotting it.",
+    string[] postTutorialParagraphs = {        
+        "Well done, you fixed a hazard!",
+        "That equipment looked unsafe, great job spotting it!",
         "Keep up the good work, that's how you find hazards!",
-        "That could've ruined our shift",
+        "That could've ruined our shift!",
         "Thanks for preventing a disaster!"
     };
         
@@ -66,15 +66,15 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (runTutorialMethod)
         {
             StartCoroutine(TutorialCheck(tutorialEnabled, Time.deltaTime));            
         }
-
+        
         if(runDialogue && !endTutorialParagraph)
-        {
+        {           
             switch (gameManager.dialogueManager.GetSentenceNumber())
             {
                 //mouse movement
@@ -166,7 +166,6 @@ public class TutorialManager : MonoBehaviour
                     break;
 
                 case 13:
-
                     tutCounter += Time.deltaTime;
 
                     if (tutCounter > 5)
@@ -175,9 +174,7 @@ public class TutorialManager : MonoBehaviour
 
                         endTutorialParagraph = true;
 
-                        gameManager.dialogueManager.UpdateParagraphs(postTutorialParagraphs);
-
-                        gameManager.dialogueManager.sentenceNumber = 0;
+                        gameManager.dialogueManager.UpdateParagraphs(postTutorialParagraphs);                    
                     }
                     break;
 

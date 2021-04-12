@@ -116,6 +116,10 @@ public class HazardManager : MonoBehaviour
                     }
                 }
 
+                StartCoroutine(gameManager.dialogueManager.EnableDialogueBox(0, true));
+                gameManager.dialogueManager.DisplayParagraph(Random.Range(0, gameManager.dialogueManager.GetParagraphsLength()), 1);
+                StartCoroutine(gameManager.dialogueManager.EnableDialogueBox(5, false));
+
                 if (Score.AreAllHazardsFixed())
                 {
                     gameManager.levelManager.SceneSelectMethod(3);
@@ -125,9 +129,7 @@ public class HazardManager : MonoBehaviour
             currentHazardScript.enabled = false;  //Disables this hazard class
             currentHazardScript = null;  //Resets the referenece
             hazardName = null; //Resets the hazard name
-
-            gameManager.dialogueManager.DisplayParagraph(Random.Range(0, gameManager.dialogueManager.GetParagraphsLength()) , 1);
-
+          
             gameManager.droneController.droneCamera.SwitchPerspective(true);  //Switches to FPP camera
         }
     }   

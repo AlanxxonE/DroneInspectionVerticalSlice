@@ -7,7 +7,7 @@ public class DialogueManager : MonoBehaviour
 {
     private GameManager gameManager;
     
-    private Text dialogue;
+    [HideInInspector] public Text dialogue;
     int currentAmount = 0;
     public int sentenceNumber = 0;
 
@@ -81,6 +81,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
+            sentenceNumber = 0;
             dialogue.transform.parent.gameObject.SetActive(false);
         }
     }
@@ -112,5 +113,11 @@ public class DialogueManager : MonoBehaviour
         }
 
         return sentenceFinished;
+    }
+
+    public IEnumerator EnableDialogueBox(float time, bool enable)
+    {
+        yield return new WaitForSeconds(time);
+        dialogue.transform.parent.gameObject.SetActive(enable);
     }
 }
