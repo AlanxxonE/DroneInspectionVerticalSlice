@@ -21,6 +21,11 @@ public class DialogueManager : MonoBehaviour
         dialogue = GameObject.FindGameObjectWithTag("DialogueSystem").GetComponent<Text>();
     }
 
+    public int GetParagraphsLength()
+    {
+        return paragraphs.Length;
+    }
+
     public void DisplayParagraph(int paraNum, int amountOfLetters)
     {
         currentAmount = amountOfLetters;

@@ -18,6 +18,7 @@ public class TutorialManager : MonoBehaviour
     public bool tutorialEnabled;
     private bool runTutorialMethod = true;
     private bool runDialogue = false;
+    private bool endTutorialParagraph = false;
 
     string[] tutorialParagraphs = {
         "Welcome to the construction site! First thing, try to get the feel of the Drone's controls.\n Use the MOUSE to look around.",
@@ -34,6 +35,14 @@ public class TutorialManager : MonoBehaviour
         "Perfect that's the scaffold finished, you're all warmed up now!",
         " ",
         "Ok, you're here to find hazards on the construction site to make sure everyone will be safe...\n Get to it!"};
+
+    string[] postTutorialParagraphs = {
+        "Well done, you fixed a hazard.",
+        "That equipment looked unsafe, great job spotting it.",
+        "Keep up the good work, that's how you find hazards!",
+        "That could've ruined our shift",
+        "Thanks for preventing a disaster!"
+    };
         
     
     private void Awake()
@@ -64,7 +73,7 @@ public class TutorialManager : MonoBehaviour
             StartCoroutine(TutorialCheck(tutorialEnabled, Time.deltaTime));            
         }
 
-        if(runDialogue)
+        if(runDialogue && !endTutorialParagraph)
         {
             switch (gameManager.dialogueManager.GetSentenceNumber())
             {
@@ -163,17 +172,27 @@ public class TutorialManager : MonoBehaviour
                     if (tutCounter > 5)
                     {
                         gameManager.dialogueManager.StopSentence();
+
+                        endTutorialParagraph = true;
+
+                        gameManager.dialogueManager.UpdateParagraphs(postTutorialParagraphs);
+
+                        gameManager.dialogueManager.sentenceNumber = 0;
                     }
                     break;
 
                 default:
-                    if (gameManager.dialogueManager.IsSentenceFinished())
+
+                    if (!endTutorialParagraph)
                     {
-                        tutCounter += Time.deltaTime;
-                    }
-                    if (tutCounter > 2)
-                    {
-                        gameManager.dialogueManager.StopSentence();
+                        if (gameManager.dialogueManager.IsSentenceFinished())
+                        {
+                            tutCounter += Time.deltaTime;
+                        }
+                        if (tutCounter > 2)
+                        {
+                            gameManager.dialogueManager.StopSentence();
+                        }
                     }
                     break;
             }
