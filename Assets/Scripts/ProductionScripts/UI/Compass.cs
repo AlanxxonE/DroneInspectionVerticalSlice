@@ -38,17 +38,17 @@ public class Compass : MonoBehaviour
         {
             foreach (GameObject marker in hazardMarkers)
             {
-                if (GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) < UIManager.hazardArrowHeightRange.x)
+                if (GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) < UIManager.hazardArrowHeightRange.x && GetDistanceToHazard(hazardTransforms[hazardMarkers.IndexOf(marker)]) < UIManager.hazardMarkerArrowMaxRange)
                 {                    
                     marker.GetComponent<RawImage>().texture = UIManager.hazardMarkerUpArrow.GetComponent<RawImage>().texture;
                 }
 
-                else if (GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) > UIManager.hazardArrowHeightRange.y)
+                else if (GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) > UIManager.hazardArrowHeightRange.y && GetDistanceToHazard(hazardTransforms[hazardMarkers.IndexOf(marker)]) < UIManager.hazardMarkerArrowMaxRange)
                 {                    
                     marker.GetComponent<RawImage>().texture = UIManager.hazardMarkerDownArrow.GetComponent<RawImage>().texture;
                 }
 
-                else if (GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) > UIManager.hazardArrowHeightRange.x && GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) < UIManager.hazardArrowHeightRange.y)
+                else if ((GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) > UIManager.hazardArrowHeightRange.x && GetHazardHeightDifference(hazardTransforms[hazardMarkers.IndexOf(marker)]) < UIManager.hazardArrowHeightRange.y) || GetDistanceToHazard(hazardTransforms[hazardMarkers.IndexOf(marker)]) > UIManager.hazardMarkerArrowMaxRange)
                 {
                     marker.GetComponent<RawImage>().texture = UIManager.hazardMarkerPrefab.GetComponent<RawImage>().texture;
                 }
@@ -86,24 +86,19 @@ public class Compass : MonoBehaviour
     /// <returns></returns>
     private float GetHazardMarkerScale(Transform marker)
     {
-        Vector3 hazardPos = new Vector3(marker.position.x, 0 , marker.position.z);
-        Vector3 dronePos = new Vector3(UIManager.gameManager.droneController.transform.position.x, 0, UIManager.gameManager.droneController.transform.position.z);
-
-        float distance = Vector3.Distance(hazardPos, dronePos); //Gets horizontal distance between drone/hazard
-
-        if(distance > UIManager.hazardMarkerScaleRange.y) //If distance > max distance
+        if(GetDistanceToHazard(marker) > UIManager.hazardMarkerScaleRange.y) //If distance > max distance
         {
             return UIManager.hazardMarkerScale.x; //Returns min scale
         }
 
-        else if(distance < UIManager.hazardMarkerScaleRange.x) //If distance < min distance
+        else if(GetDistanceToHazard(marker) < UIManager.hazardMarkerScaleRange.x) //If distance < min distance
         {
             return UIManager.hazardMarkerScale.y; //Returns max scale
         }
 
         else //Returns a linearly interpolated value between min/max scale based on distance between min/max distance
         {
-            float temp = (distance - UIManager.hazardMarkerScaleRange.x )/ UIManager.hazardMarkerScaleRange.y;
+            float temp = (GetDistanceToHazard(marker) - UIManager.hazardMarkerScaleRange.x )/ UIManager.hazardMarkerScaleRange.y;
             float returnValue = UIManager.hazardMarkerScale.y - (temp * (UIManager.hazardMarkerScale.y - UIManager.hazardMarkerScale.x));
             return returnValue;
         }
@@ -113,6 +108,15 @@ public class Compass : MonoBehaviour
     {
         float heightDifference = UIManager.gameManager.droneController.transform.position.y - arrow.position.y;
         return heightDifference;
+    }
+
+    private float GetDistanceToHazard(Transform marker)
+    {
+        Vector3 hazardPos = new Vector3(marker.position.x, 0, marker.position.z);
+        Vector3 dronePos = new Vector3(UIManager.gameManager.droneController.transform.position.x, 0, UIManager.gameManager.droneController.transform.position.z);
+
+        float distance = Vector3.Distance(hazardPos, dronePos); //Gets horizontal distance between drone/hazard
+        return distance;
     }
     
     /// <summary>

@@ -58,6 +58,8 @@ public class UIManager : MonoBehaviour
     public GameObject hazardMarkerUpArrow;
     [Tooltip("Reference to the hazard marker down arrow")]
     public GameObject hazardMarkerDownArrow;
+    [Tooltip("Minimum distance the drone must be from a hazard before the hazard marker will show the up or down arrows")]
+    public int hazardMarkerArrowMaxRange;
     [Tooltip("Sets the minimum and maximum scale of the compass marker")]
     public Vector2 hazardMarkerScale;
     [Tooltip("Sets the range for the minimum and maximum compass marker scale value in metres")]
