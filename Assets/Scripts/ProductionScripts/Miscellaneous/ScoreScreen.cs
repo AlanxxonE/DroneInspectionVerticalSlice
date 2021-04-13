@@ -34,6 +34,8 @@ public class ScoreScreen : MonoBehaviour
         isFixedBoolList.Add(Score.isScaffoldFixed);
         isFixedBoolList.Add(Score.isCraneFixed);
         isFixedBoolList.Add(Score.isAcrowFixed);
+        isFixedBoolList.Add(Score.isPropaneTankFixed);
+        isFixedBoolList.Add(Score.isHoistBucketFixed);
 
         for (int i = 0; i < isFixedImageList.Count; i++)
         {
@@ -93,6 +95,16 @@ public class ScoreScreen : MonoBehaviour
                         case "AcrowHazard":
                             if (Score.isAcrowFixed)
                             {a = "Acrow"; b = "Unstabilised Acrow Prop"; c = "Medium"; cardActive = true; }
+                            break;
+
+                        case "PropaneTankHazard":
+                            if (Score.isPropaneTankFixed)
+                            { a = "Propane Tank"; b = "Nearby Smoking"; c = "Medium"; cardActive = true; }
+                            break;
+
+                        case "HoistBucketHazard":
+                            if (Score.isHoistBucketFixed)
+                            { a = "Hoist Bucket"; b = "Risk of Collapse"; c = "High"; cardActive = true; }
                             break;
 
                         case "Untagged":

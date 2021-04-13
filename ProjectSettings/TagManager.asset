@@ -17,6 +17,8 @@ TagManager:
   - Repaired
   - CraneHazard
   - AcrowHazard
+  - PropaneTankHazard
+  - HoistBucketHazard
   layers:
   - Default
   - TransparentFX

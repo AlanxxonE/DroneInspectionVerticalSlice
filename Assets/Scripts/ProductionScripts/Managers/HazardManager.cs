@@ -42,6 +42,8 @@ public class HazardManager : MonoBehaviour
     public Vector2 acrowOptimalRange;
     [Tooltip("Optimal range to interact with propane tank hazard")]
     public Vector2 propaneTankOptimalRange;
+    [Tooltip("Optimal range to interact with hoist bucket hazard")]
+    public Vector2 hoistBucketOptimalRange;
 
     private void Awake()
     {
@@ -62,6 +64,8 @@ public class HazardManager : MonoBehaviour
                 return acrowOptimalRange;
             case "PropaneTank":
                 return propaneTankOptimalRange;
+            case "HoistBucket":
+                return hoistBucketOptimalRange;
             default:
                 return new Vector2(0, 0);
         }

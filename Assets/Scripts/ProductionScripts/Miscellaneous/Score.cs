@@ -8,7 +8,7 @@ public static class Score
     /// Static class used to hold/manage various score values
     /// </summary>
     
-    public static bool isScaffoldFixed, isCraneFixed, isAcrowFixed,isPropaneTankFixed; //Booleans for wether a hazard is fixed or not
+    public static bool isScaffoldFixed, isCraneFixed, isAcrowFixed, isPropaneTankFixed, isHoistBucketFixed; //Booleans for wether a hazard is fixed or not
 
     public static string endMessage;
 
@@ -22,9 +22,11 @@ public static class Score
             case "Crane":
                 return (30, -20, 60);
             case "Acrow":
-                return (20, -20, 100);
+                return (40, -20, 100);
             case "PropaneTank":
                 return (30, -30, 70);
+            case "HoistBucket":
+                return (40, -20, 70);
             default:
                 return (0, 0, 0);
         }        
@@ -35,7 +37,7 @@ public static class Score
     {               
         if(resetBools)
         {
-            isScaffoldFixed = isCraneFixed = isAcrowFixed = isPropaneTankFixed = !resetBools;
+            isScaffoldFixed = isCraneFixed = isAcrowFixed = isPropaneTankFixed = isHoistBucketFixed = !resetBools;
         }
 
         else
@@ -53,6 +55,9 @@ public static class Score
                     break;
                 case "PropaneTank":
                     isPropaneTankFixed = isFixed;
+                    break;
+                case "HoistBucket":
+                    isHoistBucketFixed = isFixed;
                     break;
                 default:
                     break;
