@@ -1,0 +1,8 @@
+The Liebherr LB 24 is designed as rotary drilling rig. All common drilling methods can be executed, e.g. Kelly drilling, continuous flight auger drilling, drilling with partial or full displacement tools, double rotary drilling and soil mixing.
+
+Operating weight 76 t
+Max. torque 270 kNm
+Max. push / pull force 320 kN
+Engine output 270 kW
+Max. Drilling depth 40m,
+max drilling diameter 1900mm.

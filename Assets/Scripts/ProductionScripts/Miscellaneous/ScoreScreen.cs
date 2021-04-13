@@ -36,6 +36,8 @@ public class ScoreScreen : MonoBehaviour
         isFixedBoolList.Add(Score.isAcrowFixed);
         isFixedBoolList.Add(Score.isPropaneTankFixed);
         isFixedBoolList.Add(Score.isHoistBucketFixed);
+        isFixedBoolList.Add(Score.isPileDriverFixed);
+        isFixedBoolList.Add(Score.isPipesFixed);
 
         for (int i = 0; i < isFixedImageList.Count; i++)
         {
@@ -106,7 +108,14 @@ public class ScoreScreen : MonoBehaviour
                             if (Score.isHoistBucketFixed)
                             { a = "Hoist Bucket"; b = "Risk of Collapse"; c = "High"; cardActive = true; }
                             break;
-
+                        case "PileDriverHazard":
+                            if (Score.isPileDriverFixed)
+                            { a = "Pile Driver"; b = "Sheared Cable"; c = "Medium"; cardActive = true; }
+                            break;
+                        case "PipesHazard":
+                            if (Score.isPipesFixed)
+                            { a = "Pipes"; b = "Unrestrained Pipes"; c = "Low"; cardActive = true; }
+                            break;
                         case "Untagged":
                             cardActive = false;
                             break;

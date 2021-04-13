@@ -8,7 +8,7 @@ public static class Score
     /// Static class used to hold/manage various score values
     /// </summary>
     
-    public static bool isScaffoldFixed, isCraneFixed, isAcrowFixed, isPropaneTankFixed, isHoistBucketFixed; //Booleans for wether a hazard is fixed or not
+    public static bool isScaffoldFixed, isCraneFixed, isAcrowFixed, isPropaneTankFixed, isHoistBucketFixed, isPileDriverFixed, isPipesFixed; //Booleans for wether a hazard is fixed or not
 
     public static string endMessage;
 
@@ -27,6 +27,10 @@ public static class Score
                 return (30, -30, 70);
             case "HoistBucket":
                 return (40, -20, 70);
+            case "PileDriver":
+                return (30, -20, 70);
+            case "Pipes":
+                return (20, -20, 70);
             default:
                 return (0, 0, 0);
         }        
@@ -37,7 +41,7 @@ public static class Score
     {               
         if(resetBools)
         {
-            isScaffoldFixed = isCraneFixed = isAcrowFixed = isPropaneTankFixed = isHoistBucketFixed = !resetBools;
+            isScaffoldFixed = isCraneFixed = isAcrowFixed = isPropaneTankFixed = isHoistBucketFixed = isPileDriverFixed = isPipesFixed = !resetBools;
         }
 
         else
@@ -59,6 +63,12 @@ public static class Score
                 case "HoistBucket":
                     isHoistBucketFixed = isFixed;
                     break;
+                case "PileDriver":
+                    isPileDriverFixed = isFixed;
+                    break;
+                case "Pipes":
+                    isPipesFixed = isFixed;
+                    break;
                 default:
                     break;
             }
@@ -67,7 +77,7 @@ public static class Score
 
     public static bool AreAllHazardsFixed()
     {
-        if(isScaffoldFixed && isCraneFixed && isAcrowFixed && isPropaneTankFixed)
+        if(isScaffoldFixed && isCraneFixed && isAcrowFixed && isPropaneTankFixed && isHoistBucketFixed && isPileDriverFixed && isPipesFixed)
         {
             endMessage = "WELL DONE SPOTTING THOSE HAZARDS!";
             return true;
