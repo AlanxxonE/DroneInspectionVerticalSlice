@@ -120,9 +120,12 @@ public class HazardManager : MonoBehaviour
                     }
                 }
 
-                StartCoroutine(gameManager.dialogueManager.EnableDialogueBox(0, true));
-                gameManager.dialogueManager.DisplayParagraph(Random.Range(0, gameManager.dialogueManager.GetParagraphsLength()), 1);
-                StartCoroutine(gameManager.dialogueManager.EnableDialogueBox(5, false));
+                if (gameManager.tutorialManager.endTutorialParagraph)
+                {
+                    StartCoroutine(gameManager.dialogueManager.EnableDialogueBox(0, true));
+                    gameManager.dialogueManager.DisplayParagraph(Random.Range(0, gameManager.dialogueManager.GetParagraphsLength()), 1);
+                    StartCoroutine(gameManager.dialogueManager.EnableDialogueBox(5, false));
+                }
 
                 if (Score.AreAllHazardsFixed())
                 {

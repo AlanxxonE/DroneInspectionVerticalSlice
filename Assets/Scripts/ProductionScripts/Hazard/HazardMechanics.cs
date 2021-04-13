@@ -120,6 +120,7 @@ public class HazardMechanics : MonoBehaviour
                         targetTransforms[targetIndex].tag = "Fixed"; //Changes tag of target to fixed
                         targetFixed[targetIndex] = true; //Sets the boolean for that particular target in the targetFixed boolean list equal to true
                         targetTransforms[targetIndex].GetComponent<Renderer>().material.DisableKeyword("_EMISSION"); //Stops the glow effect of that target
+                        hazardManager.gameManager.audioManager.soundList[5].Play();
                     }
                     break;
 
