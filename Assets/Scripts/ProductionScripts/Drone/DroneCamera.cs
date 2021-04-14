@@ -35,6 +35,7 @@ public class DroneCamera : MonoBehaviour
     {
         if (Input.GetButtonDown("ToggleCam") && droneController.canMove == 1)
         {
+            droneController.gameManager.audioManager.soundList[2].Play();
             firstPerson = !firstPerson;  //If the camera toggle is pressed it swaps the camera state between third or first person
             SwitchPerspective(firstPerson); //Calls the switch perspective method
         }
