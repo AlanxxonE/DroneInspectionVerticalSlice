@@ -18,8 +18,12 @@ public class LevelManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;  //Locks cursor
 
         AudioListener.volume = volume;
-        GameObject.FindGameObjectWithTag("VolumeSlider").GetComponent<Slider>().value = volume;
-
+        GameObject v = GameObject.FindGameObjectWithTag("VolumeSlider");
+        if (v != null)
+        {
+            v.GetComponent<Slider>().value = volume;
+        }
+        
         if (SceneManager.GetActiveScene().buildIndex == 0)  //If main level
         {
             tutorialEnabled = true;

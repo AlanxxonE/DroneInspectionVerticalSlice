@@ -133,7 +133,7 @@ public class ScoreScreen : MonoBehaviour
                 }
                 else
                 {
-                    hazardInfoCard.transform.position = new Vector2(pointerData.position.x, 700); //Sets the position of the overlay card 
+                    hazardInfoCard.transform.position = new Vector2(pointerData.position.x, Screen.height/1.6f); //Sets the position of the overlay card 
                 }
             }
         }
