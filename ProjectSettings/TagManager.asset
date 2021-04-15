@@ -21,6 +21,7 @@ TagManager:
   - HoistBucketHazard
   - PileDriverHazard
   - PipesHazard
+  - VolumeSlider
   layers:
   - Default
   - TransparentFX

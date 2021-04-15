@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,11 +10,15 @@ public class LevelManager : MonoBehaviour
     /// Level manager is responsible for selecting the correct scene
     /// </summary>
     public static bool tutorialEnabled = true;
+    private static float volume = 1;
 
     void Start()
     {
         Cursor.visible = true;   //Sets cursor visible
         Cursor.lockState = CursorLockMode.None;  //Locks cursor
+
+        AudioListener.volume = volume;
+        GameObject.FindGameObjectWithTag("VolumeSlider").GetComponent<Slider>().value = volume;
 
         if (SceneManager.GetActiveScene().buildIndex == 0)  //If main level
         {
@@ -35,6 +40,12 @@ public class LevelManager : MonoBehaviour
     public void TutorialEnabled()
     {
         tutorialEnabled = !tutorialEnabled;
+    }
+
+    public void SetVolume(float temp)
+    {
+        volume = temp;
+        AudioListener.volume = volume;
     }
 
     /// <summary>
