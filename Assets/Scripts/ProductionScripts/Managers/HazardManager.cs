@@ -94,6 +94,8 @@ public class HazardManager : MonoBehaviour
         hazardName = currenHazardScript.GetType().Name; //Gets/Sets the name of the class
 
         hazardSliderRef.SetActive(true);  //Sets the hazard progress slider active
+
+        gameManager.audioManager.soundList[2].Play();
     }
 
     /// <summary>

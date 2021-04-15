@@ -22,17 +22,20 @@ public class TutorialManager : MonoBehaviour
 
     string[] tutorialParagraphs = {
         "Welcome to the construction site! First thing, try to get the feel of the Drone's controls.\n Use the MOUSE to look around.",
-        "Your drone is built with an indicator for the signal. Be careful not to go out of range or you'll lose\n control. Now try moving, use the W,A,S,D keys to move the drone.",
-        "Your altitude meter here gives you an idea of how far off the ground you are. Use SPACE key to\n Ascend, SHIFT key to Descend.",
-        "Alright, now that you've got a feel for it we'll need to configure your compass. Fly through the\n rings this will also give you a chance to get more familiar with the site.",
-        "One of the guys working pointed out an issue at one of the scaffolds. The point on your \n compass will lead you there.",
-        "Hazards present different levels of danger within the site and therefore should potentially be\n treated with different priority.",
-        "These danger levels are displayed on the drone’s compass as green amber or red. Take a closer\n look at the scaffold. Use C to switch to first person.",
-        "Alright, like most cameras that drone needs to be in a good position for proper focus, get\n yourself in a good position, not too close, not too far, and you should be able to see it clearly.",
+        "Your drone is built with an indicator in the top left for the signal. Be careful not to go out of range \n or you'll lose control. Now try moving, use the W,A,S,D keys to move the drone.",
+        "You can swap between the third person and first person cameras by pressing C, try it now!",
+        "In first person your altitude meter will give you an idea of how far off the ground you are. \n Use SPACE key to Ascend, SHIFT key to Descend.",
+        "Alright, now that you've got a feel for it, fly through the purple RINGS, this will give you a chance \n to get more familiar with the site.",
+        "One of the guys working pointed out an issue at one of the scaffolds. \n The point on your compass at the top of the screen will help lead you there.",
+        "The closer to a hazard you are the large the marker on the compass shall appear.",
+        "Take a closer look at the scaffold. Ensure you are using the first person camera to focus.",
+        "Alright, like most cameras the drone needs to be in a good position for proper focus, get\n yourself in a good position, not too close, not too far, and you should be able to see it clearly.",
         "If a hazard is in your view but your range is incorrect, the viewfinder will appear red, once in the\n correct position the viewfinder will turn green.",
-        "Anyway, is something wrong there? Doesn’t look quite stable, that could make the whole\n thing fall apart, get someone over here to fix it. Click the LMB when the viewfinder is green.",
-        "Make sure you point out all that feels unsafe, you will know when the job is done.",
+        "Is everything okay with this? It doesn’t look very stable, that could make the whole thing collapse, \n get someone over here to fix it. Click the LEFT MOUSE BUTTON when the viewfinder is green.",
+        "Make sure you point out everything hazardous by clicking on them, the manager will confirm if you were succesful.",
         "Perfect that's the scaffold finished, you're all warmed up now!",
+        "Your remaining time is displayed in the top right of the screen. Fixing hazards will grant \n you more time, failing to do so will result in a time penalty.",
+        "If you need a break you can press P to open/close the pause menu.",
         " ",
         "Ok, you're here to find hazards on the construction site to make sure everyone will be safe...\n Get to it!"};
 
@@ -41,7 +44,10 @@ public class TutorialManager : MonoBehaviour
         "That equipment looked unsafe, great job spotting it!",
         "Keep up the good work, that's how you find hazards!",
         "That could've ruined our shift!",
-        "Thanks for preventing a disaster!"
+        "Thanks for preventing a disaster!",
+        "Great job, that's how you do it!",
+        "Thank you for finding that unsafe piece of gear!",
+        "You saved us a lot of trouble with that one!"
     };
         
     
@@ -87,8 +93,7 @@ public class TutorialManager : MonoBehaviour
 
                 //WASD movement
                 case 1:
-                    gameManager.droneController.droneVelocity = 12;
-                    //gameManager.UIManager.rangeRef.SetActive(true);
+                    gameManager.droneController.droneVelocity = 12;                   
 
                     tutCounter += Mathf.Abs(Input.GetAxis("velX")) * Time.deltaTime;
                     tutCounter += Mathf.Abs(Input.GetAxis("velZ")) * Time.deltaTime;
@@ -96,17 +101,20 @@ public class TutorialManager : MonoBehaviour
                     if (tutCounter > 2) { gameManager.dialogueManager.StopSentence(); }
                     break;
 
-                //Vertical movement
+                //camera switch
                 case 2:
-                    //gameManager.UIManager.altitudeRef.SetActive(true);
+                    if (Input.GetButtonDown("ToggleCam")) { gameManager.dialogueManager.StopSentence(); }
+                    break;
 
+                //Vertical movement
+                case 3:
                     tutCounter += Mathf.Abs(Input.GetAxis("velY")) * Time.deltaTime;
 
                     if (tutCounter > 2) { gameManager.dialogueManager.StopSentence(); }
                     break;
 
                 //rings
-                case 3:
+                case 4:
                     if (ringsStart)
                     {
                         UpdateRingCount();
@@ -116,37 +124,51 @@ public class TutorialManager : MonoBehaviour
                     break;
 
                 //Compass
-                case 4:
-                    //gameManager.UIManager.compass.gameObject.SetActive(true);
+                case 5:                    
                     if (Vector3.Distance(gameManager.hazardManager.hazardTransforms[scaffoldIndex].position, gameManager.droneController.gameObject.transform.position) < 20) { gameManager.dialogueManager.StopSentence(); }
                     break;
-
-                //camera switch
-                case 6:
-                    if (Input.GetButtonDown("ToggleCam")) { gameManager.dialogueManager.StopSentence(); }
-                    break;
-
+                
                 //examine hazard
                 case 9:
                     if (gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<MonoBehaviour>().enabled == false)
                     {
-                        gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<Collider>().enabled = true;
+                        gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<Collider>().enabled = true;                       
                     }
 
-                    if (gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<MonoBehaviour>().enabled == true) { gameManager.dialogueManager.StopSentence(); }
+                    if (gameManager.dialogueManager.IsSentenceFinished())
+                    {
+                        tutCounter += Time.deltaTime;
+                        if (tutCounter > 2)
+                        {
+                            gameManager.dialogueManager.StopSentence();
+                        }
+                    }                    
+                    break;
+                
+                //Interact with hazard
+                case 10:
+                    if (gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<MonoBehaviour>().enabled == true)
+                    {
+                        gameManager.dialogueManager.StopSentence();
+                    }
                     break;
 
                 //fix hazard
-                case 10:
-
+                case 11:
                     if (Score.isScaffoldFixed == true)
                     {
                         gameManager.dialogueManager.StopSentence();
                     }
                     break;
 
-                case 12:
+                case 14:
+                    if(Input.GetButtonDown("Pause"))
+                    {
+                        gameManager.dialogueManager.StopSentence();
+                    }
+                    break;
 
+                case 15:
                     foreach (Transform t in gameManager.hazardManager.hazardTransforms)
                     {
                         t.GetComponent<Collider>().enabled = true;
@@ -165,7 +187,7 @@ public class TutorialManager : MonoBehaviour
                     gameManager.dialogueManager.StopSentence();
                     break;
 
-                case 13:
+                case 16:
                     tutCounter += Time.deltaTime;
 
                     if (tutCounter > 5)
@@ -217,7 +239,7 @@ public class TutorialManager : MonoBehaviour
 
         if (!isTutorialEnabled)
         {
-            gameManager.dialogueManager.sentenceNumber = 12;
+            gameManager.dialogueManager.sentenceNumber = 15;
         }
 
         runDialogue = true;
