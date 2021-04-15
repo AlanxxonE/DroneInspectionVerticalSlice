@@ -86,12 +86,12 @@ public class ScoreScreen : MonoBehaviour
                     {
                         case "ScaffoldHazard":
                             if (Score.isScaffoldFixed)
-                            {a = "Scaffold"; b = "Loose Support Beams \nFallen Ladder"; c = "Medium"; cardActive = true;}
+                            {a = "Scaffold"; b = "Loose Support Beams. \nFallen Ladder"; c = "Medium"; cardActive = true;}
                             break;
 
                         case "CraneHazard":
                             if (Score.isCraneFixed)
-                            {a = "Crane"; b = "Torn Wire"; c = "High"; cardActive = true; }
+                            {a = "Crane"; b = "Disconnected Wire"; c = "High"; cardActive = true; }
                             break;
 
                         case "AcrowHazard":
@@ -101,12 +101,12 @@ public class ScoreScreen : MonoBehaviour
 
                         case "PropaneTankHazard":
                             if (Score.isPropaneTankFixed)
-                            { a = "Propane Tank"; b = "Nearby Smoking"; c = "Medium"; cardActive = true; }
+                            { a = "Propane Tank"; b = "Risk of Ignition, \nWorkers Smoking"; c = "High"; cardActive = true; }
                             break;
 
                         case "HoistBucketHazard":
                             if (Score.isHoistBucketFixed)
-                            { a = "Hoist Bucket"; b = "Risk of Collapse"; c = "High"; cardActive = true; }
+                            { a = "Hoist Bucket"; b = "Collapse Risk"; c = "High"; cardActive = true; }
                             break;
                         case "PileDriverHazard":
                             if (Score.isPileDriverFixed)
