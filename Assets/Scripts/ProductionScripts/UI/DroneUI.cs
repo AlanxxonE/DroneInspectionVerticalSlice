@@ -54,7 +54,7 @@ public class DroneUI : MonoBehaviour
         if (UIManager.artificialHorizonLine.GetComponent<Image>().enabled == true)  //If the artificial horizon is active
         {
             UIManager.artificialHorizonLine.transform.localEulerAngles = new Vector3(0, 0, UIManager.gameManager.droneController.droneMovement.Tilt().z * -1); //Sets the tilt of the artificial horizon about the z-axis counter to that of the drone's tilt
-            UIManager.artificialHorizonLine.transform.position = new Vector3(horPosVar.x, -Screen.height*0.007f + Screen.height/2 + (UIManager.gameManager.droneController.droneMovement.Tilt().x * 40 / UIManager.gameManager.droneController.maxTiltAngle), 0);  //Sets the vertical position of the artificial horizon based on the drone's forward tilt angle
+            UIManager.artificialHorizonLine.transform.position = new Vector3(Screen.width/2, -Screen.height*0.007f + Screen.height/2 + (UIManager.gameManager.droneController.droneMovement.Tilt().x * 40 / UIManager.gameManager.droneController.maxTiltAngle), 0);  //Sets the vertical position of the artificial horizon based on the drone's forward tilt angle
         }
     }
 
