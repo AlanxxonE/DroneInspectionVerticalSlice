@@ -40,6 +40,7 @@ public class DroneCamera : MonoBehaviour
             SwitchPerspective(firstPerson); //Calls the switch perspective method
         }
 
+        /* Put on Hold, needs revisiting for avoiding controls confusion (Free Look Functionality)
         if (Input.GetMouseButtonDown(1)) 
         {
             lastCameraPerspective = firstPerson;
@@ -61,6 +62,7 @@ public class DroneCamera : MonoBehaviour
         {
             FreeLook();
         }
+        */
     }
 
     /// <summary>

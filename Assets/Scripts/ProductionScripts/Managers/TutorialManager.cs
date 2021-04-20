@@ -30,11 +30,11 @@ public class TutorialManager : MonoBehaviour
         "Alright, now that you've got a feel for it, fly through the purple RINGS, this will give you a chance \n to get more familiar with the site.",
         "One of the guys working pointed out an issue at one of the scaffolds. \n The point on your compass at the top of the screen will help lead you there.",
         "The closer to a hazard you are the large the marker on the compass shall appear.",
-        "Take a closer look at the scaffold. Ensure you are using the first person camera to focus.",
+        "Take a closer look at the scaffold. Ensure you are using the first person camera to focus. \n (Remember to press C)",
         "Alright, like most cameras the drone needs to be in a good position for proper focus, get\n yourself in a good position, not too close, not too far, and you should be able to see it clearly.",
         "If a hazard is in your view but your range is incorrect, the viewfinder will appear red, once in the\n correct position the viewfinder will turn green.",
         "Is everything okay with this? It doesn’t look very stable, that could make the whole thing collapse, \n get someone over here to fix it. Click the LEFT MOUSE BUTTON when the viewfinder is green.",
-        "Make sure you point out everything hazardous by clicking on them, the manager will confirm if you were succesful.",
+        "Make sure you point out everything hazardous by clicking on them, the manager will confirm if you were successful.",
         "Perfect that's the scaffold finished, you're all warmed up now!",
         "Your remaining time is displayed in the top right of the screen. Fixing hazards will grant \n you more time, failing to do so will result in a time penalty.",
         "If you need a break you can press P to open/close the pause menu.",
@@ -130,27 +130,16 @@ public class TutorialManager : MonoBehaviour
                 //Compass
                 case 5:                    
                     if (Vector3.Distance(gameManager.hazardManager.hazardTransforms[scaffoldIndex].position, gameManager.droneController.gameObject.transform.position) < 20) { gameManager.dialogueManager.StopSentence(); }
-                    break;
-                
-                //examine hazard
-                case 9:
-                    if (gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<MonoBehaviour>().enabled == false)
-                    {
-                        gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<Collider>().enabled = true;                       
-                    }
-
-                    if (gameManager.dialogueManager.IsSentenceFinished())
-                    {
-                        tutCounter += Time.deltaTime;
-                        if (tutCounter > 2)
-                        {
-                            gameManager.dialogueManager.StopSentence();
-                        }
-                    }                    
-                    break;
+                    break;                
                 
                 //Interact with hazard
                 case 10:
+
+                    if (gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<MonoBehaviour>().enabled == false)
+                    {
+                        gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<Collider>().enabled = true;
+                    }
+
                     if (gameManager.hazardManager.hazardTransforms[scaffoldIndex].GetComponent<MonoBehaviour>().enabled == true)
                     {
                         gameManager.dialogueManager.StopSentence();
