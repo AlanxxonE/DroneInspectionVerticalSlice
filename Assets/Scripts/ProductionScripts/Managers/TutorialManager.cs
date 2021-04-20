@@ -20,6 +20,8 @@ public class TutorialManager : MonoBehaviour
     private bool runDialogue = false;
     public bool endTutorialParagraph = false;
 
+    private float velocity;
+
     string[] tutorialParagraphs = {
         "Welcome to the construction site! First thing, try to get the feel of the Drone's controls.\n Use the MOUSE to look around.",
         "Your drone is built with an indicator in the top left for the signal. Be careful not to go out of range \n or you'll lose control. Now try moving, use the W,A,S,D keys to move the drone.",
@@ -55,6 +57,8 @@ public class TutorialManager : MonoBehaviour
     {
         tutorialEnabled = LevelManager.tutorialEnabled;
 
+        velocity = gameManager.droneController.droneVelocity;
+
         foreach (GameObject ring in rings)
         {
             ring.SetActive(false);
@@ -85,7 +89,7 @@ public class TutorialManager : MonoBehaviour
             {
                 //mouse movement
                 case 0:
-                    gameManager.droneController.droneRayCast.stopMovement = true;
+                    gameManager.droneController.droneVelocity = 0;
                     tutCounter += Mathf.Abs(Input.GetAxis("Mouse X")) * Time.deltaTime;
 
                     if (tutCounter > 1) { gameManager.dialogueManager.StopSentence(); }
@@ -93,7 +97,7 @@ public class TutorialManager : MonoBehaviour
 
                 //WASD movement
                 case 1:
-                    gameManager.droneController.droneRayCast.stopMovement = false;
+                    gameManager.droneController.droneVelocity = velocity;
 
                     tutCounter += Mathf.Abs(Input.GetAxis("velX")) * Time.deltaTime;
                     tutCounter += Mathf.Abs(Input.GetAxis("velZ")) * Time.deltaTime;
