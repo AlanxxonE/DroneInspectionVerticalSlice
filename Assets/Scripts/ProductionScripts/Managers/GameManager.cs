@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
     //General Variables
     private bool isPaused = false;   //Boolean to determine pause state
 
+    private void Start()
+    {
+        Pause(isPaused);
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("Pause"))

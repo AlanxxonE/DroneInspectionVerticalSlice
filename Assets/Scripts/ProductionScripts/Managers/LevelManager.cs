@@ -12,7 +12,7 @@ public class LevelManager : MonoBehaviour
     public static bool tutorialEnabled = true;
     private static float volume = 1;
 
-    void Start()
+    void Awake()
     {
         Cursor.visible = true;   //Sets cursor visible
         Cursor.lockState = CursorLockMode.None;  //Locks cursor
