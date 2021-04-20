@@ -85,7 +85,7 @@ public class TutorialManager : MonoBehaviour
             {
                 //mouse movement
                 case 0:
-                    gameManager.droneController.canMove = 0;
+                    gameManager.droneController.droneRayCast.stopMovement = true;
                     tutCounter += Mathf.Abs(Input.GetAxis("Mouse X")) * Time.deltaTime;
 
                     if (tutCounter > 1) { gameManager.dialogueManager.StopSentence(); }
@@ -93,7 +93,7 @@ public class TutorialManager : MonoBehaviour
 
                 //WASD movement
                 case 1:
-                    gameManager.droneController.canMove = 1;                   
+                    gameManager.droneController.droneRayCast.stopMovement = false;
 
                     tutCounter += Mathf.Abs(Input.GetAxis("velX")) * Time.deltaTime;
                     tutCounter += Mathf.Abs(Input.GetAxis("velZ")) * Time.deltaTime;
